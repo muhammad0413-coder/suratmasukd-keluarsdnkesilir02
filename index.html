@@ -1414,49 +1414,86 @@ textarea.form-control {
   background: #d97706;
 }
 
-/* Cover Preview Box (Sesuai Gambar 2) */
+/* Cover Preview Box (F4 Landscape, Putih Bersih & Watermark Tut Wuri Handayani) */
 .cover-preview-card {
-  background: #cae9f8;
-  border: 4px double #1e3a8a;
-  border-radius: 8px;
-  padding: 30px 24px;
+  background: #ffffff;
+  border: 3px double #000000;
+  border-radius: 6px;
+  padding: 24px 28px;
   text-align: center;
   font-family: 'Times New Roman', Georgia, serif;
   color: #000000;
-  max-width: 480px;
+  max-width: 640px;
+  aspect-ratio: 330 / 215;
   margin: 0 auto;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cover-preview-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 230px;
+  height: 230px;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cover-preview-watermark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.cover-preview-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 .cover-preview-card h2 {
-  font-size: 1.6rem;
+  font-size: 1.45rem;
   font-weight: 900;
-  letter-spacing: 1.5px;
-  margin: 0 0 6px 0;
+  letter-spacing: 2px;
+  margin: 0 0 4px 0;
   text-transform: uppercase;
+  color: #000000;
 }
 .cover-preview-card h3 {
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   font-weight: 900;
-  letter-spacing: 1px;
-  margin: 0 0 20px 0;
+  letter-spacing: 1.2px;
+  margin: 0 0 12px 0;
   text-transform: uppercase;
+  color: #000000;
 }
 .cover-preview-card h4 {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: 800;
   letter-spacing: 1px;
-  margin: 3px 0;
+  margin: 2px 0;
   text-transform: uppercase;
+  color: #000000;
 }
 .cover-preview-logos {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
-  margin: 20px 0;
+  gap: 28px;
+  margin: 10px 0;
 }
 .cover-preview-bottom {
-  margin-top: 24px;
+  margin-top: 10px;
 }
 
 /* Tabs & Filter Pills */
@@ -1806,8 +1843,8 @@ textarea.form-control {
                 </p>
               </div>
               <div style="display:flex; gap: 8px; flex-wrap: wrap;">
-                <button class="btn btn-warning" onclick="cetakCoverBukuAgenda()" title="Cetak Cover Buku Agenda Sesuai Gambar 2">📘 Cetak Cover Buku</button>
-                <button class="btn btn-primary" onclick="cetakBukuAgendaPdf('ALL')" title="Cetak Buku Agenda ke PDF/Printer (Kertas F4 Landscape)">🖨️ Cetak Agenda (F4 Landscape)</button>
+                <button class="btn btn-warning" onclick="cetakCoverBukuAgenda()" title="Cetak Cover Buku Agenda F4 Landscape Latar Putih & Watermark Tut Wuri Handayani">📘 Cetak Cover Buku (F4)</button>
+                <button class="btn btn-primary" onclick="cetakFilteredAgendaCurrent()" title="Cetak Buku Agenda ke PDF/Printer sesuai Tab, Bulan & Tahun yang sedang difilter">🖨️ Cetak Agenda Sesuai Filter (F4)</button>
                 <button class="btn btn-secondary" onclick="exportBukuAgendaCsv()">📥 Ekspor CSV</button>
                 <button class="btn btn-secondary" onclick="bukaModalEditTtd()">✏️ Edit TTD</button>
               </div>
@@ -1821,13 +1858,53 @@ textarea.form-control {
                 <button class="tab-pill" id="tabAgendaKeluar" onclick="setFilterAgendaTab('KELUAR')">📤 Surat Keluar Saja (<span id="countAgendaKeluar">0</span>)</button>
               </div>
 
-              <!-- Search Bar -->
-              <div class="table-filter-bar">
-                <div class="search-input-wrap" style="flex: 1;">
+              <!-- Filter Bar Lengkap: Pencarian Kata Kunci, Filter Bulan & Filter Tahun -->
+              <div class="table-filter-bar" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 16px;">
+                <div class="search-input-wrap" style="flex: 2; min-width: 220px;">
                   <span class="search-icon">🔍</span>
-                  <input type="text" id="searchBukuAgenda" placeholder="Cari nomor urut, tanggal, nomor surat, perihal, alamat surat, atau isi ringkas..." oninput="filterAgendaSearch()">
+                  <input type="text" id="searchBukuAgenda" placeholder="Cari no urut, tanggal, nomor surat, perihal, alamat surat, atau isi ringkas..." oninput="filterAgendaSearch()">
                 </div>
-                <button type="button" class="btn btn-secondary" onclick="resetFilterAgenda()">Reset Pencarian</button>
+
+                <!-- Dropdown Filter Bulan -->
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <label for="filterBukuAgendaBulan" style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); white-space: nowrap;">📅 Bulan:</label>
+                  <select id="filterBukuAgendaBulan" class="form-control" style="width: auto; min-width: 135px; padding: 6px 10px; font-size: 0.85rem;" onchange="handleFilterBulanTahunChange()">
+                    <option value="ALL">Semua Bulan</option>
+                    <option value="1">01 - Januari</option>
+                    <option value="2">02 - Februari</option>
+                    <option value="3">03 - Maret</option>
+                    <option value="4">04 - April</option>
+                    <option value="5">05 - Mei</option>
+                    <option value="6">06 - Juni</option>
+                    <option value="7">07 - Juli</option>
+                    <option value="8">08 - Agustus</option>
+                    <option value="9">09 - September</option>
+                    <option value="10">10 - Oktober</option>
+                    <option value="11">11 - November</option>
+                    <option value="12">12 - Desember</option>
+                  </select>
+                </div>
+
+                <!-- Dropdown Filter Tahun -->
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <label for="filterBukuAgendaTahun" style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); white-space: nowrap;">🗓️ Tahun:</label>
+                  <select id="filterBukuAgendaTahun" class="form-control" style="width: auto; min-width: 110px; padding: 6px 10px; font-size: 0.85rem;" onchange="handleFilterBulanTahunChange()">
+                    <option value="ALL">Semua Tahun</option>
+                    <option value="2026">2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                  </select>
+                </div>
+
+                <!-- Tombol Aksi Filter & Cetak -->
+                <div style="display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap;">
+                  <button type="button" class="btn btn-secondary" onclick="resetFilterAgenda()" style="padding: 6px 12px; font-size: 0.82rem;" title="Reset filter pencarian, bulan, dan tahun ke Semua">
+                    🔄 Reset Filter
+                  </button>
+                  <button type="button" class="btn btn-primary" onclick="cetakFilteredAgendaCurrent()" style="padding: 6px 14px; font-size: 0.85rem; background: #0284c7;" title="Cetak data yang sedang tampil di layar (F4 Landscape)">
+                    🖨️ Cetak Filter Ini
+                  </button>
+                </div>
               </div>
 
               <!-- Table Data Buku Agenda -->
@@ -2138,31 +2215,87 @@ textarea.form-control {
         <!-- ==================== VIEW 5: CETAK BUKU & COVER ==================== -->
         <section id="view-laporan" class="view-section">
           
+          <!-- PANEL FILTER PERIODE CETAK (BULAN & TAHUN) -->
+          <div class="card" style="margin-bottom: 20px; border-left: 4px solid #0284c7; background: #ffffff;">
+            <div class="card-header" style="padding-bottom: 10px;">
+              <div>
+                <h3 class="card-title" style="display: flex; align-items: center; gap: 8px;">
+                  <span>🗓️</span> Filter Periode Cetak (Cetak Per Bulan / Per Tahun)
+                </h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 4px 0 0 0;">
+                  Pilih bulan dan tahun di bawah untuk mencetak buku agenda per bulan, per tahun, atau rekapitulasi seluruh masa.
+                </p>
+              </div>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <button type="button" class="btn btn-secondary" onclick="setQuickPeriodPrint('ALL')" style="font-size: 0.78rem; padding: 5px 10px;">Semua Periode</button>
+                <button type="button" class="btn btn-secondary" onclick="setQuickPeriodPrint('THIS_MONTH')" style="font-size: 0.78rem; padding: 5px 10px;">Bulan Ini</button>
+                <button type="button" class="btn btn-secondary" onclick="setQuickPeriodPrint('THIS_YEAR')" style="font-size: 0.78rem; padding: 5px 10px;">Tahun Ini</button>
+              </div>
+            </div>
+            <div class="card-body" style="padding-top: 10px;">
+              <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 220px;">
+                  <label for="filterLaporanBulan" style="font-weight: 700; font-size: 0.88rem; color: var(--text-main); white-space: nowrap;">📅 Bulan:</label>
+                  <select id="filterLaporanBulan" class="form-control" onchange="syncLaporanFilterToMain()" style="flex: 1;">
+                    <option value="ALL">Semua Bulan (Januari - Desember)</option>
+                    <option value="1">01 - Januari</option>
+                    <option value="2">02 - Februari</option>
+                    <option value="3">03 - Maret</option>
+                    <option value="4">04 - April</option>
+                    <option value="5">05 - Mei</option>
+                    <option value="6">06 - Juni</option>
+                    <option value="7">07 - Juli</option>
+                    <option value="8">08 - Agustus</option>
+                    <option value="9">09 - September</option>
+                    <option value="10">10 - Oktober</option>
+                    <option value="11">11 - November</option>
+                    <option value="12">12 - Desember</option>
+                  </select>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 180px;">
+                  <label for="filterLaporanTahun" style="font-weight: 700; font-size: 0.88rem; color: var(--text-main); white-space: nowrap;">🗓️ Tahun:</label>
+                  <select id="filterLaporanTahun" class="form-control" onchange="syncLaporanFilterToMain()" style="flex: 1;">
+                    <option value="ALL">Semua Tahun</option>
+                    <option value="2026">2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                  </select>
+                </div>
+
+                <!-- Info Ringkasan Data Periode Terpilih -->
+                <div id="laporanPeriodeInfoBadge" style="background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 8px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">
+                  📊 Memuat ringkasan periode...
+                </div>
+              </div>
+            </div>
+          </div>
+          
           <div class="print-cards-grid">
             
-            <!-- CETAK 1: COVER BUKU AGENDA (SESUAI GAMBAR 2) -->
-            <div class="print-card" style="border: 2px solid #38bdf8; background: #f0f9ff;">
+            <!-- CETAK 1: COVER BUKU AGENDA (F4 LANDSCAPE, PUTIH BERSIH & WATERMARK TUT WURI HANDAYANI) -->
+            <div class="print-card" style="border: 2px solid #0284c7; background: #ffffff;">
               <div class="print-card-header">
-                <div class="print-card-icon" style="background: #cae9f8; color: #0284c7;">📘</div>
+                <div class="print-card-icon" style="background: #e0f2fe; color: #0284c7;">📘</div>
                 <div>
-                  <div class="print-card-title">1. Cetak Cover Buku Agenda (Gambar 2)</div>
-                  <div class="print-card-desc">Cover depan resmi buku agenda warna biru muda elegan, ornamen kaligrafi, logo Pemkab Jember &amp; SDN Kesilir 02.</div>
+                  <div class="print-card-title">1. Cetak Cover Buku Agenda (F4 Landscape)</div>
+                  <div class="print-card-desc">Cover depan resmi standar F4 Landscape, latar putih bersih, watermark Tut Wuri Handayani samar-samar transparan, logo Pemkab Jember &amp; SDN Kesilir 02.</div>
                 </div>
               </div>
               <div class="print-card-actions">
                 <button type="button" class="btn btn-primary" style="background:#0284c7; flex:1;" onclick="cetakCoverBukuAgenda()">
-                  🖨️ Cetak Cover Buku (PDF)
+                  🖨️ Cetak Cover Buku (F4 Landscape)
                 </button>
               </div>
             </div>
 
-            <!-- CETAK 2: REKAP BUKU AGENDA GABUNGAN (MASUK & KELUAR) -->
+            <!-- CETAK 2: REKAP BUKU AGENDA GABUNGAN (MASUK & KELUAR) SESUAI FILTER -->
             <div class="print-card gabungan">
               <div class="print-card-header">
                 <div class="print-card-icon">📑</div>
                 <div>
-                  <div class="print-card-title">2. Cetak Buku Agenda Gabungan (F4 Landscape)</div>
-                  <div class="print-card-desc">Cetak format resmi buku agenda dari No s.d. Keterangan (tanpa link lampiran) &amp; Tanda Tangan. Kertas F4 / Folio (330 × 215 mm).</div>
+                  <div class="print-card-title">2. Cetak Agenda Gabungan Masuk &amp; Keluar</div>
+                  <div class="print-card-desc">Cetak format resmi agenda gabungan dari No s.d. Keterangan &amp; TTD. Kertas F4 Landscape. Otomatis sesuai filter Bulan &amp; Tahun di atas.</div>
                 </div>
               </div>
               <div class="print-card-actions">
@@ -2175,13 +2308,13 @@ textarea.form-control {
               </div>
             </div>
 
-            <!-- CETAK 3: AGENDA SURAT MASUK SAJA -->
+            <!-- CETAK 3: AGENDA SURAT MASUK SAJA SESUAI FILTER -->
             <div class="print-card masuk">
               <div class="print-card-header">
                 <div class="print-card-icon">📥</div>
                 <div>
-                  <div class="print-card-title">3. Cetak Agenda Surat Masuk Saja (F4 Landscape)</div>
-                  <div class="print-card-desc">Khusus buku agenda surat masuk lengkap dengan tanda tangan Kepala Sekolah &amp; Operator. Kertas F4 Landscape.</div>
+                  <div class="print-card-title">3. Cetak Agenda Surat Masuk Saja</div>
+                  <div class="print-card-desc">Khusus buku agenda surat masuk lengkap tanda tangan Kepala Sekolah &amp; Operator. Kertas F4 Landscape. Mengikuti filter Bulan &amp; Tahun.</div>
                 </div>
               </div>
               <div class="print-card-actions">
@@ -2191,13 +2324,13 @@ textarea.form-control {
               </div>
             </div>
 
-            <!-- CETAK 4: AGENDA SURAT KELUAR SAJA -->
+            <!-- CETAK 4: AGENDA SURAT KELUAR SAJA SESUAI FILTER -->
             <div class="print-card keluar">
               <div class="print-card-header">
                 <div class="print-card-icon">📤</div>
                 <div>
-                  <div class="print-card-title">4. Cetak Agenda Surat Keluar Saja (F4 Landscape)</div>
-                  <div class="print-card-desc">Khusus buku agenda surat keluar dinas sekolah lengkap dengan tanda tangan pengesahan. Kertas F4 Landscape.</div>
+                  <div class="print-card-title">4. Cetak Agenda Surat Keluar Saja</div>
+                  <div class="print-card-desc">Khusus buku agenda surat keluar dinas sekolah lengkap tanda tangan pengesahan. Kertas F4 Landscape. Mengikuti filter Bulan &amp; Tahun.</div>
                 </div>
               </div>
               <div class="print-card-actions">
@@ -2209,42 +2342,62 @@ textarea.form-control {
 
           </div>
 
-          <!-- PRATINJAU VISUAL COVER BUKU AGENDA (SESUAI GAMBAR 2) -->
+          <!-- PRATINJAU VISUAL COVER BUKU AGENDA (F4 LANDSCAPE, LATAR PUTIH & WATERMARK TUT WURI HANDAYANI) -->
           <div class="card" style="margin-bottom: 24px;">
             <div class="card-header">
-              <h3 class="card-title">📘 Pratinjau Desain Cover Buku Agenda (Sesuai Gambar 2)</h3>
+              <div>
+                <h3 class="card-title">📘 Pratinjau Desain Cover Buku Agenda (F4 Landscape)</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted); margin: 2px 0 0 0;">
+                  Format resmi F4 Landscape, latar putih bersih, watermark Tut Wuri Handayani transparan samar-samar di tengah.
+                </p>
+              </div>
               <button class="btn btn-primary" onclick="cetakCoverBukuAgenda()">🖨️ Cetak Cover Ini (PDF)</button>
             </div>
             <div class="card-body">
               <div class="cover-preview-card">
-                <h2>BUKU AGENDA</h2>
-                <h3>SURAT MASUK &amp; KELUAR</h3>
+                
+                <!-- Watermark Logo Tut Wuri Handayani (Bayang-Bayang Samar-Samar) -->
+                <div class="cover-preview-watermark">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo-Tut-Wuri-Handayani-PNG-Warna.png"
+                       onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/9/9c/Logo_of_Ministry_of_Education_and_Culture_of_Republic_of_Indonesia.svg'"
+                       alt="Watermark Tut Wuri Handayani">
+                </div>
 
-                <div class="cover-preview-logos">
+                <!-- Konten Cover Landscape -->
+                <div class="cover-preview-content">
                   <div>
-                    <img src="https://lh3.googleusercontent.com/d/1YkV5mi6NjLLnVwOmS-gk7NUS8vQyIU9M" style="height: 65px; width: auto;" alt="Logo Pemkab Jember">
-                    <div style="font-size: 7.5pt; font-weight: bold; margin-top: 4px;">KABUPATEN JEMBER</div>
+                    <h2>BUKU AGENDA</h2>
+                    <h3>SURAT MASUK &amp; KELUAR</h3>
                   </div>
-                  <div>
-                    <svg width="45" height="90" viewBox="0 0 70 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M35 5 C42 20, 52 35, 52 50 C52 65, 35 74, 28 85 C21 96, 23 110, 35 135 C28 122, 18 108, 18 92 C18 76, 35 67, 42 57 C49 46, 47 31, 35 5 Z" stroke="#000000" stroke-width="3" fill="none"/>
-                      <path d="M35 38 C38 45, 40 52, 40 60 C40 68, 30 72, 27 79 C24 85, 26 92, 35 102" stroke="#000000" stroke-width="2" fill="none"/>
-                      <circle cx="35" cy="70" r="4.5" fill="#000000"/>
-                    </svg>
+
+                  <div class="cover-preview-logos">
+                    <div>
+                      <img src="https://lh3.googleusercontent.com/d/1YkV5mi6NjLLnVwOmS-gk7NUS8vQyIU9M" style="height: 60px; width: auto;" alt="Logo Pemkab Jember">
+                      <div style="font-size: 7pt; font-weight: bold; margin-top: 3px;">KABUPATEN JEMBER</div>
+                    </div>
+                    <div>
+                      <svg width="40" height="80" viewBox="0 0 70 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M35 5 C42 20, 52 35, 52 50 C52 65, 35 74, 28 85 C21 96, 23 110, 35 135 C28 122, 18 108, 18 92 C18 76, 35 67, 42 57 C49 46, 47 31, 35 5 Z" stroke="#000000" stroke-width="3" fill="none"/>
+                        <path d="M35 38 C38 45, 40 52, 40 60 C40 68, 30 72, 27 79 C24 85, 26 92, 35 102" stroke="#000000" stroke-width="2" fill="none"/>
+                        <circle cx="35" cy="70" r="4.5" fill="#000000"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <img src="https://lh3.googleusercontent.com/d/1XWfjQdygAvCCyRfKpTLD40MImqnl08X8" style="height: 60px; width: auto;" alt="Logo SDN Kesilir 02">
+                      <div style="font-size: 7pt; font-weight: bold; margin-top: 3px;">SDN KESILIR 02</div>
+                    </div>
                   </div>
-                  <div>
-                    <img src="https://lh3.googleusercontent.com/d/1XWfjQdygAvCCyRfKpTLD40MImqnl08X8" style="height: 65px; width: auto;" alt="Logo SDN Kesilir 02">
-                    <div style="font-size: 7.5pt; font-weight: bold; margin-top: 4px;">SDN KESILIR 02</div>
+
+                  <div style="width: 180px; height: 1.5px; background: #000; margin: 6px auto;"></div>
+
+                  <div class="cover-preview-bottom">
+                    <h4>DINAS PENDIDIKAN</h4>
+                    <h4 style="font-size: 1.05rem; font-weight: 900;">SEKOLAH DASAR NEGERI KESILIR 02</h4>
+                    <h4>KECAMATAN WULUHAN</h4>
+                    <div id="coverPreviewTahun" style="font-size: 0.8rem; font-weight: 800; margin-top: 4px; color: #111;">TAHUN 2026</div>
                   </div>
                 </div>
 
-                <div style="width: 140px; height: 1.5px; background: #000; margin: 10px auto;"></div>
-
-                <div class="cover-preview-bottom">
-                  <h4>DINAS PENDIDIKAN</h4>
-                  <h4 style="font-size: 1.15rem; font-weight: 900;">SEKOLAH DASAR NEGERI KESILIR 02</h4>
-                  <h4>KECAMATAN WULUHAN</h4>
-                </div>
               </div>
             </div>
           </div>
@@ -3130,7 +3283,33 @@ const SEED_DATA_KESILIR = {
       status: 'Diproses',
       petugas: 'Operator Sekolah',
       waktuInput: '2026-10-19 08:30:00',
-      keterangan: 'Contoh berkas asli digital tersimpan di Google Drive folder LAMPIRAN SURAT MASUK.',
+      keterangan: 'Berkas asli digital tersimpan di Google Drive folder LAMPIRAN SURAT MASUK.',
+      linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa',
+      linkLampiran: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
+    },
+    {
+      id: 'SM-20260912-002',
+      no: 2,
+      nomorAgenda: '2',
+      nomorSuratAsli: '421.2/075/Disdik.Wlh/2026',
+      nomorSuratMasuk: '421.2/075/Disdik.Wlh/2026',
+      nomorSuratKeluar: '-',
+      tanggalSurat: '2026-09-10',
+      tanggalDiterima: '2026-09-12',
+      tanggal: '2026-09-12',
+      asalSurat: 'Dinas Pendidikan Kabupaten Jember',
+      alamatSurat: 'Dinas Pendidikan Kabupaten Jember',
+      namaPengirim: 'Bidang Pembinaan SD',
+      perihal: 'Pemberitahuan Pelaksanaan Asesmen Bakat Minat (ABM) Siswa SD Tahun 2026',
+      klasifikasi: '421.2',
+      sifatSurat: 'Biasa',
+      tujuanInternal: 'Guru Kelas 6',
+      ringkasan: 'Sosialisasi teknis jadwal dan mekanisme pelaksanaan ABM tingkat satuan pendidikan dasar se-Kabupaten Jember.',
+      isiSurat: 'Sosialisasi teknis jadwal dan mekanisme pelaksanaan ABM tingkat satuan pendidikan dasar se-Kabupaten Jember.',
+      status: 'Selesai',
+      petugas: 'Operator Sekolah',
+      waktuInput: '2026-09-12 09:15:00',
+      keterangan: 'Tindak lanjut pendataan siswa peserta telah dikirimkan ke dinas.',
       linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa',
       linkLampiran: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
     }
@@ -3138,8 +3317,8 @@ const SEED_DATA_KESILIR = {
   suratKeluar: [
     {
       id: 'SK-20261019-001',
-      no: 2,
-      nomorAgenda: '2',
+      no: 3,
+      nomorAgenda: '3',
       nomorSuratResmi: '421.2/045/SDN.02/X/2026',
       nomorSuratMasuk: '-',
       nomorSuratKeluar: '421.2/045/SDN.02/X/2026',
@@ -3160,7 +3339,63 @@ const SEED_DATA_KESILIR = {
       status: 'Sudah Dikirim',
       petugas: 'Operator Sekolah',
       waktuInput: '2026-10-19 08:45:00',
-      keterangan: 'Contoh arsip surat keluar resmi lengkap dengan berkas lampiran di Google Drive folder LAMPIRAN SURAT KELUAR.',
+      keterangan: 'Arsip surat keluar resmi lengkap di Google Drive folder LAMPIRAN SURAT KELUAR.',
+      linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa',
+      linkLampiran: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
+    },
+    {
+      id: 'SK-20260115-002',
+      no: 4,
+      nomorAgenda: '4',
+      nomorSuratResmi: '421.2/008/SDN.02/I/2026',
+      nomorSuratMasuk: '-',
+      nomorSuratKeluar: '421.2/008/SDN.02/I/2026',
+      tanggalSurat: '2026-01-15',
+      tanggalPengiriman: '2026-01-15',
+      tanggal: '2026-01-15',
+      tujuanSurat: 'Dinas Pendidikan Kabupaten Jember',
+      alamatSurat: 'Dinas Pendidikan Kabupaten Jember',
+      namaPenerima: 'Seksi Sarana dan Prasarana SD',
+      perihal: 'Permohonan Pengadaan Buku Teks Utama Kurikulum Merdeka Semester Genap',
+      klasifikasi: '421.1',
+      sifatSurat: 'Penting',
+      penandatangan: 'Drs. Bambang Sudarsono, M.Pd',
+      jabatan: 'Kepala SD Negeri Kesilir 02',
+      metodePengiriman: 'Kurir Sekolah',
+      ringkasan: 'Pengajuan kebutuhan buku teks pelajaran bagi siswa kelas 1, 2, 4, dan 5 semester genap.',
+      isiSurat: 'Pengajuan kebutuhan buku teks pelajaran bagi siswa kelas 1, 2, 4, dan 5 semester genap.',
+      status: 'Sudah Dikirim',
+      petugas: 'Operator Sekolah',
+      waktuInput: '2026-01-15 10:00:00',
+      keterangan: 'Disetujui dan telah dialokasikan pada termin pengadaan buku.',
+      linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa',
+      linkLampiran: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
+    },
+    {
+      id: 'SK-20251120-003',
+      no: 5,
+      nomorAgenda: '5',
+      nomorSuratResmi: '421.2/092/SDN.02/XI/2025',
+      nomorSuratMasuk: '-',
+      nomorSuratKeluar: '421.2/092/SDN.02/XI/2025',
+      tanggalSurat: '2025-11-20',
+      tanggalPengiriman: '2025-11-20',
+      tanggal: '2025-11-20',
+      tujuanSurat: 'Inspektorat Daerah Kabupaten Jember',
+      alamatSurat: 'Inspektorat Daerah Kabupaten Jember',
+      namaPenerima: 'Tim Verifikasi Laporan BOS',
+      perihal: 'Laporan Pertanggungjawaban Realisasi Dana Bantuan Operasional Satuan Pendidikan (BOSP) Tahap II 2025',
+      klasifikasi: '900',
+      sifatSurat: 'Penting',
+      penandatangan: 'Drs. Bambang Sudarsono, M.Pd',
+      jabatan: 'Kepala SD Negeri Kesilir 02',
+      metodePengiriman: 'Kurir Sekolah',
+      ringkasan: 'Penyampaian berkas SPJ dan bukti fisik belanja operasional sekolah periode Juli - Desember 2025.',
+      isiSurat: 'Penyampaian berkas SPJ dan bukti fisik belanja operasional sekolah periode Juli - Desember 2025.',
+      status: 'Sudah Dikirim',
+      petugas: 'Bendahara & Operator',
+      waktuInput: '2025-11-20 11:30:00',
+      keterangan: 'Laporan telah diverifikasi dan dinyatakan lengkap serta tertib administrasi.',
       linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa',
       linkLampiran: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
     }
@@ -3842,17 +4077,80 @@ function executeLocalStore(action, args) {
 // ============================================================================
 // LOGIKA BUKU AGENDA PERSURATAN (SDN KESILIR 02 - FORMAT SIMPEL RESMI)
 // Kolom: No, Tanggal, No. Masuk, No. Keluar, Perihal, Alamat Surat, Isi Surat, Keterangan, Link Lampiran
+// Dukungan Filter: Tab (Semua / Masuk / Keluar), Bulan (01-12 / ALL), Tahun (ALL / 2026...)
 // ============================================================================
 let currentAgendaFilterTab = 'ALL';
+let currentAgendaFilterBulan = 'ALL';
+let currentAgendaFilterTahun = 'ALL';
 
-function getNormalizedAgendaList(filter = null) {
+const NAMA_BULAN_INDONESIA = [
+  'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+  'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+];
+
+/**
+ * Helper untuk mengekstrak Tahun (4 digit) dan Bulan (1-12) dari berbagai format tanggal
+ */
+function getYearMonthFromDateStr(dateStr) {
+  if (!dateStr) return { year: null, month: null };
+  const s = String(dateStr).trim();
+
+  // 1. Format ISO: YYYY-MM-DD atau YYYY/MM/DD
+  const isoMatch = s.match(/^(\d{4})[-/](\d{1,2})/);
+  if (isoMatch) {
+    return {
+      year: parseInt(isoMatch[1], 10),
+      month: parseInt(isoMatch[2], 10)
+    };
+  }
+
+  // 2. Format Indonesia/Standar: DD-MM-YYYY atau DD/MM/YYYY
+  const idMatch = s.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
+  if (idMatch) {
+    return {
+      year: parseInt(idMatch[3], 10),
+      month: parseInt(idMatch[2], 10)
+    };
+  }
+
+  // 3. Cari 4 digit angka tahun (19xx / 20xx)
+  const yrMatch = s.match(/\b(19\d\d|20\d\d)\b/);
+  const yr = yrMatch ? parseInt(yrMatch[1], 10) : null;
+
+  // Cari nama bulan bahasa Indonesia
+  let mo = null;
+  for (let i = 0; i < NAMA_BULAN_INDONESIA.length; i++) {
+    if (new RegExp(NAMA_BULAN_INDONESIA[i], 'i').test(s)) {
+      mo = i + 1;
+      break;
+    }
+  }
+
+  // Jika belum dapat tahun atau bulan, coba parse dengan native Date
+  if (!yr || !mo) {
+    const d = new Date(s);
+    if (!isNaN(d.getTime())) {
+      return {
+        year: yr || d.getFullYear(),
+        month: mo || (d.getMonth() + 1)
+      };
+    }
+  }
+
+  return { year: yr, month: mo };
+}
+
+function getNormalizedAgendaList(filter = null, filterBulan = null, filterTahun = null) {
   const activeTab = filter || currentAgendaFilterTab || 'ALL';
-  const list = [];
+  const activeBulan = (filterBulan !== null && filterBulan !== undefined) ? filterBulan : currentAgendaFilterBulan;
+  const activeTahun = (filterTahun !== null && filterTahun !== undefined) ? filterTahun : currentAgendaFilterTahun;
+
+  const rawList = [];
   let noCounter = 1;
 
   // Normalisasi Surat Masuk
   state.suratMasuk.forEach(s => {
-    list.push({
+    rawList.push({
       id: s.id,
       jenis: 'MASUK',
       no: s.no || s.nomorUrut || noCounter++,
@@ -3869,7 +4167,7 @@ function getNormalizedAgendaList(filter = null) {
 
   // Normalisasi Surat Keluar
   state.suratKeluar.forEach(s => {
-    list.push({
+    rawList.push({
       id: s.id,
       jenis: 'KELUAR',
       no: s.no || s.nomorUrut || noCounter++,
@@ -3884,29 +4182,43 @@ function getNormalizedAgendaList(filter = null) {
     });
   });
 
-  // Urutkan berdasarkan nomor urut (numerik)
-  list.sort((a, b) => {
+  // Urutkan berdasarkan nomor urut (numerik) atau tanggal
+  rawList.sort((a, b) => {
     const na = parseInt(a.no, 10);
     const nb = parseInt(b.no, 10);
     if (!isNaN(na) && !isNaN(nb)) return na - nb;
     return String(a.tanggal).localeCompare(String(b.tanggal));
   });
 
-  // Update badge counter di tab filter
+  // Filter berdasarkan Tahun & Bulan
+  const filteredByDate = rawList.filter(item => {
+    const parsed = getYearMonthFromDateStr(item.tanggal);
+    if (activeTahun !== 'ALL') {
+      if (!parsed.year || String(parsed.year) !== String(activeTahun)) return false;
+    }
+    if (activeBulan !== 'ALL') {
+      if (!parsed.month || parseInt(parsed.month, 10) !== parseInt(activeBulan, 10)) return false;
+    }
+    return true;
+  });
+
+  // Update badge counter di tab filter sesuai filter tahun & bulan aktif
   const elAll = document.getElementById('countAgendaAll');
   const elMsk = document.getElementById('countAgendaMasuk');
   const elKlr = document.getElementById('countAgendaKeluar');
-  if (elAll) elAll.innerText = list.length;
-  if (elMsk) elMsk.innerText = state.suratMasuk.length;
-  if (elKlr) elKlr.innerText = state.suratKeluar.length;
+  const countMsk = filteredByDate.filter(i => i.jenis === 'MASUK').length;
+  const countKlr = filteredByDate.filter(i => i.jenis === 'KELUAR').length;
+  if (elAll) elAll.innerText = filteredByDate.length;
+  if (elMsk) elMsk.innerText = countMsk;
+  if (elKlr) elKlr.innerText = countKlr;
 
   if (activeTab === 'MASUK') {
-    return list.filter(item => item.jenis === 'MASUK');
+    return filteredByDate.filter(item => item.jenis === 'MASUK');
   }
   if (activeTab === 'KELUAR') {
-    return list.filter(item => item.jenis === 'KELUAR');
+    return filteredByDate.filter(item => item.jenis === 'KELUAR');
   }
-  return list;
+  return filteredByDate;
 }
 
 function renderTableBukuAgenda(customList = null) {
@@ -4022,10 +4334,140 @@ function setFilterAgendaTab(tab) {
   filterAgendaSearch();
 }
 
+/**
+ * Tangani perubahan dropdown Filter Bulan & Tahun pada tabel Buku Agenda
+ */
+function handleFilterBulanTahunChange() {
+  const elBulan = document.getElementById('filterBukuAgendaBulan');
+  const elTahun = document.getElementById('filterBukuAgendaTahun');
+  if (elBulan) currentAgendaFilterBulan = elBulan.value;
+  if (elTahun) currentAgendaFilterTahun = elTahun.value;
+  syncFiltersAcrossViews();
+  filterAgendaSearch();
+}
+
+/**
+ * Tangani sinkronisasi filter dari menu Cetak Laporan ke filter utama
+ */
+function syncLaporanFilterToMain() {
+  const elBulan = document.getElementById('filterLaporanBulan');
+  const elTahun = document.getElementById('filterLaporanTahun');
+  if (elBulan) currentAgendaFilterBulan = elBulan.value;
+  if (elTahun) currentAgendaFilterTahun = elTahun.value;
+  syncFiltersAcrossViews();
+  filterAgendaSearch();
+}
+
+/**
+ * Sinkronkan nilai dropdown filter antara Halaman Buku Agenda dan Halaman Cetak Laporan
+ */
+function syncFiltersAcrossViews() {
+  const b1 = document.getElementById('filterBukuAgendaBulan');
+  const t1 = document.getElementById('filterBukuAgendaTahun');
+  const b2 = document.getElementById('filterLaporanBulan');
+  const t2 = document.getElementById('filterLaporanTahun');
+  if (b1 && b1.value !== currentAgendaFilterBulan) b1.value = currentAgendaFilterBulan;
+  if (b2 && b2.value !== currentAgendaFilterBulan) b2.value = currentAgendaFilterBulan;
+  if (t1 && t1.value !== currentAgendaFilterTahun) t1.value = currentAgendaFilterTahun;
+  if (t2 && t2.value !== currentAgendaFilterTahun) t2.value = currentAgendaFilterTahun;
+
+  updateLaporanPeriodBadge();
+}
+
+/**
+ * Update badge keterangan periode terpilih pada Halaman Cetak Laporan
+ */
+function updateLaporanPeriodBadge() {
+  const badge = document.getElementById('laporanPeriodeInfoBadge');
+  const previewTahun = document.getElementById('coverPreviewTahun');
+
+  let periodeLabel = 'Semua Periode (Sepanjang Masa)';
+  if (currentAgendaFilterBulan !== 'ALL' && currentAgendaFilterTahun !== 'ALL') {
+    const namaBulan = NAMA_BULAN_INDONESIA[parseInt(currentAgendaFilterBulan, 10) - 1] || '';
+    periodeLabel = `${namaBulan} ${currentAgendaFilterTahun}`;
+  } else if (currentAgendaFilterBulan !== 'ALL' && currentAgendaFilterTahun === 'ALL') {
+    const namaBulan = NAMA_BULAN_INDONESIA[parseInt(currentAgendaFilterBulan, 10) - 1] || '';
+    periodeLabel = `Bulan ${namaBulan} (Semua Tahun)`;
+  } else if (currentAgendaFilterBulan === 'ALL' && currentAgendaFilterTahun !== 'ALL') {
+    periodeLabel = `Tahun ${currentAgendaFilterTahun}`;
+  }
+
+  // Hitung data pada periode aktif
+  const listMasuk = getNormalizedAgendaList('MASUK', currentAgendaFilterBulan, currentAgendaFilterTahun);
+  const listKeluar = getNormalizedAgendaList('KELUAR', currentAgendaFilterBulan, currentAgendaFilterTahun);
+  const total = listMasuk.length + listKeluar.length;
+
+  if (badge) {
+    badge.innerHTML = `📊 Periode Aktif: <strong>${escapeHtml(periodeLabel)}</strong> • 📥 ${listMasuk.length} Masuk, 📤 ${listKeluar.length} Keluar (Total: ${total})`;
+  }
+
+  if (previewTahun) {
+    const thText = currentAgendaFilterTahun !== 'ALL' ? currentAgendaFilterTahun : new Date().getFullYear();
+    previewTahun.innerText = `TAHUN ${thText}`;
+  }
+}
+
+/**
+ * Pilihan cepat periode cetak: Semua, Bulan Ini, Tahun Ini
+ */
+function setQuickPeriodPrint(type) {
+  const now = new Date();
+  if (type === 'ALL') {
+    currentAgendaFilterBulan = 'ALL';
+    currentAgendaFilterTahun = 'ALL';
+  } else if (type === 'THIS_MONTH') {
+    currentAgendaFilterBulan = String(now.getMonth() + 1);
+    currentAgendaFilterTahun = String(now.getFullYear());
+  } else if (type === 'THIS_YEAR') {
+    currentAgendaFilterBulan = 'ALL';
+    currentAgendaFilterTahun = String(now.getFullYear());
+  }
+  syncFiltersAcrossViews();
+  filterAgendaSearch();
+}
+
+/**
+ * Otomatis isi opsi tahun dari data surat masuk & keluar yang ada di database
+ */
+function populateYearDropdowns() {
+  const currentYear = new Date().getFullYear();
+  const yearsSet = new Set();
+  yearsSet.add(currentYear);
+  yearsSet.add(currentYear - 1);
+  yearsSet.add(currentYear + 1);
+
+  const allLetters = [...state.suratMasuk, ...state.suratKeluar];
+  allLetters.forEach(item => {
+    const tgl = item.tanggal || item.tanggalDiterima || item.tanggalSurat || item.tanggalPengiriman;
+    const parsed = getYearMonthFromDateStr(tgl);
+    if (parsed.year) yearsSet.add(parsed.year);
+  });
+
+  const sortedYears = Array.from(yearsSet).sort((a, b) => b - a);
+
+  ['filterBukuAgendaTahun', 'filterLaporanTahun'].forEach(selectId => {
+    const el = document.getElementById(selectId);
+    if (!el) return;
+    const currentVal = el.value || currentAgendaFilterTahun;
+    let opts = '<option value="ALL">Semua Tahun</option>';
+    sortedYears.forEach(yr => {
+      opts += `<option value="${yr}">${yr}</option>`;
+    });
+    el.innerHTML = opts;
+    if (currentVal && (currentVal === 'ALL' || sortedYears.includes(parseInt(currentVal, 10)))) {
+      el.value = currentVal;
+    } else {
+      el.value = String(currentYear);
+    }
+  });
+
+  updateLaporanPeriodBadge();
+}
+
 function filterAgendaSearch() {
   const input = document.getElementById('searchBukuAgenda');
   const q = input ? input.value.toLowerCase().trim() : '';
-  const base = getNormalizedAgendaList(currentAgendaFilterTab);
+  const base = getNormalizedAgendaList(currentAgendaFilterTab, currentAgendaFilterBulan, currentAgendaFilterTahun);
 
   if (!q) {
     renderTableBukuAgenda(base);
@@ -4051,7 +4493,17 @@ function filterAgendaSearch() {
 function resetFilterAgenda() {
   const input = document.getElementById('searchBukuAgenda');
   if (input) input.value = '';
+  currentAgendaFilterBulan = 'ALL';
+  currentAgendaFilterTahun = 'ALL';
+  syncFiltersAcrossViews();
   setFilterAgendaTab('ALL');
+}
+
+/**
+ * Cetak data agenda yang sedang aktif difilter pada layar
+ */
+function cetakFilteredAgendaCurrent() {
+  cetakBukuAgendaPdf(currentAgendaFilterTab, currentAgendaFilterBulan, currentAgendaFilterTahun);
 }
 
 function exportBukuAgendaCsv() {
@@ -4224,12 +4676,14 @@ async function hapusAgendaItem(id, jenis) {
 
 /**
  * ============================================================================
- * CETAK COVER BUKU AGENDA (SESUAI GAMBAR 2)
- * Warna background biru muda pastel (#cae9f8), Logo Pemkab Jember (kiri),
- * Logo SDN Kesilir 02 (kanan), Kaligrafi Monogram (tengah), Teks resmi A4 portrait
+ * CETAK COVER BUKU AGENDA (SESUAI PERMINTAAN USER: F4 LANDSCAPE, LATAR PUTIH)
+ * Latar putih bersih (#ffffff) tanpa background biru, Watermark Tut Wuri Handayani
+ * samar-samar transparan (bayang-bayang saja, opacity 0.08) di tengah,
+ * Kiri Logo Pemkab Jember, Kanan Logo SDN Kesilir 02, Tengah Kaligrafi Monogram Resmi
+ * Standar Ukuran Kertas: F4 / Folio Landscape (330 mm × 215 mm)
  * ============================================================================
  */
-function cetakCoverBukuAgenda() {
+function cetakCoverBukuAgenda(overrideTahun = null) {
   let dynamicStyle = document.getElementById('dynamicPrintPageStyle');
   if (!dynamicStyle) {
     dynamicStyle = document.createElement('style');
@@ -4238,19 +4692,20 @@ function cetakCoverBukuAgenda() {
   }
   dynamicStyle.innerHTML = `
     @page {
-      size: portrait; /* Kertas F4 / Folio Portrait (215 x 330 mm) */
+      size: landscape; /* Kertas F4 / Folio Landscape (330 x 215 mm) */
       margin: 0;
     }
     @media print {
       @page {
-        size: portrait;
+        size: landscape;
         margin: 0;
       }
       html, body {
         width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
-        background-color: #cae9f8 !important;
+        background-color: #ffffff !important;
+        color: #000000 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -4267,67 +4722,86 @@ function cetakCoverBukuAgenda() {
         width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
-        background-color: #cae9f8 !important;
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        visibility: visible !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
     }
   `;
 
+  const tahunPilihan = overrideTahun || (currentAgendaFilterTahun !== 'ALL' ? currentAgendaFilterTahun : new Date().getFullYear());
+  const LOGO_TUTWURI_URL = 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo-Tut-Wuri-Handayani-PNG-Warna.png';
+  const LOGO_TUTWURI_FALLBACK = 'https://upload.wikimedia.org/wikipedia/commons/9/9c/Logo_of_Ministry_of_Education_and_Culture_of_Republic_of_Indonesia.svg';
+
   const coverHtml = `
-    <div style="box-sizing: border-box; width: 215mm; min-height: 330mm; padding: 50px 30px; margin: 0 auto; background-color: #cae9f8; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; color: #000000; font-family: 'Times New Roman', Georgia, serif; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+    <div style="box-sizing: border-box; width: 330mm; height: 215mm; max-height: 215mm; padding: 10mm 14mm; margin: 0 auto; background-color: #ffffff; color: #000000; font-family: 'Times New Roman', Georgia, serif; position: relative; overflow: hidden; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
       
-      <!-- Bagian Atas: Judul Cover Buku Agenda -->
-      <div style="margin-top: 40px;">
-        <h1 style="font-size: 32pt; font-weight: 900; letter-spacing: 2px; margin: 0; line-height: 1.15; text-transform: uppercase;">
-          BUKU AGENDA
-        </h1>
-        <h2 style="font-size: 28pt; font-weight: 900; letter-spacing: 2px; margin: 12px 0 0 0; line-height: 1.15; text-transform: uppercase;">
-          SURAT MASUK &amp; KELUAR
-        </h2>
+      <!-- WATERMARK LOGO TUT WURI HANDAYANI (BAYANG-BAYANG SAMAR-SAMAR TRANSPARAN 8% OPACITY) -->
+      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 280px; height: 280px; opacity: 0.08; pointer-events: none; z-index: 0; display: flex; align-items: center; justify-content: center;">
+        <img src="${LOGO_TUTWURI_URL}" onerror="this.src='${LOGO_TUTWURI_FALLBACK}'" style="width: 100%; height: 100%; object-fit: contain;" alt="Watermark Tut Wuri Handayani">
       </div>
 
-      <!-- Bagian Tengah: Kiri Logo Jember, Kanan Logo SD, Tengah Kaligrafi Monogram Sesuai Gambar 2 -->
-      <div style="display: flex; flex-direction: column; align-items: center; margin: 30px 0;">
-        <div style="display: flex; justify-content: center; align-items: center; gap: 40px;">
-          
-          <!-- Kiri: Logo Pemkab Jember -->
-          <div style="text-align: center;">
-            <img src="${LOGO_JEMBER_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1YkV5mi6NjLLnVwOmS-gk7NUS8vQyIU9M&sz=w200'" style="height: 115px; width: auto; object-fit: contain;" alt="Logo Pemkab Jember">
-            <div style="font-size: 9.5pt; font-weight: bold; margin-top: 8px; letter-spacing: 0.5px;">KABUPATEN JEMBER</div>
+      <!-- BINGKAI DOUBLE RESMI COVER LANDSCAPE -->
+      <div style="position: relative; z-index: 1; border: 3px double #000000; padding: 16px 24px; width: 100%; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center;">
+
+        <!-- Bagian Atas: Judul Cover Buku Agenda -->
+        <div style="margin-top: 4px;">
+          <h1 style="font-size: 26pt; font-weight: 900; letter-spacing: 3px; margin: 0; line-height: 1.15; text-transform: uppercase;">
+            BUKU AGENDA
+          </h1>
+          <h2 style="font-size: 20pt; font-weight: 900; letter-spacing: 2px; margin: 6px 0 0 0; line-height: 1.15; text-transform: uppercase;">
+            SURAT MASUK &amp; KELUAR
+          </h2>
+        </div>
+
+        <!-- Bagian Tengah: Kiri Logo Jember, Kanan Logo SD, Tengah Kaligrafi Monogram Sesuai Gambar 2 -->
+        <div style="display: flex; flex-direction: column; align-items: center; margin: 6px 0; width: 100%;">
+          <div style="display: flex; justify-content: center; align-items: center; gap: 45px;">
+            
+            <!-- Kiri: Logo Pemkab Jember -->
+            <div style="text-align: center;">
+              <img src="${LOGO_JEMBER_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1YkV5mi6NjLLnVwOmS-gk7NUS8vQyIU9M&sz=w200'" style="height: 85px; width: auto; max-width: 110px; object-fit: contain;" alt="Logo Pemkab Jember">
+              <div style="font-size: 8.5pt; font-weight: bold; margin-top: 5px; letter-spacing: 0.5px;">KABUPATEN JEMBER</div>
+            </div>
+
+            <!-- Tengah: Ornamen Kaligrafi Monogram Sesuai Gambar 2 -->
+            <div>
+              <svg width="60" height="110" viewBox="0 0 70 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M35 5 C45 22, 55 38, 55 52 C55 68, 35 77, 28 88 C21 99, 23 112, 35 136 C28 123, 17 110, 17 92 C17 75, 35 65, 43 55 C50 44, 48 29, 35 5 Z" stroke="#000000" stroke-width="3" fill="none"/>
+                <path d="M35 38 C38 45, 40 52, 40 60 C40 68, 30 72, 27 79 C24 85, 26 92, 35 102" stroke="#000000" stroke-width="2" fill="none"/>
+                <circle cx="35" cy="70" r="4.5" fill="#000000"/>
+              </svg>
+            </div>
+
+            <!-- Kanan: Logo SD (SDN Kesilir 02) -->
+            <div style="text-align: center;">
+              <img src="${LOGO_SEKOLAH_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1XWfjQdygAvCCyRfKpTLD40MImqnl08X8&sz=w200'" style="height: 85px; width: auto; max-width: 110px; object-fit: contain;" alt="Logo SD Negeri Kesilir 02">
+              <div style="font-size: 8.5pt; font-weight: bold; margin-top: 5px; letter-spacing: 0.5px;">SDN KESILIR 02</div>
+            </div>
+
           </div>
 
-          <!-- Tengah: Ornamen Kaligrafi Monogram Sesuai Gambar 2 -->
-          <div>
-            <svg width="75" height="150" viewBox="0 0 70 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M35 5 C45 22, 55 38, 55 52 C55 68, 35 77, 28 88 C21 99, 23 112, 35 136 C28 123, 17 110, 17 92 C17 75, 35 65, 43 55 C50 44, 48 29, 35 5 Z" stroke="#000000" stroke-width="3" fill="none"/>
-              <path d="M35 38 C38 45, 40 52, 40 60 C40 68, 30 72, 27 79 C24 85, 26 92, 35 102" stroke="#000000" stroke-width="2" fill="none"/>
-              <circle cx="35" cy="70" r="5" fill="#000000"/>
-            </svg>
+          <div style="width: 280px; height: 2px; background: #000000; margin: 10px auto 0 auto;"></div>
+        </div>
+
+        <!-- Bagian Bawah: Teks Satuan Instansi Pendidikan -->
+        <div style="margin-bottom: 6px; line-height: 1.35;">
+          <div style="font-size: 13pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
+            DINAS PENDIDIKAN
           </div>
-
-          <!-- Kanan: Logo SD (SDN Kesilir 02) -->
-          <div style="text-align: center;">
-            <img src="${LOGO_SEKOLAH_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1XWfjQdygAvCCyRfKpTLD40MImqnl08X8&sz=w200'" style="height: 115px; width: auto; object-fit: contain;" alt="Logo SD Negeri Kesilir 02">
-            <div style="font-size: 9.5pt; font-weight: bold; margin-top: 8px; letter-spacing: 0.5px;">SDN KESILIR 02</div>
+          <div style="font-size: 17pt; font-weight: 900; letter-spacing: 2px; margin: 3px 0; text-transform: uppercase;">
+            SEKOLAH DASAR NEGERI KESILIR 02
           </div>
-
+          <div style="font-size: 13pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
+            KECAMATAN WULUHAN
+          </div>
+          <div style="font-size: 11.5pt; font-weight: 800; letter-spacing: 1px; margin-top: 5px; text-transform: uppercase; color: #111;">
+            TAHUN ${escapeHtml(tahunPilihan)}
+          </div>
         </div>
 
-        <div style="width: 220px; height: 2px; background: #000000; margin: 24px auto 0 auto;"></div>
-      </div>
-
-      <!-- Bagian Bawah: Teks Satuan Instansi Pendidikan -->
-      <div style="margin-bottom: 50px; line-height: 1.5;">
-        <div style="font-size: 16pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
-          DINAS PENDIDIKAN
-        </div>
-        <div style="font-size: 20pt; font-weight: 900; letter-spacing: 2px; margin: 6px 0; text-transform: uppercase;">
-          SEKOLAH DASAR NEGERI KESILIR 02
-        </div>
-        <div style="font-size: 16pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
-          KECAMATAN WULUHAN
-        </div>
       </div>
 
     </div>
@@ -4344,10 +4818,11 @@ function cetakCoverBukuAgenda() {
  * ============================================================================
  * CETAK BUKU AGENDA PERSURATAN (OTOMATIS KERTAS F4 LANDSCAPE)
  * HANYA SAMPAI KETERANGAN - LINK LAMPIRAN TIDAK MASUK KETIKA DICETAK
+ * Mendukung filter: Per Bulan, Per Tahun, atau Semua Periode
  * Kop Resmi: Kiri Logo Jember, Kanan Logo SD, TTD Kepala Sekolah & Operator
  * ============================================================================
  */
-function cetakBukuAgendaPdf(mode = 'ALL') {
+function cetakBukuAgendaPdf(mode = 'ALL', filterBulan = null, filterTahun = null) {
   let dynamicStyle = document.getElementById('dynamicPrintPageStyle');
   if (!dynamicStyle) {
     dynamicStyle = document.createElement('style');
@@ -4399,9 +4874,18 @@ function cetakBukuAgendaPdf(mode = 'ALL') {
     }
   `;
 
-  const list = getNormalizedAgendaList(mode);
+  const activeBulan = (filterBulan !== null && filterBulan !== undefined) ? filterBulan : currentAgendaFilterBulan;
+  const activeTahun = (filterTahun !== null && filterTahun !== undefined) ? filterTahun : currentAgendaFilterTahun;
+
+  const list = getNormalizedAgendaList(mode, activeBulan, activeTahun);
   if (!list || list.length === 0) {
-    showToast('Tidak ada data agenda persuratan untuk dicetak.', 'warning');
+    let msg = 'Tidak ada data agenda persuratan untuk dicetak pada periode ini.';
+    if (activeBulan !== 'ALL' || activeTahun !== 'ALL') {
+      const bText = activeBulan !== 'ALL' ? (NAMA_BULAN_INDONESIA[parseInt(activeBulan, 10) - 1] || '') : '';
+      const tText = activeTahun !== 'ALL' ? activeTahun : '';
+      msg = `Tidak ada data agenda persuratan untuk periode ${bText} ${tText}. Silakan pilih periode lain atau ganti ke Semua Periode.`;
+    }
+    showToast(msg, 'warning');
     return;
   }
 
@@ -4413,11 +4897,24 @@ function cetakBukuAgendaPdf(mode = 'ALL') {
   if (mode === 'MASUK') judulKhusus = 'BUKU AGENDA SURAT MASUK';
   if (mode === 'KELUAR') judulKhusus = 'BUKU AGENDA SURAT KELUAR';
 
+  let periodeText = '';
+  if (activeBulan !== 'ALL' && activeTahun !== 'ALL') {
+    const namaBulan = NAMA_BULAN_INDONESIA[parseInt(activeBulan, 10) - 1] || '';
+    periodeText = `BULAN: ${namaBulan.toUpperCase()} ${activeTahun}`;
+  } else if (activeBulan !== 'ALL' && activeTahun === 'ALL') {
+    const namaBulan = NAMA_BULAN_INDONESIA[parseInt(activeBulan, 10) - 1] || '';
+    periodeText = `BULAN: ${namaBulan.toUpperCase()} (SEMUA TAHUN)`;
+  } else if (activeBulan === 'ALL' && activeTahun !== 'ALL') {
+    periodeText = `TAHUN ANGGARAN / ARSIP: ${activeTahun}`;
+  } else {
+    periodeText = `REKAPITULASI SELURUH PERIODE PERSURATAN`;
+  }
+
   let tableRows = '';
   list.forEach((row, idx) => {
     tableRows += `
       <tr>
-        <td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 5px 3px;">${escapeHtml(row.no || idx + 1)}</td>
+        <td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 5px 3px;">${idx + 1}</td>
         <td style="text-align: center; white-space: nowrap; border: 1px solid #000; padding: 5px 3px;">${escapeHtml(row.tanggal || '-')}</td>
         <td style="font-family: 'Courier New', monospace; font-size: 8pt; word-break: break-all; border: 1px solid #000; padding: 5px 4px;">${escapeHtml(row.nomorSuratMasuk || '-')}</td>
         <td style="font-family: 'Courier New', monospace; font-size: 8pt; word-break: break-all; border: 1px solid #000; padding: 5px 4px;">${escapeHtml(row.nomorSuratKeluar || '-')}</td>
@@ -4466,11 +4963,14 @@ function cetakBukuAgendaPdf(mode = 'ALL') {
       <!-- GARIS KOP DOUBLE RESMI -->
       <div style="border-bottom: 3px double #000000; margin-bottom: 10px;"></div>
 
-      <!-- JUDUL KHUSUS BUKU AGENDA -->
+      <!-- JUDUL KHUSUS BUKU AGENDA & PERIODE CETAK -->
       <div style="text-align: center; margin-bottom: 10px;">
-        <span style="font-size: 11.5pt; font-weight: bold; text-transform: uppercase; text-decoration: underline; letter-spacing: 0.5px;">
+        <span style="font-size: 12pt; font-weight: bold; text-transform: uppercase; text-decoration: underline; letter-spacing: 0.5px;">
           ${judulKhusus}
         </span>
+        <div style="font-size: 9pt; font-weight: bold; color: #111; margin-top: 3px;">
+          ${periodeText}
+        </div>
         <div style="font-size: 8pt; color: #444; margin-top: 2px;">
           Standar Format: Kertas F4 / Folio Landscape (330 mm × 215 mm)
         </div>
@@ -4775,6 +5275,8 @@ function bukaFolderDrive(jenis) {
 function initApp() {
   initLocalDatabase();
   try { initTtdInputs(); } catch (e) { console.error('Error initTtdInputs:', e); }
+  try { populateYearDropdowns(); } catch (e) { console.error('Error populateYearDropdowns:', e); }
+  try { syncFiltersAcrossViews(); } catch (e) { console.error('Error syncFiltersAcrossViews:', e); }
   try { renderDashboardStats(calculateLocalStats()); } catch (e) { console.error('Error initial renderDashboardStats:', e); }
   try { renderTableRecentLetters(); } catch (e) { console.error('Error initial renderTableRecentLetters:', e); }
   try { renderTableBukuAgenda(); } catch (e) { console.error('Error initial renderTableBukuAgenda:', e); }
@@ -5586,6 +6088,11 @@ async function handleSimpanSuratMasuk(e, addAnother) {
       lampiranList: state.lampiranPendingMasuk
     }).catch(err => console.log('Sync GAS info:', err));
 
+    populateYearDropdowns();
+    renderTableBukuAgenda();
+    renderTableRecentLetters();
+    renderDashboardStats(calculateLocalStats());
+
     showToast('Surat Masuk berhasil dicatat ke Buku Agenda!', 'success');
     resetFormSuratMasuk();
 
@@ -5765,6 +6272,11 @@ async function handleSimpanSuratKeluar(e, addAnother) {
       linkLampiran: linkLampiran,
       lampiranList: state.lampiranPendingKeluar
     }).catch(err => console.log('Sync GAS info:', err));
+
+    populateYearDropdowns();
+    renderTableBukuAgenda();
+    renderTableRecentLetters();
+    renderDashboardStats(calculateLocalStats());
 
     showToast('Surat Keluar berhasil dicatat ke Buku Agenda!', 'success');
     resetFormSuratKeluar();
@@ -7167,6 +7679,13 @@ window.handleSimpanEditAgenda = handleSimpanEditAgenda;
 window.hapusAgendaItem = hapusAgendaItem;
 window.cetakCoverBukuAgenda = cetakCoverBukuAgenda;
 window.cetakBukuAgendaPdf = cetakBukuAgendaPdf;
+window.handleFilterBulanTahunChange = handleFilterBulanTahunChange;
+window.syncLaporanFilterToMain = syncLaporanFilterToMain;
+window.syncFiltersAcrossViews = syncFiltersAcrossViews;
+window.updateLaporanPeriodBadge = updateLaporanPeriodBadge;
+window.setQuickPeriodPrint = setQuickPeriodPrint;
+window.populateYearDropdowns = populateYearDropdowns;
+window.cetakFilteredAgendaCurrent = cetakFilteredAgendaCurrent;
 </script>
 </body>
 </html>
