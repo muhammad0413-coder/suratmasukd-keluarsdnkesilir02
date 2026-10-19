@@ -1228,35 +1228,65 @@ textarea.form-control {
 }
 
 /* ==========================================================================
-   PRINT LAYOUT (LEMBAR DISPOSISI & 3 LAPORAN REKAP RESMI)
+   PRINT LAYOUT (STANDAR CETAK RESMI F4 LANDSCAPE & PORTRAIT)
    ========================================================================== */
 .print-area {
   display: none;
 }
 
 @media print {
-  body * {
-    visibility: hidden;
+  /* Hilangkan seluruh antarmuka web sehingga memakan 0 space layout */
+  html, body {
+    width: 100% !important;
+    min-width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
-  .print-area, .print-area * {
-    visibility: visible;
-  }
-  .print-area {
-    display: block !important;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    padding: 10px;
-    background: #ffffff;
-    color: #000000;
-  }
+
+  .app-container,
+  .sidebar,
+  .main-wrapper,
+  .topbar,
+  .page-content,
+  .modal-overlay,
+  .loading-overlay,
+  .toast-container,
   .no-print {
     display: none !important;
+    visibility: hidden !important;
   }
+
+  body > *:not(#printArea) {
+    display: none !important;
+  }
+
+  /* Area cetak menjadi satu-satunya elemen in-flow block */
+  #printArea,
+  .print-area {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    visibility: visible !important;
+  }
+
+  #printArea *,
+  .print-area * {
+    visibility: visible !important;
+  }
+
   @page {
     size: landscape;
-    margin: 8mm;
+    margin: 8mm 6mm;
   }
 }
 
@@ -4208,23 +4238,35 @@ function cetakCoverBukuAgenda() {
   }
   dynamicStyle.innerHTML = `
     @page {
-      size: 215mm 330mm; /* Kertas F4 / Folio Portrait (215 x 330 mm) */
+      size: portrait; /* Kertas F4 / Folio Portrait (215 x 330 mm) */
       margin: 0;
     }
     @media print {
       @page {
-        size: 215mm 330mm;
+        size: portrait;
         margin: 0;
       }
       html, body {
-        width: 215mm !important;
+        width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
         background-color: #cae9f8 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
-      .print-area {
+      .app-container, .sidebar, .main-wrapper, .modal-overlay, .loading-overlay, .toast-container, .no-print {
+        display: none !important;
+        visibility: hidden !important;
+      }
+      body > *:not(#printArea) {
+        display: none !important;
+      }
+      #printArea, .print-area {
+        display: block !important;
+        position: static !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
         background-color: #cae9f8 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -4314,27 +4356,45 @@ function cetakBukuAgendaPdf(mode = 'ALL') {
   }
   dynamicStyle.innerHTML = `
     @page {
-      size: 330mm 215mm; /* Kertas F4 / Folio Landscape (330 mm × 215 mm) */
-      margin: 7mm 6mm;
+      size: landscape; /* Mengatur otomatis orientasi print ke Landscape */
+      margin: 8mm 6mm;
     }
     @media print {
       @page {
-        size: 330mm 215mm; /* Memaksa browser dan printer memilih F4 Landscape */
-        margin: 7mm 6mm;
+        size: landscape;
+        margin: 8mm 6mm;
       }
       html, body {
-        width: 330mm !important;
+        width: 100% !important;
+        min-width: 100% !important;
+        height: auto !important;
         margin: 0 !important;
         padding: 0 !important;
         background-color: #ffffff !important;
+        color: #000000 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
-      .print-area {
+      .app-container, .sidebar, .main-wrapper, .modal-overlay, .loading-overlay, .toast-container, .no-print {
+        display: none !important;
+        visibility: hidden !important;
+      }
+      body > *:not(#printArea) {
+        display: none !important;
+      }
+      #printArea, .print-area {
+        display: block !important;
+        position: static !important;
         width: 100% !important;
         max-width: 100% !important;
-        margin: 0 auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
         background-color: #ffffff !important;
+        color: #000000 !important;
+        visibility: visible !important;
+      }
+      #printArea *, .print-area * {
+        visibility: visible !important;
       }
     }
   `;
@@ -4357,71 +4417,77 @@ function cetakBukuAgendaPdf(mode = 'ALL') {
   list.forEach((row, idx) => {
     tableRows += `
       <tr>
-        <td style="text-align: center; font-weight: bold;">${escapeHtml(row.no || idx + 1)}</td>
-        <td style="text-align: center; white-space: nowrap;">${escapeHtml(row.tanggal || '-')}</td>
-        <td style="font-family: 'Courier New', monospace; font-size: 8.5pt;">${escapeHtml(row.nomorSuratMasuk || '-')}</td>
-        <td style="font-family: 'Courier New', monospace; font-size: 8.5pt;">${escapeHtml(row.nomorSuratKeluar || '-')}</td>
-        <td style="font-weight: 600;">${escapeHtml(row.perihal || '-')}</td>
-        <td>${escapeHtml(row.alamatSurat || '-')}</td>
-        <td>${escapeHtml(row.isiSurat || '-')}</td>
-        <td>${escapeHtml(row.keterangan || '-')}</td>
+        <td style="text-align: center; font-weight: bold; border: 1px solid #000; padding: 5px 3px;">${escapeHtml(row.no || idx + 1)}</td>
+        <td style="text-align: center; white-space: nowrap; border: 1px solid #000; padding: 5px 3px;">${escapeHtml(row.tanggal || '-')}</td>
+        <td style="font-family: 'Courier New', monospace; font-size: 8pt; word-break: break-all; border: 1px solid #000; padding: 5px 4px;">${escapeHtml(row.nomorSuratMasuk || '-')}</td>
+        <td style="font-family: 'Courier New', monospace; font-size: 8pt; word-break: break-all; border: 1px solid #000; padding: 5px 4px;">${escapeHtml(row.nomorSuratKeluar || '-')}</td>
+        <td style="font-weight: 600; border: 1px solid #000; padding: 5px 5px;">${escapeHtml(row.perihal || '-')}</td>
+        <td style="border: 1px solid #000; padding: 5px 4px;">${escapeHtml(row.alamatSurat || '-')}</td>
+        <td style="border: 1px solid #000; padding: 5px 5px;">${escapeHtml(row.isiSurat || '-')}</td>
+        <td style="border: 1px solid #000; padding: 5px 4px;">${escapeHtml(row.keterangan || '-')}</td>
       </tr>
     `;
   });
 
   const printHtml = `
-    <div style="font-family: 'Times New Roman', Georgia, serif; color: #000000; padding: 4px; line-height: 1.3; width: 100%;">
+    <div style="font-family: 'Times New Roman', Georgia, serif; color: #000000; padding: 0; line-height: 1.25; width: 100%;">
       
-      <!-- KOP RESMI BUKU AGENDA SURAT MASUK & KELUAR -->
-      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 3px double #000000; padding-bottom: 8px; margin-bottom: 12px;">
-        <!-- Kiri: Logo Pemkab Jember -->
-        <div style="width: 95px; text-align: center;">
-          <img src="${LOGO_JEMBER_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1YkV5mi6NjLLnVwOmS-gk7NUS8vQyIU9M&sz=w200'" style="height: 75px; width: auto; object-fit: contain;" alt="Logo Pemkab Jember">
-        </div>
+      <!-- KOP RESMI BUKU AGENDA SURAT MASUK & KELUAR (TABLE BASED AGAR KEBAL DARI COLLAPSE FLEXBOX) -->
+      <table style="width: 100%; border: none; border-collapse: collapse; margin-bottom: 6px;">
+        <tr>
+          <!-- Kiri: Logo Pemkab Jember -->
+          <td style="width: 85px; text-align: center; vertical-align: middle; border: none; padding: 0 4px;">
+            <img src="${LOGO_JEMBER_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1YkV5mi6NjLLnVwOmS-gk7NUS8vQyIU9M&sz=w200'" style="height: 70px; width: auto; max-width: 80px; object-fit: contain; display: block; margin: 0 auto;" alt="Logo Pemkab Jember">
+          </td>
 
-        <!-- Tengah: Teks Kop Resmi Sesuai Permintaan -->
-        <div style="flex: 1; text-align: center; padding: 0 10px;">
-          <div style="font-size: 14pt; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">
-            BUKU AGENDA SURAT
-          </div>
-          <div style="font-size: 13pt; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">
-            MASUK &amp; KELUAR
-          </div>
-          <div style="font-size: 15pt; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase;">
-            SEKOLAH DASAR NEGERI KESILIR 02
-          </div>
-          <div style="font-size: 9.5pt; font-style: italic; margin-top: 2px;">
-            Dinas Pendidikan Wilayah Wuluhan — Kabupaten Jember, Jawa Timur
-          </div>
-        </div>
+          <!-- Tengah: Teks Kop Resmi Sesuai Permintaan -->
+          <td style="text-align: center; vertical-align: middle; border: none; padding: 0 8px;">
+            <div style="font-size: 14pt; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; margin: 0; line-height: 1.2;">
+              BUKU AGENDA SURAT
+            </div>
+            <div style="font-size: 13pt; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; margin: 2px 0; line-height: 1.2;">
+              MASUK &amp; KELUAR
+            </div>
+            <div style="font-size: 15pt; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin: 2px 0; line-height: 1.2;">
+              SEKOLAH DASAR NEGERI KESILIR 02
+            </div>
+            <div style="font-size: 9.5pt; font-style: italic; margin-top: 3px; color: #222;">
+              Dinas Pendidikan Wilayah Wuluhan — Kabupaten Jember, Jawa Timur
+            </div>
+          </td>
 
-        <!-- Kanan: Logo SD (SD Negeri Kesilir 02) -->
-        <div style="width: 95px; text-align: center;">
-          <img src="${LOGO_SEKOLAH_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1XWfjQdygAvCCyRfKpTLD40MImqnl08X8&sz=w200'" style="height: 75px; width: auto; object-fit: contain;" alt="Logo SD Negeri Kesilir 02">
-        </div>
-      </div>
+          <!-- Kanan: Logo SD (SD Negeri Kesilir 02) -->
+          <td style="width: 85px; text-align: center; vertical-align: middle; border: none; padding: 0 4px;">
+            <img src="${LOGO_SEKOLAH_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1XWfjQdygAvCCyRfKpTLD40MImqnl08X8&sz=w200'" style="height: 70px; width: auto; max-width: 80px; object-fit: contain; display: block; margin: 0 auto;" alt="Logo SD Negeri Kesilir 02">
+          </td>
+        </tr>
+      </table>
 
+      <!-- GARIS KOP DOUBLE RESMI -->
+      <div style="border-bottom: 3px double #000000; margin-bottom: 10px;"></div>
+
+      <!-- JUDUL KHUSUS BUKU AGENDA -->
       <div style="text-align: center; margin-bottom: 10px;">
-        <span style="font-size: 11.5pt; font-weight: bold; text-transform: uppercase; text-decoration: underline;">
+        <span style="font-size: 11.5pt; font-weight: bold; text-transform: uppercase; text-decoration: underline; letter-spacing: 0.5px;">
           ${judulKhusus}
         </span>
-        <div style="font-size: 8pt; color: #555; margin-top: 2px;">
+        <div style="font-size: 8pt; color: #444; margin-top: 2px;">
           Standar Format: Kertas F4 / Folio Landscape (330 mm × 215 mm)
         </div>
       </div>
 
       <!-- TABEL AGENDA (HANYA SAMPAI KETERANGAN - LINK LAMPIRAN TIDAK MASUK KETIKA DICETAK) -->
-      <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 8.5pt;">
+      <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 8.5pt; border: 1px solid #000000; table-layout: fixed;">
         <thead>
-          <tr style="background-color: #f1f5f9; text-align: center; font-weight: bold;">
-            <th style="width: 35px;">No</th>
-            <th style="width: 85px;">Tanggal</th>
-            <th style="width: 155px;">Nomor Surat Masuk</th>
-            <th style="width: 155px;">Nomor Surat Keluar</th>
-            <th style="width: 210px;">Perihal</th>
-            <th style="width: 170px;">Alamat Surat</th>
-            <th>Isi Surat</th>
-            <th style="width: 125px;">Keterangan</th>
+          <tr style="background-color: #f1f5f9; text-align: center; font-weight: bold; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+            <th style="width: 32px; border: 1px solid #000; padding: 6px 3px;">No</th>
+            <th style="width: 80px; border: 1px solid #000; padding: 6px 3px;">Tanggal</th>
+            <th style="width: 145px; border: 1px solid #000; padding: 6px 4px;">Nomor Surat Masuk</th>
+            <th style="width: 145px; border: 1px solid #000; padding: 6px 4px;">Nomor Surat Keluar</th>
+            <th style="width: 200px; border: 1px solid #000; padding: 6px 5px;">Perihal</th>
+            <th style="width: 160px; border: 1px solid #000; padding: 6px 4px;">Alamat Surat</th>
+            <th style="border: 1px solid #000; padding: 6px 5px;">Isi Surat</th>
+            <th style="width: 130px; border: 1px solid #000; padding: 6px 4px;">Keterangan</th>
           </tr>
         </thead>
         <tbody>
@@ -4430,24 +4496,27 @@ function cetakBukuAgendaPdf(mode = 'ALL') {
       </table>
 
       <!-- TANDA TANGAN (TTD) KEPALA SEKOLAH & OPERATOR SEKOLAH (IDENTITAS DAPAT DIEDIT) -->
-      <div style="margin-top: 28px; display: flex; justify-content: space-between; align-items: flex-start; page-break-inside: avoid; font-size: 10pt;">
-        <!-- Kiri: Mengetahui Kepala Sekolah -->
-        <div style="text-align: center; width: 42%;">
-          <div>Mengetahui,</div>
-          <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanKepsek || 'Kepala Sekolah')}</div>
-          <div style="height: 60px;"></div>
-          <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(ttd.namaKepsek || 'Drs. Bambang Sudarsono, M.Pd')}</div>
-          <div style="margin-top: 2px;">NIP. ${escapeHtml(ttd.nipKepsek || '19680512 199203 1 005')}</div>
-        </div>
-        <!-- Kanan: Pengadministrasi Operator Sekolah -->
-        <div style="text-align: center; width: 42%;">
-          <div>${escapeHtml(ttd.tempat || 'Jember')}, ${escapeHtml(tglTtd)}</div>
-          <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanOperator || 'Operator Sekolah')}</div>
-          <div style="height: 60px;"></div>
-          <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(ttd.namaOperator || 'Ahmad Rifai, S.Kom')}</div>
-          <div style="margin-top: 2px;">NIP. ${escapeHtml(ttd.nipOperator || '19900815 202221 1 004')}</div>
-        </div>
-      </div>
+      <table style="width: 100%; border: none; border-collapse: collapse; margin-top: 24px; page-break-inside: avoid;">
+        <tr>
+          <!-- Kiri: Mengetahui Kepala Sekolah -->
+          <td style="width: 45%; text-align: center; vertical-align: top; border: none; padding: 0 10px; font-size: 10pt;">
+            <div>Mengetahui,</div>
+            <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanKepsek || 'Kepala Sekolah')}</div>
+            <div style="height: 55px;"></div>
+            <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(ttd.namaKepsek || 'Drs. Bambang Sudarsono, M.Pd')}</div>
+            <div style="margin-top: 2px;">NIP. ${escapeHtml(ttd.nipKepsek || '19680512 199203 1 005')}</div>
+          </td>
+          <td style="width: 10%; border: none;"></td>
+          <!-- Kanan: Pengadministrasi Operator Sekolah -->
+          <td style="width: 45%; text-align: center; vertical-align: top; border: none; padding: 0 10px; font-size: 10pt;">
+            <div>${escapeHtml(ttd.tempat || 'Jember')}, ${escapeHtml(tglTtd)}</div>
+            <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanOperator || 'Operator Sekolah')}</div>
+            <div style="height: 55px;"></div>
+            <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(ttd.namaOperator || 'Ahmad Rifai, S.Kom')}</div>
+            <div style="margin-top: 2px;">NIP. ${escapeHtml(ttd.nipOperator || '19900815 202221 1 004')}</div>
+          </td>
+        </tr>
+      </table>
 
     </div>
   `;
@@ -6168,25 +6237,70 @@ async function cetakLembarDisposisi(idDisposisi) {
     }
   }
 
+  let dynamicStyle = document.getElementById('dynamicPrintPageStyle');
+  if (!dynamicStyle) {
+    dynamicStyle = document.createElement('style');
+    dynamicStyle.id = 'dynamicPrintPageStyle';
+    document.head.appendChild(dynamicStyle);
+  }
+  dynamicStyle.innerHTML = `
+    @page {
+      size: portrait;
+      margin: 10mm;
+    }
+    @media print {
+      @page {
+        size: portrait;
+        margin: 10mm;
+      }
+      html, body {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: #ffffff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .app-container, .sidebar, .main-wrapper, .modal-overlay, .loading-overlay, .toast-container, .no-print {
+        display: none !important;
+        visibility: hidden !important;
+      }
+      body > *:not(#printArea) {
+        display: none !important;
+      }
+      #printArea, .print-area {
+        display: block !important;
+        position: static !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: #ffffff !important;
+      }
+    }
+  `;
+
   const printArea = document.getElementById('printArea');
   printArea.innerHTML = `
     <div style="border: 2px solid #000; padding: 20px; max-width: 820px; margin: 0 auto; font-family: 'Times New Roman', serif;">
       
       <!-- Kop Surat -->
-      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 3px double #000; padding-bottom: 12px; margin-bottom: 16px;">
-        <div style="width: 75px; text-align: center;">
-          <img src="${LOGO_JEMBER_DRIVE}" style="max-width: 70px; max-height: 70px;">
-        </div>
-        <div style="flex: 1; text-align: center; line-height: 1.25;">
-          <div style="font-size: 14pt; font-weight: bold;">PEMERINTAH KABUPATEN JEMBER</div>
-          <div style="font-size: 16pt; font-weight: bold;">DINAS PENDIDIKAN</div>
-          <div style="font-size: 18pt; font-weight: bold; letter-spacing: 1px;">SD NEGERI KESILIR 02</div>
-          <div style="font-size: 10pt; font-style: italic;">Kecamatan Wuluhan, Kabupaten Jember, Jawa Timur</div>
-        </div>
-        <div style="width: 75px; text-align: center;">
-          <img src="${LOGO_SEKOLAH_DRIVE}" style="max-width: 70px; max-height: 70px;">
-        </div>
-      </div>
+      <table style="width: 100%; border: none; border-collapse: collapse; margin-bottom: 6px;">
+        <tr>
+          <td style="width: 75px; text-align: center; vertical-align: middle; border: none; padding: 0;">
+            <img src="${LOGO_JEMBER_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1YkV5mi6NjLLnVwOmS-gk7NUS8vQyIU9M&sz=w200'" style="max-width: 70px; max-height: 70px;" alt="Logo Pemkab Jember">
+          </td>
+          <td style="text-align: center; vertical-align: middle; border: none; line-height: 1.25; padding: 0 8px;">
+            <div style="font-size: 14pt; font-weight: bold;">PEMERINTAH KABUPATEN JEMBER</div>
+            <div style="font-size: 16pt; font-weight: bold;">DINAS PENDIDIKAN</div>
+            <div style="font-size: 18pt; font-weight: bold; letter-spacing: 1px;">SD NEGERI KESILIR 02</div>
+            <div style="font-size: 10pt; font-style: italic;">Kecamatan Wuluhan, Kabupaten Jember, Jawa Timur</div>
+          </td>
+          <td style="width: 75px; text-align: center; vertical-align: middle; border: none; padding: 0;">
+            <img src="${LOGO_SEKOLAH_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1XWfjQdygAvCCyRfKpTLD40MImqnl08X8&sz=w200'" style="max-width: 70px; max-height: 70px;" alt="Logo SD Negeri Kesilir 02">
+          </td>
+        </tr>
+      </table>
+      <div style="border-bottom: 3px double #000; margin-bottom: 16px;"></div>
 
       <div style="text-align: center; margin-bottom: 16px;">
         <h3 style="font-size: 14pt; font-weight: bold; text-decoration: underline; margin: 0;">LEMBAR DISPOSISI KEPALA SEKOLAH</h3>
@@ -6270,30 +6384,34 @@ async function cetakLembarDisposisi(idDisposisi) {
  */
 function getKopResmiHtml(judulLaporan, subJudul) {
   return `
-    <div style="font-family: 'Times New Roman', Georgia, serif; color: #000; padding: 4px; margin-bottom: 12px;">
+    <div style="font-family: 'Times New Roman', Georgia, serif; color: #000; padding: 0; margin-bottom: 12px; width: 100%;">
       <!-- Kop Surat Resmi -->
-      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 3px double #000; padding-bottom: 8px; margin-bottom: 12px;">
-        <div style="width: 85px; text-align: center;">
-          <img src="${LOGO_JEMBER_DRIVE}" style="height: 70px; width: auto;" alt="Logo Pemkab Jember">
-        </div>
-        <div style="flex: 1; text-align: center; padding: 0 10px; line-height: 1.25;">
-          <div style="font-size: 13pt; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase;">BUKU AGENDA SURAT</div>
-          <div style="font-size: 12pt; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase;">MASUK &amp; KELUAR</div>
-          <div style="font-size: 14pt; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">SEKOLAH DASAR NEGERI KESILIR 02</div>
-          <div style="font-size: 9pt; font-style: italic; margin-top: 2px;">Kecamatan Wuluhan, Kabupaten Jember - Jawa Timur</div>
-        </div>
-        <div style="width: 85px; text-align: center;">
-          <img src="${LOGO_SEKOLAH_DRIVE}" style="height: 70px; width: auto;" alt="Logo SDN Kesilir 02">
-        </div>
-      </div>
+      <table style="width: 100%; border: none; border-collapse: collapse; margin-bottom: 6px;">
+        <tr>
+          <td style="width: 85px; text-align: center; vertical-align: middle; border: none; padding: 0 4px;">
+            <img src="${LOGO_JEMBER_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1YkV5mi6NjLLnVwOmS-gk7NUS8vQyIU9M&sz=w200'" style="height: 70px; width: auto; max-width: 80px; object-fit: contain; display: block; margin: 0 auto;" alt="Logo Pemkab Jember">
+          </td>
+          <td style="text-align: center; vertical-align: middle; border: none; padding: 0 8px; line-height: 1.2;">
+            <div style="font-size: 14pt; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; margin: 0;">BUKU AGENDA SURAT</div>
+            <div style="font-size: 13pt; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; margin: 2px 0;">MASUK &amp; KELUAR</div>
+            <div style="font-size: 15pt; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin: 2px 0;">SEKOLAH DASAR NEGERI KESILIR 02</div>
+            <div style="font-size: 9.5pt; font-style: italic; margin-top: 3px; color: #222;">Dinas Pendidikan Wilayah Wuluhan — Kabupaten Jember, Jawa Timur</div>
+          </td>
+          <td style="width: 85px; text-align: center; vertical-align: middle; border: none; padding: 0 4px;">
+            <img src="${LOGO_SEKOLAH_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1XWfjQdygAvCCyRfKpTLD40MImqnl08X8&sz=w200'" style="height: 70px; width: auto; max-width: 80px; object-fit: contain; display: block; margin: 0 auto;" alt="Logo SDN Kesilir 02">
+          </td>
+        </tr>
+      </table>
+      <div style="border-bottom: 3px double #000; margin-bottom: 12px;"></div>
 
       <!-- Judul Dokumen Cetak -->
       <div style="text-align: center; margin-bottom: 12px;">
-        <h3 style="font-size: 11pt; font-weight: bold; text-decoration: underline; margin: 0; text-transform: uppercase;">
+        <h3 style="font-size: 11.5pt; font-weight: bold; text-decoration: underline; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">
           ${judulLaporan}
         </h3>
-        ${subJudul ? `<div style="font-size: 9.5pt; color: #333; margin-top: 3px;">${subJudul}</div>` : ''}
+        ${subJudul ? `<div style="font-size: 9pt; color: #444; margin-top: 3px;">${subJudul}</div>` : ''}
       </div>
+    </div>
   `;
 }
 
@@ -6310,22 +6428,25 @@ function getTandaTanganResmiHtml() {
   const tglTtd = ttd.tanggal || todayStr;
 
   return `
-    <div style="margin-top: 28px; display: flex; justify-content: space-between; align-items: flex-start; page-break-inside: avoid; font-family: 'Times New Roman', Georgia, serif; font-size: 10pt;">
-      <div style="text-align: center; width: 42%;">
-        <div>Mengetahui,</div>
-        <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanKepsek || 'Kepala Sekolah')}</div>
-        <div style="height: 60px;"></div>
-        <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(ttd.namaKepsek || 'Drs. Bambang Sudarsono, M.Pd')}</div>
-        <div style="margin-top: 2px;">NIP. ${escapeHtml(ttd.nipKepsek || '19680512 199203 1 005')}</div>
-      </div>
-      <div style="text-align: center; width: 42%;">
-        <div>${escapeHtml(ttd.tempat || 'Jember')}, ${escapeHtml(tglTtd)}</div>
-        <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanOperator || 'Operator Sekolah')}</div>
-        <div style="height: 60px;"></div>
-        <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(ttd.namaOperator || 'Ahmad Rifai, S.Kom')}</div>
-        <div style="margin-top: 2px;">NIP. ${escapeHtml(ttd.nipOperator || '19900815 202221 1 004')}</div>
-      </div>
-    </div>
+    <table style="width: 100%; border: none; border-collapse: collapse; margin-top: 24px; page-break-inside: avoid; font-family: 'Times New Roman', Georgia, serif; font-size: 10pt;">
+      <tr>
+        <td style="width: 45%; text-align: center; vertical-align: top; border: none; padding: 0 10px;">
+          <div>Mengetahui,</div>
+          <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanKepsek || 'Kepala Sekolah')}</div>
+          <div style="height: 55px;"></div>
+          <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(ttd.namaKepsek || 'Drs. Bambang Sudarsono, M.Pd')}</div>
+          <div style="margin-top: 2px;">NIP. ${escapeHtml(ttd.nipKepsek || '19680512 199203 1 005')}</div>
+        </td>
+        <td style="width: 10%; border: none;"></td>
+        <td style="width: 45%; text-align: center; vertical-align: top; border: none; padding: 0 10px;">
+          <div>${escapeHtml(ttd.tempat || 'Jember')}, ${escapeHtml(tglTtd)}</div>
+          <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanOperator || 'Operator Sekolah')}</div>
+          <div style="height: 55px;"></div>
+          <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(ttd.namaOperator || 'Ahmad Rifai, S.Kom')}</div>
+          <div style="margin-top: 2px;">NIP. ${escapeHtml(ttd.nipOperator || '19900815 202221 1 004')}</div>
+        </td>
+      </tr>
+    </table>
   `;
 }
 
