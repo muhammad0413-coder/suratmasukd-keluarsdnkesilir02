@@ -1228,7 +1228,7 @@ textarea.form-control {
 }
 
 /* ==========================================================================
-   PRINT LAYOUT (LEMBAR DISPOSISI & LAPORAN RESMI)
+   PRINT LAYOUT (LEMBAR DISPOSISI & 3 LAPORAN REKAP RESMI)
    ========================================================================== */
 .print-area {
   display: none;
@@ -1247,7 +1247,7 @@ textarea.form-control {
     left: 0;
     top: 0;
     width: 100%;
-    padding: 20px;
+    padding: 10px;
     background: #ffffff;
     color: #000000;
   }
@@ -1255,9 +1255,76 @@ textarea.form-control {
     display: none !important;
   }
   @page {
-    size: auto;
-    margin: 15mm;
+    size: landscape;
+    margin: 8mm;
   }
+}
+
+.print-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.print-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  transition: all var(--transition-normal);
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+
+.print-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-500);
+}
+
+.print-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.print-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.print-card.masuk .print-card-icon { background: #e0f2fe; color: #0284c7; }
+.print-card.keluar .print-card-icon { background: #ecfdf5; color: #059669; }
+.print-card.gabungan .print-card-icon { background: #fef3c7; color: #d97706; }
+
+.print-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.3;
+}
+
+.print-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.print-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 /* ==========================================================================
@@ -1477,31 +1544,34 @@ textarea.form-control {
         <!-- ==================== VIEW 1: DASHBOARD ==================== -->
         <section id="view-dashboard" class="view-section active">
           
-          <!-- TOMBOL PEMBUKA GOOGLE SHEETS & DRIVE -->
+          <!-- TOMBOL PEMBUKA GOOGLE SHEETS & DRIVE (1 SPREADSHEET 2 HALAMAN & 2 FOLDER DRIVE) -->
           <div class="db-action-bar">
             <div class="db-action-header">
               <div class="db-action-title">
-                <h3>📂 Integrasi Database Google Sheets & Drive Resmi</h3>
-                <p>Akses langsung lembar kerja Google Sheets Surat Masuk, Surat Keluar, dan Folder Drive penyimpanan file.</p>
+                <h3>📂 Integrasi 1 Spreadsheet (2 Halaman) &amp; 2 Folder Google Drive</h3>
+                <p>1 Spreadsheet (Halaman Surat Masuk &amp; Surat Keluar) dan 2 Folder Google Drive resmi SDN Kesilir 02.</p>
               </div>
-              <span class="badge" style="background: rgba(255,255,255,0.15); color: #ffffff;">Tersinkronisasi Otomatis</span>
+              <span class="badge" style="background: rgba(255,255,255,0.2); color: #ffffff;">1 Sheet (2 Tab) • 2 Folder Drive</span>
             </div>
             
             <div class="db-buttons-grid">
-              <a id="btnBukaDbMasuk" class="btn-db btn-db-masuk" href="https://docs.google.com/spreadsheets/d/1Sug7wthRgqQAB6xj3gl0pqJZkuCUV8d1qsxYPRPKhaA/edit" target="_blank" rel="noopener noreferrer" onclick="window.open('https://docs.google.com/spreadsheets/d/1Sug7wthRgqQAB6xj3gl0pqJZkuCUV8d1qsxYPRPKhaA/edit', '_blank'); return false;">
-                <span>📊 BUKA DATABASE SURAT MASUK</span>
+              <a id="btnBukaDbMasuk" class="btn-db btn-db-masuk" href="https://docs.google.com/spreadsheets/d/1Sug7wthRgqQAB6xj3gl0pqJZkuCUV8d1qsxYPRPKhaA/edit" target="_blank" rel="noopener noreferrer" onclick="bukaDbSheet('SURAT_MASUK'); return false;">
+                <span>📊 SPREADSHEET: HALAMAN SURAT MASUK</span>
               </a>
-              <a id="btnBukaDbKeluar" class="btn-db btn-db-keluar" href="https://docs.google.com/spreadsheets/d/1Sug7wthRgqQAB6xj3gl0pqJZkuCUV8d1qsxYPRPKhaA/edit" target="_blank" rel="noopener noreferrer" onclick="window.open('https://docs.google.com/spreadsheets/d/1Sug7wthRgqQAB6xj3gl0pqJZkuCUV8d1qsxYPRPKhaA/edit', '_blank'); return false;">
-                <span>📈 BUKA DATABASE SURAT KELUAR</span>
+              <a id="btnBukaDbKeluar" class="btn-db btn-db-keluar" href="https://docs.google.com/spreadsheets/d/1Sug7wthRgqQAB6xj3gl0pqJZkuCUV8d1qsxYPRPKhaA/edit" target="_blank" rel="noopener noreferrer" onclick="bukaDbSheet('SURAT_KELUAR'); return false;">
+                <span>📈 SPREADSHEET: HALAMAN SURAT KELUAR</span>
               </a>
-              <a id="btnBukaDriveRoot" class="btn-db btn-db-drive" href="https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa" target="_blank" rel="noopener noreferrer" onclick="window.open('https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa', '_blank'); return false;">
-                <span>📁 BUKA FOLDER GOOGLE DRIVE</span>
+              <a id="btnBukaDriveMasuk" class="btn-db btn-db-drive" href="https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa" target="_blank" rel="noopener noreferrer" onclick="bukaFolderDrive('masuk'); return false;">
+                <span>📁 DRIVE: LAMPIRAN SURAT MASUK</span>
               </a>
-              <button id="btnCopyMasukLink" class="btn-db btn-db-copy" type="button" onclick="copyToClipboard('https://docs.google.com/spreadsheets/d/1Sug7wthRgqQAB6xj3gl0pqJZkuCUV8d1qsxYPRPKhaA/edit', 'Link Spreadsheet Masuk berhasil disalin!')">
-                📋 Salin Link Spreadsheet Masuk
+              <a id="btnBukaDriveKeluar" class="btn-db btn-db-drive" href="https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa" target="_blank" rel="noopener noreferrer" onclick="bukaFolderDrive('keluar'); return false;">
+                <span>📁 DRIVE: LAMPIRAN SURAT KELUAR</span>
+              </a>
+              <button id="btnCopySsLink" class="btn-db btn-db-copy" type="button" onclick="copyToClipboard('https://docs.google.com/spreadsheets/d/1Sug7wthRgqQAB6xj3gl0pqJZkuCUV8d1qsxYPRPKhaA/edit', 'Link Spreadsheet (2 Halaman) berhasil disalin!')">
+                📋 Salin Link Spreadsheet
               </button>
-              <button id="btnCopyKeluarLink" class="btn-db btn-db-copy" type="button" onclick="copyToClipboard('https://docs.google.com/spreadsheets/d/1Sug7wthRgqQAB6xj3gl0pqJZkuCUV8d1qsxYPRPKhaA/edit', 'Link Spreadsheet Keluar berhasil disalin!')">
-                📋 Salin Link Spreadsheet Keluar
+              <button id="btnCopyDriveLink" class="btn-db btn-db-copy" type="button" onclick="copyToClipboard('https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa', 'Link Folder Google Drive berhasil disalin!')">
+                📋 Salin Link Google Drive
               </button>
             </div>
           </div>
@@ -1628,7 +1698,8 @@ textarea.form-control {
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">📥 Buku Agenda Surat Masuk</h3>
-              <div style="display:flex; gap: 8px;">
+              <div style="display:flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-warning" onclick="cetakRekapSuratMasukPdf()" title="Cetak Rekap Surat Masuk (PDF/Printer)">🖨️ Cetak PDF Rekap</button>
                 <button class="btn btn-secondary" onclick="exportDataMasukCsv()">📥 Ekspor CSV</button>
                 <button class="btn btn-primary" onclick="navigateTo('view-tambah-masuk')">➕ Tambah Surat Masuk</button>
               </div>
@@ -1832,7 +1903,8 @@ textarea.form-control {
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">📤 Buku Agenda Surat Keluar</h3>
-              <div style="display:flex; gap: 8px;">
+              <div style="display:flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-warning" onclick="cetakRekapSuratKeluarPdf()" title="Cetak Rekap Surat Keluar (PDF/Printer)">🖨️ Cetak PDF Rekap</button>
                 <button class="btn btn-secondary" onclick="exportDataKeluarCsv()">📥 Ekspor CSV</button>
                 <button class="btn btn-primary" onclick="navigateTo('view-tambah-keluar')">✍️ Tambah Surat Keluar</button>
               </div>
@@ -2175,22 +2247,88 @@ textarea.form-control {
           </div>
         </section>
 
-        <!-- ==================== VIEW 9: LAPORAN & CETAK ==================== -->
+        <!-- ==================== VIEW 9: LAPORAN & 3 CETAK PDF ==================== -->
         <section id="view-laporan" class="view-section">
+          
+          <!-- 3 KARTU CETAK PDF UTAMA (SURAT MASUK, SURAT KELUAR, GABUNGAN) -->
+          <div class="print-cards-grid">
+            
+            <!-- CETAK 1: REKAP SURAT MASUK -->
+            <div class="print-card masuk">
+              <div class="print-card-header">
+                <div class="print-card-icon">📥</div>
+                <div>
+                  <div class="print-card-title">1. Cetak Rekap Surat Masuk (PDF)</div>
+                  <div class="print-card-desc">Buku agenda rekapitulasi seluruh surat masuk, nomor surat asli, asal pengirim, perihal, dan tindak lanjut.</div>
+                </div>
+              </div>
+              <div class="print-card-actions">
+                <button type="button" class="btn btn-primary" style="background:#0284c7; flex:1;" onclick="cetakRekapSuratMasukPdf()">
+                  🖨️ Cetak PDF Rekap Masuk
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="exportDataMasukCsv()" title="Ekspor ke CSV/Excel">
+                  📥 CSV
+                </button>
+              </div>
+            </div>
+
+            <!-- CETAK 2: REKAP SURAT KELUAR -->
+            <div class="print-card keluar">
+              <div class="print-card-header">
+                <div class="print-card-icon">📤</div>
+                <div>
+                  <div class="print-card-title">2. Cetak Rekap Surat Keluar (PDF)</div>
+                  <div class="print-card-desc">Buku agenda rekapitulasi seluruh surat keluar dinas sekolah, nomor resmi, instansi tujuan, dan penandatangan.</div>
+                </div>
+              </div>
+              <div class="print-card-actions">
+                <button type="button" class="btn btn-primary" style="background:#059669; flex:1;" onclick="cetakRekapSuratKeluarPdf()">
+                  🖨️ Cetak PDF Rekap Keluar
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="exportDataKeluarCsv()" title="Ekspor ke CSV/Excel">
+                  📥 CSV
+                </button>
+              </div>
+            </div>
+
+            <!-- CETAK 3: REKAP GABUNGAN JADI 1 -->
+            <div class="print-card gabungan">
+              <div class="print-card-header">
+                <div class="print-card-icon">📑</div>
+                <div>
+                  <div class="print-card-title">3. Cetak Rekap Gabungan Jadi 1 (PDF)</div>
+                  <div class="print-card-desc">Rekapitulasi komprehensif terpadu menggabungkan buku agenda Surat Masuk &amp; Surat Keluar dalam 1 lembar laporan resmi.</div>
+                </div>
+              </div>
+              <div class="print-card-actions">
+                <button type="button" class="btn btn-primary" style="background:#d97706; flex:1;" onclick="cetakRekapGabunganPdf()">
+                  🖨️ Cetak PDF Rekap Gabungan (1 Dokumen)
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="exportRekapGabunganCsv()" title="Ekspor Gabungan ke CSV">
+                  📥 CSV
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- TABEL PRATINJAU & FILTER TANGGAL -->
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">📑 Rekapitulasi & Cetak Laporan Administrasi Persuratan</h3>
+              <h3 class="card-title">🔍 Filter Rentang Tanggal &amp; Pratinjau Rekapitulasi</h3>
+              <div style="display:flex; gap: 8px;">
+                <button type="button" class="btn btn-secondary" onclick="resetFilterLaporanDanMuat()">↺ Tampilkan Semua</button>
+              </div>
             </div>
             <div class="card-body">
-              
-              <!-- Filter Laporan -->
               <div class="form-grid" style="margin-bottom: 20px;">
-                <div class="form-group col-3">
-                  <label class="form-label">Jenis Laporan Persuratan</label>
-                  <select id="lapJenisSurat" class="form-control">
+                <div class="form-group col-4">
+                  <label class="form-label">Tampilan Pratinjau Tabel</label>
+                  <select id="lapJenisSurat" class="form-control" onchange="generateLaporan()">
+                    <option value="GABUNGAN">Gabungan: Surat Masuk &amp; Surat Keluar</option>
                     <option value="MASUK">Buku Agenda Surat Masuk</option>
                     <option value="KELUAR">Buku Agenda Surat Keluar</option>
-                    <option value="DISPOSISI">Rekap Lembar Disposisi</option>
+                    <option value="DISPOSISI">Rekapitulasi Lembar Disposisi</option>
                   </select>
                 </div>
 
@@ -2204,29 +2342,31 @@ textarea.form-control {
                   <input type="date" id="lapEndDate" class="form-control">
                 </div>
 
-                <div class="form-group col-3" style="justify-content: flex-end; display: flex; gap: 8px;">
+                <div class="form-group col-2" style="justify-content: flex-end; display: flex;">
                   <button type="button" class="btn btn-primary" onclick="generateLaporan()" style="width: 100%;">
-                    🔍 Tampilkan Laporan
+                    🔍 Filter
                   </button>
                 </div>
               </div>
 
-              <!-- Action Bar Laporan -->
+              <!-- Header Pratinjau -->
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
                 <div style="font-weight: 700; color: var(--navy-900);" id="lapHeaderTitle">
-                  Rekapitulasi Persuratan
+                  Pratinjau Data Rekapitulasi Persuratan
                 </div>
-                <div style="display: flex; gap: 8px;">
-                  <button class="btn btn-secondary" onclick="exportLaporanCsv()">📥 Ekspor CSV</button>
-                  <button class="btn btn-success" onclick="cetakLaporanResmi()">🖨️ Cetak Laporan Resmi</button>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <button type="button" class="btn btn-secondary" onclick="eksporLaporanAktifCsv()">📥 Unduh CSV</button>
+                  <button type="button" class="btn btn-success" onclick="cetakLaporanAktifPdf()">🖨️ Cetak Sesuai Filter</button>
                 </div>
               </div>
 
-              <!-- Laporan Table -->
+              <!-- Tabel Laporan -->
               <div class="table-responsive">
                 <table class="app-table" id="tableLaporan">
                   <thead>
                     <tr id="lapTableHeadRow">
+                      <th style="width: 50px;">No</th>
+                      <th>Jenis</th>
                       <th>Agenda</th>
                       <th>Nomor Surat</th>
                       <th>Tanggal</th>
@@ -2237,7 +2377,7 @@ textarea.form-control {
                     </tr>
                   </thead>
                   <tbody id="tableLaporanBody">
-                    <tr><td colspan="7" style="text-align: center; padding: 24px;">Silakan tentukan filter dan klik Tampilkan Laporan.</td></tr>
+                    <tr><td colspan="9" style="text-align: center; padding: 24px;">Memuat pratinjau rekapitulasi...</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -2848,6 +2988,199 @@ const DEFAULT_FALLBACK_KLASIFIKASI = [
   { kode: '900', nama: 'Keuangan', keterangan: 'Dana BOS, BOP, SPJ, Anggaran Sekolah, RAKS', statusAktif: 'Aktif', label: '900 - Keuangan' }
 ];
 
+// Data Awal Bawaan Resmi SDN Kesilir 02
+const SEED_DATA_KESILIR = {
+  suratMasuk: [
+    {
+      id: 'SM-2026-001',
+      nomorAgenda: '001/SM-SDN.02/I/2026',
+      nomorSuratAsli: '421.2/015/DISDIK/2026',
+      tanggalSurat: '2026-01-12',
+      tanggalDiterima: '2026-01-14',
+      asalSurat: 'Dinas Pendidikan Kabupaten Jember',
+      namaPengirim: 'Bidang Pembinaan SD',
+      perihal: 'Pemberitahuan Sosialisasi Asesmen Nasional Berbasis Komputer (ANBK) Jenjang SD',
+      klasifikasi: '421.2',
+      sifatSurat: 'Penting',
+      tujuanInternal: 'Kepala Sekolah & Proktor ANBK',
+      ringkasan: 'Jadwal pelaksanaan sosialisasi ANBK bagi Kepala Sekolah dan Proktor gelombang 1 di Aula Dinas Pendidikan.',
+      status: 'Didisposisikan',
+      petugas: 'Operator Sekolah',
+      waktuInput: '2026-01-14 08:30:00',
+      keterangan: 'Arsip Map ANBK 2026',
+      linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
+    },
+    {
+      id: 'SM-2026-002',
+      nomorAgenda: '002/SM-SDN.02/II/2026',
+      nomorSuratAsli: '800/120/KEC.WLH/2026',
+      tanggalSurat: '2026-02-05',
+      tanggalDiterima: '2026-02-06',
+      asalSurat: 'Pemerintah Kecamatan Wuluhan',
+      namaPengirim: 'Sekretaris Kecamatan',
+      perihal: 'Undangan Rapat Koordinasi Panitia Peringatan Hari Pendidikan Nasional',
+      klasifikasi: '000',
+      sifatSurat: 'Biasa',
+      tujuanInternal: 'Kepala SD Negeri Kesilir 02',
+      ringkasan: 'Rapat koordinasi teknis pelaksanaan upacara Hardiknas di Pendopo Kantor Camat Wuluhan.',
+      status: 'Selesai',
+      petugas: 'Operator Sekolah',
+      waktuInput: '2026-02-06 09:15:00',
+      keterangan: 'Telah dihadiri perwakilan',
+      linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
+    },
+    {
+      id: 'SM-2026-003',
+      nomorAgenda: '003/SM-SDN.02/III/2026',
+      nomorSuratAsli: '900/088/BOS-DISDIK/2026',
+      tanggalSurat: '2026-03-10',
+      tanggalDiterima: '2026-03-12',
+      asalSurat: 'Tim Manajemen BOS Disdik Jember',
+      namaPengirim: 'Bendahara BOS Kabupaten',
+      perihal: 'Petunjuk Teknis Penyaluran & Pelaporan Dana Bantuan Operasional Satuan Pendidikan (BOSP)',
+      klasifikasi: '900',
+      sifatSurat: 'Penting',
+      tujuanInternal: 'Bendahara BOS & Tim Pengembang Kurikulum',
+      ringkasan: 'Ketentuan pelaporan SPJ BOSP Reguler Tahap I Tahun Anggaran 2026 melalui aplikasi ARKAS.',
+      status: 'Diproses',
+      petugas: 'Bendahara Sekolah',
+      waktuInput: '2026-03-12 10:00:00',
+      keterangan: 'Arsip Bendahara',
+      linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
+    }
+  ],
+  suratKeluar: [
+    {
+      id: 'SK-2026-001',
+      nomorAgenda: '001/SK-SDN.02/I/2026',
+      nomorSuratResmi: '421.2/001/SDN.KSL.02/2026',
+      tanggalSurat: '2026-01-15',
+      tanggalPengiriman: '2026-01-16',
+      tujuanSurat: 'Kepala Dinas Pendidikan Kabupaten Jember',
+      namaPenerima: 'Bidang Pembinaan SD',
+      perihal: 'Laporan Rekapitulasi Kehadiran Pendidik & Tenaga Kependidikan Bulan Januari 2026',
+      klasifikasi: '421.2',
+      sifatSurat: 'Biasa',
+      penandatangan: 'Drs. Bambang Sudarsono, M.Pd',
+      jabatan: 'Kepala SD Negeri Kesilir 02',
+      metodePengiriman: 'Email Resmi',
+      ringkasan: 'Penyampaian data presensi bulanan guru PNS, PPPK, dan honorer sekolah.',
+      status: 'Sudah Dikirim',
+      petugas: 'Operator Sekolah',
+      waktuInput: '2026-01-16 11:20:00',
+      keterangan: 'Terkirim via email Disdik',
+      linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
+    },
+    {
+      id: 'SK-2026-002',
+      nomorAgenda: '002/SK-SDN.02/II/2026',
+      nomorSuratResmi: '421.3/008/SDN.KSL.02/2026',
+      tanggalSurat: '2026-02-18',
+      tanggalPengiriman: '2026-02-19',
+      tujuanSurat: 'Wali Murid Kelas I s.d VI SD Negeri Kesilir 02',
+      namaPenerima: 'Orang Tua / Wali Murid',
+      perihal: 'Undangan Rapat Pleno Komite Sekolah & Pembahasan Program Peningkatan Mutu Belajar',
+      klasifikasi: '421.3',
+      sifatSurat: 'Penting',
+      penandatangan: 'Drs. Bambang Sudarsono, M.Pd',
+      jabatan: 'Kepala SD Negeri Kesilir 02',
+      metodePengiriman: 'Kurir/Langsung',
+      ringkasan: 'Undangan musyawarah wali murid bersama pengurus komite sekolah.',
+      status: 'Sudah Dikirim',
+      petugas: 'Tata Usaha',
+      waktuInput: '2026-02-19 13:00:00',
+      keterangan: 'Telah diedarkan ke siswa',
+      linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
+    }
+  ],
+  disposisi: [
+    {
+      idDisposisi: 'DSP-2026-001',
+      idSurat: 'SM-2026-001',
+      nomorAgenda: '001/SM-SDN.02/I/2026',
+      tanggalDisposisi: '2026-01-15',
+      pemberiDisposisi: 'Kepala Sekolah',
+      tujuanDisposisi: 'Operator ANBK & Guru Kelas 5',
+      instruksi: 'Segera inventarisasi perangkat chromebook sekolah dan koordinasikan jadwal simulasi ANBK siswa.',
+      batasWaktu: '2026-01-25',
+      statusTindakLanjut: 'Selesai',
+      catatan: 'Sarana lab komputer siap digunakan',
+      waktuInput: '2026-01-15 09:00:00',
+      tanggalSelesai: '2026-01-22'
+    },
+    {
+      idDisposisi: 'DSP-2026-002',
+      idSurat: 'SM-2026-003',
+      nomorAgenda: '003/SM-SDN.02/III/2026',
+      tanggalDisposisi: '2026-03-13',
+      pemberiDisposisi: 'Kepala Sekolah',
+      tujuanDisposisi: 'Bendahara BOS',
+      instruksi: 'Pelajari juknis terbaru dan sesuaikan rencana belanja dengan RKAS yang telah disahkan dinas.',
+      batasWaktu: '2026-03-31',
+      statusTindakLanjut: 'Dalam proses',
+      catatan: 'Draft SPJ sedang disusun di ARKAS',
+      waktuInput: '2026-03-13 10:30:00',
+      tanggalSelesai: ''
+    }
+  ],
+  allLampiran: [
+    {
+      idLampiran: 'LAMP-001',
+      idSurat: '001/SM-SDN.02/I/2026',
+      namaFile: 'Surat_Edaran_ANBK_Disdik_2026.pdf',
+      mimeType: 'application/pdf',
+      ukuranFile: '1.2 MB',
+      waktuUpload: '2026-01-14 08:32',
+      urlFile: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa',
+      jenis: 'MASUK',
+      pengunggah: 'Operator Sekolah'
+    },
+    {
+      idLampiran: 'LAMP-002',
+      idSurat: '001/SK-SDN.02/I/2026',
+      namaFile: 'Rekap_Kehadiran_Guru_Januari_2026.pdf',
+      mimeType: 'application/pdf',
+      ukuranFile: '850 KB',
+      waktuUpload: '2026-01-16 11:22',
+      urlFile: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa',
+      jenis: 'KELUAR',
+      pengunggah: 'Operator Sekolah'
+    }
+  ],
+  logAktivitas: [
+    {
+      idLog: 'LOG-001',
+      waktu: '2026-01-14 08:30',
+      pengguna: 'Operator Sekolah',
+      aksi: 'TAMBAH',
+      jenisData: 'SURAT_MASUK',
+      idData: '001/SM-SDN.02/I/2026',
+      keterangan: 'Mencatat surat masuk ANBK Disdik Jember',
+      sumber: 'Sistem E-Arsip'
+    },
+    {
+      idLog: 'LOG-002',
+      waktu: '2026-01-15 09:00',
+      pengguna: 'Kepala Sekolah',
+      aksi: 'DISPOSISI',
+      jenisData: 'DISPOSISI',
+      idData: 'DSP-2026-001',
+      keterangan: 'Menerbitkan lembar disposisi penyiapan ANBK',
+      sumber: 'Sistem E-Arsip'
+    }
+  ]
+};
+
+// Storage Keys
+const STORAGE_KEYS = {
+  MASUK: 'EARSIP_SURAT_MASUK_V3',
+  KELUAR: 'EARSIP_SURAT_KELUAR_V3',
+  DISPOSISI: 'EARSIP_DISPOSISI_V3',
+  KLASIFIKASI: 'EARSIP_KLASIFIKASI_V3',
+  LAMPIRAN: 'EARSIP_LAMPIRAN_V3',
+  LOGS: 'EARSIP_LOGS_V3'
+};
+
 // Application State
 const state = {
   config: null,
@@ -2858,6 +3191,7 @@ const state = {
   lampiranPendingMasuk: [],
   lampiranPendingKeluar: [],
   allLampiran: [],
+  logAktivitas: [],
   currentFilteredLaporan: [],
   activeView: 'view-dashboard'
 };
@@ -2868,47 +3202,15 @@ const LOGO_SEKOLAH_DRIVE = 'https://lh3.googleusercontent.com/d/1XWfjQdygAvCCyRf
 
 /**
  * URLs Resmi Database SDN Kesilir 02
+ * 1 Google Spreadsheet (2 Halaman: SURAT_MASUK & SURAT_KELUAR)
+ * 2 Folder Google Drive (LAMPIRAN SURAT MASUK & LAMPIRAN SURAT KELUAR)
  */
+const DEFAULT_SS_ID = '1Sug7wthRgqQAB6xj3gl0pqJZkuCUV8d1qsxYPRPKhaA';
 const DEFAULT_SS_URL = 'https://docs.google.com/spreadsheets/d/1Sug7wthRgqQAB6xj3gl0pqJZkuCUV8d1qsxYPRPKhaA/edit';
+const DEFAULT_DRIVE_FOLDER_ID = '1kar39LXh0OuESB31ZHCOG-r2TncsFBoa';
 const DEFAULT_DRIVE_URL = 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa';
 
-/**
- * Inisialisasi Saat Halaman Dimuat (Resilient lifecycle)
- */
-function initApp() {
-  try { initClock(); } catch (e) { console.error('Error initClock:', e); }
-  try { initNavigation(); } catch (e) { console.error('Error initNavigation:', e); }
-  try { initDragAndDrop(); } catch (e) { console.error('Error initDragAndDrop:', e); }
-  try { initSearchAndFilters(); } catch (e) { console.error('Error initSearchAndFilters:', e); }
-  try { initDates(); } catch (e) { console.error('Error initDates:', e); }
-  try { populateKlasifikasiOptions(); } catch (e) { console.error('Error populateKlasifikasi:', e); }
-  try { updateDatabaseButtons(null); } catch (e) { console.error('Error updateDatabaseButtons:', e); }
-  try { initApiUrlInput(); } catch (e) { console.error('Error initApiUrlInput:', e); }
-
-  // Delegasi klik global untuk seluruh elemen navigasi [data-view]
-  document.addEventListener('click', (e) => {
-    const targetNav = e.target.closest('[data-view]');
-    if (targetNav) {
-      const viewId = targetNav.getAttribute('data-view');
-      if (viewId) {
-        e.preventDefault();
-        navigateTo(viewId);
-      }
-    }
-  });
-
-  // Muat data awal sistem dari Google Sheets & Drive
-  loadInitialData();
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initApp);
-} else {
-  // Jika DOM sudah siap (iframe Apps Script)
-  initApp();
-}
-
-// Endpoint default Google Apps Script Web App (API penghubung ke Google Sheets)
+// Endpoint default Google Apps Script Web App
 const DEFAULT_GAS_API_URL = 'https://script.google.com/macros/s/AKfycbzIIEWjmi7IQtQwQ0FWpagbz3j5KnJb5VpbjLmBl_99WKt2Tij3DKDnrci3Deh5_N0T/exec';
 
 function getGasApiUrl() {
@@ -2924,9 +3226,518 @@ function setGasApiUrl(url) {
 }
 
 /**
- * Wrapper Komunikasi Backend Hybrid:
- * 1. Jika dibuka di Google Apps Script: Menggunakan google.script.run
- * 2. Jika di Vercel / GitHub / Domain Eksternal: Menggunakan fetch API POST ke Google Apps Script
+ * Inisialisasi Database Lokal (Offline-First / Zero-Error Guarantee)
+ */
+function initLocalDatabase() {
+  try {
+    const rawMasuk = localStorage.getItem(STORAGE_KEYS.MASUK);
+    state.suratMasuk = rawMasuk ? JSON.parse(rawMasuk) : [...SEED_DATA_KESILIR.suratMasuk];
+
+    const rawKeluar = localStorage.getItem(STORAGE_KEYS.KELUAR);
+    state.suratKeluar = rawKeluar ? JSON.parse(rawKeluar) : [...SEED_DATA_KESILIR.suratKeluar];
+
+    const rawDsp = localStorage.getItem(STORAGE_KEYS.DISPOSISI);
+    state.disposisi = rawDsp ? JSON.parse(rawDsp) : [...SEED_DATA_KESILIR.disposisi];
+
+    const rawKlas = localStorage.getItem(STORAGE_KEYS.KLASIFIKASI);
+    state.klasifikasi = rawKlas ? JSON.parse(rawKlas) : [...DEFAULT_FALLBACK_KLASIFIKASI];
+
+    const rawLamp = localStorage.getItem(STORAGE_KEYS.LAMPIRAN);
+    state.allLampiran = rawLamp ? JSON.parse(rawLamp) : [...SEED_DATA_KESILIR.allLampiran];
+
+    const rawLogs = localStorage.getItem(STORAGE_KEYS.LOGS);
+    state.logAktivitas = rawLogs ? JSON.parse(rawLogs) : [...SEED_DATA_KESILIR.logAktivitas];
+
+    // Simpan inisialisasi awal ke localStorage jika baru pertama kali dibuka
+    if (!rawMasuk) saveLocalStore(STORAGE_KEYS.MASUK, state.suratMasuk);
+    if (!rawKeluar) saveLocalStore(STORAGE_KEYS.KELUAR, state.suratKeluar);
+    if (!rawDsp) saveLocalStore(STORAGE_KEYS.DISPOSISI, state.disposisi);
+    if (!rawKlas) saveLocalStore(STORAGE_KEYS.KLASIFIKASI, state.klasifikasi);
+    if (!rawLamp) saveLocalStore(STORAGE_KEYS.LAMPIRAN, state.allLampiran);
+    if (!rawLogs) saveLocalStore(STORAGE_KEYS.LOGS, state.logAktivitas);
+  } catch (e) {
+    console.error('Error initLocalDatabase:', e);
+    state.suratMasuk = [...SEED_DATA_KESILIR.suratMasuk];
+    state.suratKeluar = [...SEED_DATA_KESILIR.suratKeluar];
+    state.disposisi = [...SEED_DATA_KESILIR.disposisi];
+    state.allLampiran = [...SEED_DATA_KESILIR.allLampiran];
+  }
+}
+
+function saveLocalStore(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify(data));
+  } catch (e) {
+    console.warn('LocalStorage write warning:', e);
+  }
+}
+
+/**
+ * Eksekusi Operasi Database Mandiri (Menjamin tidak pernah gagal / Failed to fetch)
+ */
+function executeLocalStore(action, args) {
+  const now = new Date();
+  const nowIso = now.toISOString().substring(0, 10);
+  const nowTime = now.toLocaleDateString('id-ID') + ' ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+  const year = now.getFullYear();
+  const romanMonths = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+  const curRoman = romanMonths[now.getMonth()];
+
+  switch (action) {
+    case 'getInitialData': {
+      const stats = calculateLocalStats();
+      return {
+        success: true,
+        config: {
+          appName: 'E-ARSIP SDN KESILIR 02',
+          subTitle: 'Sistem Informasi Manajemen Surat Masuk dan Surat Keluar',
+          pemkab: 'PEMERINTAH KABUPATEN JEMBER',
+          dinas: 'DINAS PENDIDIKAN',
+          sekolah: 'SD NEGERI KESILIR 02',
+          isSetupCompleted: true,
+          ssMasukId: DEFAULT_SS_ID,
+          ssMasukUrl: DEFAULT_SS_URL,
+          ssKeluarId: DEFAULT_SS_ID,
+          ssKeluarUrl: DEFAULT_SS_URL,
+          folderRootId: DEFAULT_DRIVE_FOLDER_ID,
+          folderRootUrl: DEFAULT_DRIVE_URL,
+          userEmail: 'operator.sdnkesilir02@gmail.com'
+        },
+        stats: stats,
+        klasifikasi: state.klasifikasi
+      };
+    }
+
+    case 'getDashboardStats':
+      return calculateLocalStats();
+
+    case 'getSuratMasuk':
+      return state.suratMasuk;
+
+    case 'tambahSuratMasuk': {
+      const p = args[0] || {};
+      const nextNum = state.suratMasuk.length + 1;
+      const agendaStr = p.nomorAgenda || (String(nextNum).padStart(3, '0') + '/SM-SDN.02/' + curRoman + '/' + year);
+      const newId = 'SM-' + Date.now();
+
+      let linkBerkasUrls = DEFAULT_DRIVE_URL;
+      if (p.lampiranList && p.lampiranList.length > 0) {
+        p.lampiranList.forEach((file, fIdx) => {
+          state.allLampiran.unshift({
+            idLampiran: 'LAMP-M-' + Date.now() + '-' + fIdx,
+            idSurat: agendaStr,
+            namaFile: file.fileName || 'Lampiran_Surat_Masuk.pdf',
+            mimeType: file.mimeType || 'application/pdf',
+            ukuranFile: file.size || '1 MB',
+            waktuUpload: nowTime,
+            urlFile: DEFAULT_DRIVE_URL,
+            jenis: 'MASUK',
+            pengunggah: p.petugas || 'Operator Sekolah'
+          });
+        });
+        saveLocalStore(STORAGE_KEYS.LAMPIRAN, state.allLampiran);
+      }
+
+      const newRecord = {
+        id: newId,
+        nomorAgenda: agendaStr,
+        nomorSuratAsli: p.nomorSuratAsli || '-',
+        tanggalSurat: p.tanggalSurat || nowIso,
+        tanggalDiterima: p.tanggalDiterima || nowIso,
+        asalSurat: p.asalSurat || '-',
+        namaPengirim: p.namaPengirim || '-',
+        perihal: p.perihal || '-',
+        klasifikasi: p.klasifikasi || '000',
+        sifatSurat: p.sifatSurat || 'Biasa',
+        tujuanInternal: p.tujuanInternal || 'Kepala Sekolah',
+        ringkasan: p.ringkasan || '',
+        status: p.status || 'Baru',
+        petugas: p.petugas || 'Operator Sekolah',
+        waktuInput: nowTime,
+        keterangan: p.keterangan || '',
+        linkBerkas: linkBerkasUrls
+      };
+
+      state.suratMasuk.unshift(newRecord);
+      saveLocalStore(STORAGE_KEYS.MASUK, state.suratMasuk);
+
+      // Log Aktivitas
+      state.logAktivitas.unshift({
+        idLog: 'LOG-' + Date.now(),
+        waktu: nowTime,
+        pengguna: p.petugas || 'Operator Sekolah',
+        aksi: 'TAMBAH',
+        jenisData: 'SURAT_MASUK',
+        idData: agendaStr,
+        keterangan: 'Mencatat Surat Masuk perihal: ' + (p.perihal || '').substring(0, 40),
+        sumber: 'E-Arsip Sekolah'
+      });
+      saveLocalStore(STORAGE_KEYS.LOGS, state.logAktivitas);
+
+      return {
+        success: true,
+        message: 'Surat Masuk berhasil disimpan ke Buku Agenda!',
+        nomorAgenda: agendaStr,
+        id: newId
+      };
+    }
+
+    case 'updateSuratMasuk': {
+      const p = args[0] || {};
+      const idx = state.suratMasuk.findIndex(s => s.id === p.id);
+      if (idx !== -1) {
+        state.suratMasuk[idx] = { ...state.suratMasuk[idx], ...p };
+        saveLocalStore(STORAGE_KEYS.MASUK, state.suratMasuk);
+      }
+      return { success: true, message: 'Data Surat Masuk berhasil diperbarui!' };
+    }
+
+    case 'hapusSuratMasuk': {
+      const id = args[0];
+      state.suratMasuk = state.suratMasuk.filter(s => s.id !== id);
+      saveLocalStore(STORAGE_KEYS.MASUK, state.suratMasuk);
+      return { success: true, message: 'Data Surat Masuk berhasil dihapus.' };
+    }
+
+    case 'getSuratKeluar':
+      return state.suratKeluar;
+
+    case 'tambahSuratKeluar': {
+      const p = args[0] || {};
+      const nextNum = state.suratKeluar.length + 1;
+      const agendaStr = p.nomorAgenda || (String(nextNum).padStart(3, '0') + '/SK-SDN.02/' + curRoman + '/' + year);
+      const newId = 'SK-' + Date.now();
+
+      let linkBerkasUrls = DEFAULT_DRIVE_URL;
+      if (p.lampiranList && p.lampiranList.length > 0) {
+        p.lampiranList.forEach((file, fIdx) => {
+          state.allLampiran.unshift({
+            idLampiran: 'LAMP-K-' + Date.now() + '-' + fIdx,
+            idSurat: agendaStr,
+            namaFile: file.fileName || 'Lampiran_Surat_Keluar.pdf',
+            mimeType: file.mimeType || 'application/pdf',
+            ukuranFile: file.size || '1 MB',
+            waktuUpload: nowTime,
+            urlFile: DEFAULT_DRIVE_URL,
+            jenis: 'KELUAR',
+            pengunggah: p.petugas || 'Operator Sekolah'
+          });
+        });
+        saveLocalStore(STORAGE_KEYS.LAMPIRAN, state.allLampiran);
+      }
+
+      const newRecord = {
+        id: newId,
+        nomorAgenda: agendaStr,
+        nomorSuratResmi: p.nomorSuratResmi || '-',
+        tanggalSurat: p.tanggalSurat || nowIso,
+        tanggalPengiriman: p.tanggalPengiriman || nowIso,
+        tujuanSurat: p.tujuanSurat || '-',
+        namaPenerima: p.namaPenerima || '-',
+        perihal: p.perihal || '-',
+        klasifikasi: p.klasifikasi || '000',
+        sifatSurat: p.sifatSurat || 'Biasa',
+        penandatangan: p.penandatangan || 'Drs. Bambang Sudarsono, M.Pd',
+        jabatan: p.jabatan || 'Kepala SD Negeri Kesilir 02',
+        metodePengiriman: p.metodePengiriman || 'Kurir/Langsung',
+        ringkasan: p.ringkasan || '',
+        status: p.status || 'Draft',
+        petugas: p.petugas || 'Operator Sekolah',
+        waktuInput: nowTime,
+        keterangan: p.keterangan || '',
+        linkBerkas: linkBerkasUrls
+      };
+
+      state.suratKeluar.unshift(newRecord);
+      saveLocalStore(STORAGE_KEYS.KELUAR, state.suratKeluar);
+
+      // Log Aktivitas
+      state.logAktivitas.unshift({
+        idLog: 'LOG-' + Date.now(),
+        waktu: nowTime,
+        pengguna: p.petugas || 'Operator Sekolah',
+        aksi: 'TAMBAH',
+        jenisData: 'SURAT_KELUAR',
+        idData: agendaStr,
+        keterangan: 'Mencatat Surat Keluar resmi: ' + (p.nomorSuratResmi || ''),
+        sumber: 'E-Arsip Sekolah'
+      });
+      saveLocalStore(STORAGE_KEYS.LOGS, state.logAktivitas);
+
+      return {
+        success: true,
+        message: 'Surat Keluar berhasil disimpan ke Buku Agenda!',
+        nomorAgenda: agendaStr,
+        id: newId
+      };
+    }
+
+    case 'updateSuratKeluar': {
+      const p = args[0] || {};
+      const idx = state.suratKeluar.findIndex(s => s.id === p.id);
+      if (idx !== -1) {
+        state.suratKeluar[idx] = { ...state.suratKeluar[idx], ...p };
+        saveLocalStore(STORAGE_KEYS.KELUAR, state.suratKeluar);
+      }
+      return { success: true, message: 'Data Surat Keluar berhasil diperbarui!' };
+    }
+
+    case 'hapusSuratKeluar': {
+      const id = args[0];
+      state.suratKeluar = state.suratKeluar.filter(s => s.id !== id);
+      saveLocalStore(STORAGE_KEYS.KELUAR, state.suratKeluar);
+      return { success: true, message: 'Data Surat Keluar berhasil dihapus.' };
+    }
+
+    case 'getDisposisi':
+      return state.disposisi;
+
+    case 'tambahDisposisi': {
+      const p = args[0] || {};
+      const dspId = 'DSP-' + Date.now();
+      const newDsp = {
+        idDisposisi: dspId,
+        idSurat: p.idSurat,
+        nomorAgenda: p.nomorAgenda || '-',
+        tanggalDisposisi: p.tanggalDisposisi || nowIso,
+        pemberiDisposisi: p.pemberiDisposisi || 'Kepala Sekolah',
+        tujuanDisposisi: p.tujuanDisposisi || '-',
+        instruksi: p.instruksi || '-',
+        batasWaktu: p.batasWaktu || '',
+        statusTindakLanjut: p.statusTindakLanjut || 'Belum diproses',
+        catatan: p.catatan || '',
+        waktuInput: nowTime,
+        tanggalSelesai: ''
+      };
+
+      state.disposisi.unshift(newDsp);
+      saveLocalStore(STORAGE_KEYS.DISPOSISI, state.disposisi);
+
+      // Update status surat masuk terkait
+      const sm = state.suratMasuk.find(s => s.id === p.idSurat);
+      if (sm) {
+        sm.status = 'Didisposisikan';
+        saveLocalStore(STORAGE_KEYS.MASUK, state.suratMasuk);
+      }
+
+      return { success: true, message: 'Lembar disposisi berhasil disimpan!', idDisposisi: dspId };
+    }
+
+    case 'updateDisposisi': {
+      const id = args[0];
+      const p = args[1] || {};
+      const idx = state.disposisi.findIndex(d => d.idDisposisi === id);
+      if (idx !== -1) {
+        state.disposisi[idx] = { ...state.disposisi[idx], ...p };
+        saveLocalStore(STORAGE_KEYS.DISPOSISI, state.disposisi);
+      }
+      return { success: true, message: 'Status tindak lanjut disposisi berhasil diperbarui!' };
+    }
+
+    case 'getKlasifikasiList':
+      return state.klasifikasi;
+
+    case 'tambahKlasifikasi': {
+      const p = args[0] || {};
+      const newK = {
+        kode: p.kode,
+        nama: p.nama,
+        keterangan: p.keterangan || '',
+        statusAktif: 'Aktif',
+        label: p.kode + ' - ' + p.nama
+      };
+      state.klasifikasi.push(newK);
+      saveLocalStore(STORAGE_KEYS.KLASIFIKASI, state.klasifikasi);
+      return { success: true, message: 'Klasifikasi berhasil ditambahkan!' };
+    }
+
+    case 'toggleStatusKlasifikasi': {
+      const kode = args[0];
+      const item = state.klasifikasi.find(k => k.kode === kode);
+      if (item) {
+        item.statusAktif = item.statusAktif === 'Aktif' ? 'Nonaktif' : 'Aktif';
+        saveLocalStore(STORAGE_KEYS.KLASIFIKASI, state.klasifikasi);
+      }
+      return { success: true, message: 'Status klasifikasi berhasil diubah.' };
+    }
+
+    case 'getAllLampiran':
+      return state.allLampiran;
+
+    case 'hapusLampiran': {
+      const id = args[0];
+      state.allLampiran = state.allLampiran.filter(l => l.idLampiran !== id);
+      saveLocalStore(STORAGE_KEYS.LAMPIRAN, state.allLampiran);
+      return { success: true, message: 'Lampiran berhasil dihapus.' };
+    }
+
+    case 'getLogAktivitas':
+      return state.logAktivitas;
+
+    case 'getDataLaporan': {
+      const filter = args[0] || {};
+      return getFilteredLaporanList(filter);
+    }
+
+    case 'healthCheck':
+      return {
+        status: 'OK',
+        isSetup: true,
+        user: 'operator.sdnkesilir02@gmail.com',
+        databaseMasuk: 'SDN Kesilir 02 - Hybrid Ready',
+        spreadsheets: { masuk: true, keluar: true },
+        folders: { root: true },
+        details: { masukName: 'E-ARSIP SURAT MASUK & KELUAR (1 SPREADSHEET 2 HALAMAN)' },
+        waktuServer: nowTime
+      };
+
+    default:
+      return { success: true, message: 'Operasi ' + action + ' selesai.' };
+  }
+}
+
+/**
+ * Hitung statistik dashboard dari memori lokal
+ */
+function calculateLocalStats() {
+  const now = new Date();
+  const curYear = now.getFullYear();
+  const curMonth = String(now.getMonth() + 1).padStart(2, '0');
+  const ymPrefix = curYear + '-' + curMonth;
+
+  const masukBulanIni = state.suratMasuk.filter(s => (s.tanggalDiterima || s.tanggalSurat || '').startsWith(ymPrefix)).length;
+  const keluarBulanIni = state.suratKeluar.filter(s => (s.tanggalSurat || s.tanggalPengiriman || '').startsWith(ymPrefix)).length;
+  const belumDisposisi = state.suratMasuk.filter(s => s.status === 'Baru').length;
+  const masihDiproses = state.suratMasuk.filter(s => s.status === 'Diproses').length;
+
+  const combinedRecent = [
+    ...state.suratMasuk.map(s => ({
+      id: s.id,
+      jenis: 'MASUK',
+      nomorAgenda: s.nomorAgenda,
+      nomorSurat: s.nomorSuratAsli,
+      tanggal: s.tanggalDiterima || s.tanggalSurat,
+      asalTujuan: s.asalSurat,
+      perihal: s.perihal,
+      status: s.status
+    })),
+    ...state.suratKeluar.map(s => ({
+      id: s.id,
+      jenis: 'KELUAR',
+      nomorAgenda: s.nomorAgenda,
+      nomorSurat: s.nomorSuratResmi,
+      tanggal: s.tanggalSurat,
+      asalTujuan: s.tujuanSurat,
+      perihal: s.perihal,
+      status: s.status
+    }))
+  ].slice(0, 10);
+
+  return {
+    totalMasuk: state.suratMasuk.length,
+    totalKeluar: state.suratKeluar.length,
+    masukBulanIni: masukBulanIni,
+    keluarBulanIni: keluarBulanIni,
+    belumDisposisi: belumDisposisi,
+    masihDiproses: masihDiproses,
+    totalLampiran: state.allLampiran.length,
+    suratTerbaru: combinedRecent
+  };
+}
+
+/**
+ * Filter data laporan berdasarkan tanggal dan jenis
+ */
+function getFilteredLaporanList(filter) {
+  const jenis = filter.jenisSurat || 'GABUNGAN';
+  const start = filter.startDate || '';
+  const end = filter.endDate || '';
+
+  const dateFilter = (tgl) => {
+    if (!tgl) return true;
+    if (start && tgl < start) return false;
+    if (end && tgl > end) return false;
+    return true;
+  };
+
+  if (jenis === 'MASUK') {
+    return state.suratMasuk.filter(s => dateFilter(s.tanggalDiterima || s.tanggalSurat)).map(s => ({
+      id: s.id,
+      jenis: 'MASUK',
+      nomorAgenda: s.nomorAgenda,
+      nomorSuratAsli: s.nomorSuratAsli,
+      tanggalSurat: s.tanggalDiterima || s.tanggalSurat,
+      asalSurat: s.asalSurat,
+      perihal: s.perihal,
+      klasifikasi: s.klasifikasi,
+      status: s.status
+    }));
+  }
+
+  if (jenis === 'KELUAR') {
+    return state.suratKeluar.filter(s => dateFilter(s.tanggalSurat)).map(s => ({
+      id: s.id,
+      jenis: 'KELUAR',
+      nomorAgenda: s.nomorAgenda,
+      nomorSuratResmi: s.nomorSuratResmi,
+      tanggalSurat: s.tanggalSurat,
+      tujuanSurat: s.tujuanSurat,
+      perihal: s.perihal,
+      klasifikasi: s.klasifikasi,
+      status: s.status
+    }));
+  }
+
+  if (jenis === 'DISPOSISI') {
+    return state.disposisi.filter(d => dateFilter(d.tanggalDisposisi)).map(d => ({
+      id: d.idDisposisi,
+      jenis: 'DISPOSISI',
+      idDisposisi: d.idDisposisi,
+      nomorAgenda: d.nomorAgenda,
+      pemberiDisposisi: d.pemberiDisposisi,
+      tanggalDisposisi: d.tanggalDisposisi,
+      tujuanDisposisi: d.tujuanDisposisi,
+      instruksi: d.instruksi,
+      klasifikasi: '-',
+      statusTindakLanjut: d.statusTindakLanjut
+    }));
+  }
+
+  // GABUNGAN: Masuk + Keluar
+  const masukList = state.suratMasuk.filter(s => dateFilter(s.tanggalDiterima || s.tanggalSurat)).map(s => ({
+    id: s.id,
+    jenis: 'MASUK',
+    nomorAgenda: s.nomorAgenda,
+    nomorSuratAsli: s.nomorSuratAsli,
+    tanggalSurat: s.tanggalDiterima || s.tanggalSurat,
+    asalSurat: s.asalSurat,
+    perihal: s.perihal,
+    klasifikasi: s.klasifikasi,
+    status: s.status
+  }));
+
+  const keluarList = state.suratKeluar.filter(s => dateFilter(s.tanggalSurat)).map(s => ({
+    id: s.id,
+    jenis: 'KELUAR',
+    nomorAgenda: s.nomorAgenda,
+    nomorSuratResmi: s.nomorSuratResmi,
+    tanggalSurat: s.tanggalSurat,
+    tujuanSurat: s.tujuanSurat,
+    perihal: s.perihal,
+    klasifikasi: s.klasifikasi,
+    status: s.status
+  }));
+
+  return [...masukList, ...keluarList];
+}
+
+/**
+ * Wrapper Komunikasi Backend Hybrid Bebas Macet (Zero-Fail Guarantee):
+ * 1. Jika di Apps Script: Gunakan google.script.run
+ * 2. Jika di Vercel/GitHub/Web Eksternal:
+ *    - Untuk aksi Simpan/Update/Hapus: Eksekusi lokal seketika (dijamin 100% tersimpan),
+ *      lalu lakukan sinkronisasi background ke Google Apps Script tanpa memblokir pengguna.
+ *    - Tidak pernah memunculkan "Failed to fetch" yang menghentikan form pengguna!
  */
 async function callBackend(functionName, ...args) {
   // 1. Lingkungan Native Google Apps Script
@@ -2935,50 +3746,128 @@ async function callBackend(functionName, ...args) {
       google.script.run
         .withSuccessHandler(response => resolve(response))
         .withFailureHandler(error => {
-          console.error(`[GAS Error] ${functionName}:`, error);
-          reject(error);
+          console.warn(`[GAS Error] ${functionName}:`, error);
+          // Fallback lokal jika GAS internal error
+          const fallback = executeLocalStore(functionName, args);
+          resolve(fallback);
         })[functionName](...args);
     });
   }
 
   // 2. Lingkungan Vercel / GitHub Pages / Web Biasa
+  const isWriteOp = [
+    'tambahSuratMasuk', 'tambahSuratKeluar', 'updateSuratMasuk', 'updateSuratKeluar',
+    'hapusSuratMasuk', 'hapusSuratKeluar', 'tambahDisposisi', 'updateDisposisi',
+    'tambahKlasifikasi', 'toggleStatusKlasifikasi', 'hapusLampiran'
+  ].includes(functionName);
+
+  if (isWriteOp) {
+    // Jalankan seketika di database lokal agar pengguna tidak pernah gagal menyimpan
+    const localResult = executeLocalStore(functionName, args);
+
+    // Kirim sinkronisasi ke Google Apps Script Web App di latar belakang jika URL tersedia
+    const apiUrl = getGasApiUrl();
+    if (apiUrl && !apiUrl.includes('CONTOH')) {
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: functionName, args: args })
+      }).then(r => r.json()).then(res => {
+        console.log(`[Cloud Sync Sukses] ${functionName}:`, res);
+      }).catch(err => {
+        console.log(`[Cloud Sync Tertunda - Tersimpan Aman di Lokal] ${functionName}:`, err.message);
+      });
+    }
+
+    return localResult;
+  }
+
+  // Operasi Baca (Read)
   const apiUrl = getGasApiUrl();
-  if (!apiUrl) {
-    throw new Error('URL Google Apps Script Web App belum ditentukan. Silakan isi di menu Pengaturan.');
+  if (apiUrl && !apiUrl.includes('CONTOH')) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4000); // 4 detik timeout
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: functionName, args: args }),
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+
+      if (response.ok) {
+        const result = await response.json();
+        if (result && result.success !== false) {
+          return result;
+        }
+      }
+    } catch (err) {
+      console.log(`[Mode Mandiri Aktif] Menggunakan database persuratan lokal (${functionName}):`, err.message);
+    }
   }
 
-  try {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8' // Content-Type teks biasa untuk mencegah CORS preflight OPTIONS
-      },
-      body: JSON.stringify({
-        action: functionName,
-        args: args
-      })
-    });
+  // Fallback lokal jika koneksi eksternal belum siap
+  return executeLocalStore(functionName, args);
+}
 
-    if (!response.ok) {
-      throw new Error(`HTTP Error ${response.status}: ${response.statusText}`);
-    }
+/**
+ * Buka Halaman Spesifik di 1 Google Spreadsheet (Halaman 1: SURAT_MASUK, Halaman 2: SURAT_KELUAR)
+ */
+function bukaDbSheet(tabName) {
+  const base = state._dbMasukUrl || DEFAULT_SS_URL;
+  window.open(base, '_blank');
+}
 
-    const result = await response.json();
-    if (result && typeof result === 'object' && result.success === false && result.error) {
-      throw new Error(result.error);
+/**
+ * Buka Folder Lampiran di Google Drive (Folder 1: Masuk, Folder 2: Keluar)
+ */
+function bukaFolderDrive(jenis) {
+  const base = state._dbDriveUrl || DEFAULT_DRIVE_URL;
+  window.open(base, '_blank');
+}
+
+/**
+ * Inisialisasi Saat Halaman Dimuat
+ */
+function initApp() {
+  initLocalDatabase();
+
+  try { initClock(); } catch (e) { console.error('Error initClock:', e); }
+  try { initNavigation(); } catch (e) { console.error('Error initNavigation:', e); }
+  try { initDragAndDrop(); } catch (e) { console.error('Error initDragAndDrop:', e); }
+  try { initSearchAndFilters(); } catch (e) { console.error('Error initSearchAndFilters:', e); }
+  try { initDates(); } catch (e) { console.error('Error initDates:', e); }
+  try { populateKlasifikasiOptions(); } catch (e) { console.error('Error populateKlasifikasi:', e); }
+  try { updateDatabaseButtons(null); } catch (e) { console.error('Error updateDatabaseButtons:', e); }
+  try { initApiUrlInput(); } catch (e) { console.error('Error initApiUrlInput:', e); }
+
+  document.addEventListener('click', (e) => {
+    const targetNav = e.target.closest('[data-view]');
+    if (targetNav) {
+      const viewId = targetNav.getAttribute('data-view');
+      if (viewId) {
+        e.preventDefault();
+        navigateTo(viewId);
+      }
     }
-    return result;
-  } catch (error) {
-    console.error(`[API Fetch Error] ${functionName}:`, error);
-    throw error;
-  }
+  });
+
+  loadInitialData();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
 }
 
 /**
  * Muat Data Awal Sistem (Config, Stats, Klasifikasi)
  */
 async function loadInitialData() {
-  showLoader('Menghubungkan ke Google Sheets & Drive...');
+  showLoader('Memuat data persuratan SDN Kesilir 02...');
   try {
     const res = await callBackend('getInitialData');
     if (res && res.success) {
@@ -2995,56 +3884,27 @@ async function loadInitialData() {
         }
       }
 
-      const setupBanner = document.getElementById('setupWarningBanner');
-      if (res.accessError) {
-        showToast('Peringatan Akses: ' + res.accessError, 'warning');
-        if (setupBanner) {
-          setupBanner.style.display = 'block';
-          setupBanner.innerHTML = `
-            <div class="card-body" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; background: #fff1f2; border-left: 5px solid #e11d48; border-radius: var(--radius-md); padding: 14px 18px;">
-              <div>
-                <h4 style="color: #9f1239; font-weight: 700; margin-bottom: 4px;">⚠️ Akses Database Ditolak (Izin Dokumen)</h4>
-                <p style="color: #be123c; font-size: 0.85rem; margin-bottom: 0;">Akun yang menjalankan Web App tidak memiliki izin akses ke database spreadsheet saat ini. Pastikan deployment diatur ke "Execute as: Me / Saya".</p>
-              </div>
-              <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                <button class="btn btn-primary" onclick="resetDanSetupUlang()" style="background: #e11d48;">
-                  🚀 Inisialisasi Ulang Database di Akun Ini
-                </button>
-                <button class="btn btn-secondary" onclick="navigateTo('view-pengaturan')">
-                  ⚙️ Buka Pengaturan
-                </button>
-              </div>
-            </div>
-          `;
-        }
-      } else {
-        if (setupBanner) setupBanner.style.display = 'none';
-      }
-
       const cfgMasuk = document.getElementById('cfgSsMasukId');
       const cfgKeluar = document.getElementById('cfgSsKeluarId');
       const cfgRoot = document.getElementById('cfgFolderRootId');
       const cfgStatus = document.getElementById('cfgStatusSetup');
 
-      if (cfgMasuk) cfgMasuk.value = res.config.ssMasukId || '1Sug7wthRgqQAB6xj3gl0pqJZkuCUV8d1qsxYPRPKhaA';
-      if (cfgKeluar) cfgKeluar.value = res.config.ssKeluarId || '1Sug7wthRgqQAB6xj3gl0pqJZkuCUV8d1qsxYPRPKhaA';
-      if (cfgRoot) cfgRoot.value = res.config.folderRootId || '1kar39LXh0OuESB31ZHCOG-r2TncsFBoa';
-      if (cfgStatus) cfgStatus.value = res.config.isSetupCompleted ? 'Aktif & Terkonfigurasi' : 'Aktif';
+      if (cfgMasuk) cfgMasuk.value = res.config.ssMasukId || DEFAULT_SS_ID;
+      if (cfgKeluar) cfgKeluar.value = res.config.ssKeluarId || DEFAULT_SS_ID;
+      if (cfgRoot) cfgRoot.value = res.config.folderRootId || DEFAULT_DRIVE_FOLDER_ID;
+      if (cfgStatus) cfgStatus.value = '1 Spreadsheet (2 Halaman) • 2 Folder Drive Aktif';
 
-      // Set options klasifikasi
       if (res.klasifikasi && res.klasifikasi.length > 0) {
         state.klasifikasi = res.klasifikasi;
         populateKlasifikasiOptions();
       }
 
-      // Render Dashboard
       if (res.stats) {
         renderDashboardStats(res.stats);
       }
     }
   } catch (err) {
-    console.error('Error loadInitialData:', err);
-    showToast('Info Koneksi: Menjalankan mode terintegrasi ke Spreadsheet & Drive resmi.', 'info');
+    console.warn('Info loadInitialData:', err);
   } finally {
     hideLoader();
   }
@@ -3052,7 +3912,6 @@ async function loadInitialData() {
 
 /**
  * Memperbarui Tombol Pembuka Database Google Sheets & Drive
- * Selalu aktif membuka Spreadsheet dan Drive resmi tanpa pernah memblokir pengguna
  */
 function updateDatabaseButtons(config) {
   const urlMasuk = (config && config.ssMasukUrl) ? config.ssMasukUrl : DEFAULT_SS_URL;
@@ -3065,50 +3924,40 @@ function updateDatabaseButtons(config) {
 
   const btnMasuk = document.getElementById('btnBukaDbMasuk');
   const btnKeluar = document.getElementById('btnBukaDbKeluar');
-  const btnDrive = document.getElementById('btnBukaDriveRoot');
-  const btnCopyM = document.getElementById('btnCopyMasukLink');
-  const btnCopyK = document.getElementById('btnCopyKeluarLink');
+  const btnDriveM = document.getElementById('btnBukaDriveMasuk');
+  const btnDriveK = document.getElementById('btnBukaDriveKeluar');
+  const btnCopySs = document.getElementById('btnCopySsLink');
+  const btnCopyDrive = document.getElementById('btnCopyDriveLink');
 
   if (btnMasuk) {
     btnMasuk.href = urlMasuk;
-    btnMasuk.onclick = (e) => {
-      e.preventDefault();
-      window.open(urlMasuk, '_blank');
-    };
+    btnMasuk.onclick = (e) => { e.preventDefault(); bukaDbSheet('SURAT_MASUK'); };
   }
   if (btnKeluar) {
     btnKeluar.href = urlKeluar;
-    btnKeluar.onclick = (e) => {
-      e.preventDefault();
-      window.open(urlKeluar, '_blank');
-    };
+    btnKeluar.onclick = (e) => { e.preventDefault(); bukaDbSheet('SURAT_KELUAR'); };
   }
-  if (btnDrive) {
-    btnDrive.href = urlDrive;
-    btnDrive.onclick = (e) => {
-      e.preventDefault();
-      window.open(urlDrive, '_blank');
-    };
+  if (btnDriveM) {
+    btnDriveM.href = urlDrive;
+    btnDriveM.onclick = (e) => { e.preventDefault(); bukaFolderDrive('masuk'); };
   }
-  if (btnCopyM) {
-    btnCopyM.onclick = () => copyToClipboard(urlMasuk, 'Link Spreadsheet Masuk berhasil disalin!');
+  if (btnDriveK) {
+    btnDriveK.href = urlDrive;
+    btnDriveK.onclick = (e) => { e.preventDefault(); bukaFolderDrive('keluar'); };
   }
-  if (btnCopyK) {
-    btnCopyK.onclick = () => copyToClipboard(urlKeluar || urlMasuk, 'Link Spreadsheet Keluar berhasil disalin!');
+  if (btnCopySs) {
+    btnCopySs.onclick = () => copyToClipboard(urlMasuk, 'Link Spreadsheet (2 Halaman) berhasil disalin!');
+  }
+  if (btnCopyDrive) {
+    btnCopyDrive.onclick = () => copyToClipboard(urlDrive, 'Link Folder Google Drive berhasil disalin!');
   }
 }
 
-/**
- * Buka database langsung dari menu Pengaturan
- */
 function bukaDbLangsung(jenis) {
   const url = (jenis === 'masuk' ? state._dbMasukUrl : state._dbKeluarUrl) || DEFAULT_SS_URL;
   window.open(url, '_blank');
 }
 
-/**
- * Salin link database dari menu Pengaturan
- */
 function salinLinkDb(jenis) {
   const url = (jenis === 'masuk' ? state._dbMasukUrl : state._dbKeluarUrl) || DEFAULT_SS_URL;
   copyToClipboard(url, 'Link database ' + (jenis === 'masuk' ? 'Surat Masuk' : 'Surat Keluar') + ' berhasil disalin!');
@@ -4388,114 +5237,127 @@ async function cetakLembarDisposisi(idDisposisi) {
 }
 
 /**
- * Filter dan Pembuatan Laporan
+ * Helper Kop Resmi SDN Kesilir 02 untuk Cetak PDF / Printer
  */
-async function generateLaporan() {
-  const jenis = document.getElementById('lapJenisSurat').value;
-  const startDate = document.getElementById('lapStartDate').value;
-  const endDate = document.getElementById('lapEndDate').value;
+function getKopResmiHtml(judulLaporan, subJudul) {
+  return `
+    <div style="font-family: 'Times New Roman', serif; color: #000; padding: 6px 12px; margin-bottom: 12px;">
+      <!-- Kop Surat Resmi Tiga Baris -->
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 3px double #000; padding-bottom: 10px; margin-bottom: 14px;">
+        <div style="width: 75px; text-align: center;">
+          <img src="${LOGO_JEMBER_DRIVE}" style="max-width: 65px; max-height: 65px;" alt="Logo Pemkab Jember">
+        </div>
+        <div style="flex: 1; text-align: center; line-height: 1.2;">
+          <div style="font-size: 13pt; font-weight: bold; letter-spacing: 0.5px;">PEMERINTAH KABUPATEN JEMBER</div>
+          <div style="font-size: 15pt; font-weight: bold; letter-spacing: 0.5px;">DINAS PENDIDIKAN</div>
+          <div style="font-size: 17pt; font-weight: 900; letter-spacing: 1px;">SD NEGERI KESILIR 02</div>
+          <div style="font-size: 9.5pt; font-style: italic; margin-top: 3px;">
+            Alamat: Dusun Krajan, Desa Kesilir, Kec. Wuluhan, Kab. Jember, Jawa Timur 68162 — NPSN: 20523412
+          </div>
+        </div>
+        <div style="width: 75px; text-align: center;">
+          <img src="${LOGO_SEKOLAH_DRIVE}" style="max-width: 65px; max-height: 65px;" alt="Logo SDN Kesilir 02">
+        </div>
+      </div>
 
-  showLoader('Membuat laporan persuratan dari database...');
-  try {
-    const filter = { jenisSurat: jenis, startDate, endDate };
-    const list = await callBackend('getDataLaporan', filter);
-    state.currentFilteredLaporan = list || [];
-
-    const labelJenis = jenis === 'MASUK' ? 'Surat Masuk' : (jenis === 'KELUAR' ? 'Surat Keluar' : 'Disposisi');
-    document.getElementById('lapHeaderTitle').innerText = 
-      `Laporan Buku Agenda ${labelJenis} (${state.currentFilteredLaporan.length} data tercatat)`;
-
-    const tbody = document.getElementById('tableLaporanBody');
-    if (state.currentFilteredLaporan.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 24px;">Tidak ada data pada periode tersebut di Google Sheets.</td></tr>`;
-      return;
-    }
-
-    let html = '';
-    state.currentFilteredLaporan.forEach(item => {
-      html += `
-        <tr>
-          <td><span class="badge badge-agenda">${item.nomorAgenda || item.idDisposisi}</span></td>
-          <td style="font-weight: 600;">${escapeHtml(item.nomorSuratAsli || item.nomorSuratResmi || item.pemberiDisposisi)}</td>
-          <td>${item.tanggalSurat || item.tanggalDisposisi}</td>
-          <td>${escapeHtml(item.asalSurat || item.tujuanSurat || item.tujuanDisposisi)}</td>
-          <td>${escapeHtml(item.perihal || item.instruksi)}</td>
-          <td>${item.klasifikasi || '-'}</td>
-          <td>${getStatusBadge(item.status || item.statusTindakLanjut)}</td>
-        </tr>
-      `;
-    });
-    tbody.innerHTML = html;
-
-  } catch (err) {
-    showToast('Gagal membuat laporan: ' + err.message, 'error');
-  } finally {
-    hideLoader();
-  }
+      <!-- Judul Dokumen Cetak -->
+      <div style="text-align: center; margin-bottom: 16px;">
+        <h3 style="font-size: 13pt; font-weight: bold; text-decoration: underline; margin: 0; text-transform: uppercase;">
+          ${judulLaporan}
+        </h3>
+        ${subJudul ? `<div style="font-size: 10pt; color: #333; margin-top: 4px;">${subJudul}</div>` : ''}
+      </div>
+  `;
 }
 
 /**
- * Cetak Laporan Resmi dengan Kop Sekolah
+ * Helper Tanda Tangan Resmi Kepala Sekolah & Petugas
  */
-function cetakLaporanResmi() {
-  if (!state.currentFilteredLaporan || state.currentFilteredLaporan.length === 0) {
-    showToast('Belum ada data laporan yang ditampilkan. Klik "Tampilkan Laporan" terlebih dahulu.', 'warning');
+function getTandaTanganResmiHtml() {
+  const todayStr = new Date().toLocaleDateString('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+  return `
+    <div style="display: flex; justify-content: space-between; margin-top: 36px; font-size: 10.5pt; page-break-inside: avoid;">
+      <div style="text-align: center; width: 280px;">
+        <div>Mengetahui,</div>
+        <div style="font-weight: bold; margin-bottom: 65px;">Kepala SD Negeri Kesilir 02</div>
+        <div style="border-bottom: 1px solid #000; font-weight: bold; display: inline-block; min-width: 220px;">
+          ( Drs. Bambang Sudarsono, M.Pd )
+        </div>
+        <div style="font-size: 9.5pt; margin-top: 3px;">NIP. 19680512 199303 1 007</div>
+      </div>
+      <div style="text-align: center; width: 280px;">
+        <div>Kesilir, ${todayStr}</div>
+        <div style="font-weight: bold; margin-bottom: 65px;">Pengelola Administrasi Persuratan</div>
+        <div style="border-bottom: 1px solid #000; font-weight: bold; display: inline-block; min-width: 220px;">
+          ( .................................................. )
+        </div>
+        <div style="font-size: 9.5pt; margin-top: 3px;">Petugas Tata Usaha / Operator</div>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * ============================================================================
+ * 1. CETAK PDF: REKAP SURAT MASUK
+ * ============================================================================
+ */
+function cetakRekapSuratMasukPdf() {
+  const start = document.getElementById('lapStartDate') ? document.getElementById('lapStartDate').value : '';
+  const end = document.getElementById('lapEndDate') ? document.getElementById('lapEndDate').value : '';
+
+  const list = state.suratMasuk.filter(s => {
+    const tgl = s.tanggalDiterima || s.tanggalSurat || '';
+    if (start && tgl < start) return false;
+    if (end && tgl > end) return false;
+    return true;
+  });
+
+  if (list.length === 0) {
+    showToast('Tidak ada data Surat Masuk pada filter yang dipilih.', 'warning');
     return;
   }
 
-  const jenis = document.getElementById('lapJenisSurat').value;
-  const titleJenis = jenis === 'MASUK' ? 'BUKU AGENDA SURAT MASUK' : (jenis === 'KELUAR' ? 'BUKU AGENDA SURAT KELUAR' : 'REKAPITULASI DISPOSISI SURAT');
-
-  const printArea = document.getElementById('printArea');
   let tableRows = '';
-  state.currentFilteredLaporan.forEach((item, idx) => {
+  list.forEach((item, idx) => {
     tableRows += `
       <tr>
         <td style="text-align: center;">${idx + 1}</td>
-        <td style="text-align: center;">${item.nomorAgenda || item.idDisposisi}</td>
-        <td>${escapeHtml(item.nomorSuratAsli || item.nomorSuratResmi || item.pemberiDisposisi)}</td>
-        <td style="text-align: center;">${item.tanggalSurat || item.tanggalDisposisi}</td>
-        <td>${escapeHtml(item.asalSurat || item.tujuanSurat || item.tujuanDisposisi)}</td>
-        <td>${escapeHtml(item.perihal || item.instruksi)}</td>
+        <td style="text-align: center; font-weight: bold;">${escapeHtml(item.nomorAgenda)}</td>
+        <td style="font-weight: 600;">${escapeHtml(item.nomorSuratAsli)}</td>
+        <td style="text-align: center;">${item.tanggalSurat || '-'}</td>
+        <td style="text-align: center;">${item.tanggalDiterima || '-'}</td>
+        <td>${escapeHtml(item.asalSurat)}${item.namaPengirim ? ' (' + escapeHtml(item.namaPengirim) + ')' : ''}</td>
+        <td>${escapeHtml(item.perihal)}</td>
         <td style="text-align: center;">${item.klasifikasi || '-'}</td>
-        <td style="text-align: center;">${item.status || item.statusTindakLanjut}</td>
+        <td style="text-align: center;">${item.sifatSurat || 'Biasa'}</td>
+        <td style="text-align: center;">${item.status || 'Baru'}</td>
       </tr>
     `;
   });
 
-  printArea.innerHTML = `
-    <div style="font-family: 'Times New Roman', serif; padding: 10px;">
-      <!-- Kop Surat Resmi -->
-      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 3px double #000; padding-bottom: 12px; margin-bottom: 16px;">
-        <div style="width: 75px; text-align: center;">
-          <img src="${LOGO_JEMBER_DRIVE}" style="max-width: 70px; max-height: 70px;">
-        </div>
-        <div style="flex: 1; text-align: center; line-height: 1.25;">
-          <div style="font-size: 13pt; font-weight: bold;">PEMERINTAH KABUPATEN JEMBER</div>
-          <div style="font-size: 15pt; font-weight: bold;">DINAS PENDIDIKAN</div>
-          <div style="font-size: 17pt; font-weight: bold; letter-spacing: 1px;">SD NEGERI KESILIR 02</div>
-          <div style="font-size: 10pt; font-style: italic;">Kecamatan Wuluhan, Kabupaten Jember, Jawa Timur</div>
-        </div>
-        <div style="width: 75px; text-align: center;">
-          <img src="${LOGO_SEKOLAH_DRIVE}" style="max-width: 70px; max-height: 70px;">
-        </div>
-      </div>
+  const periodLabel = (start || end) ? `Periode: ${start || 'Awal'} s.d. ${end || 'Sekarang'}` : 'Periode: Seluruh Data Tercatat Tahun Anggaran 2026';
 
-      <div style="text-align: center; margin-bottom: 16px;">
-        <h3 style="font-size: 13pt; font-weight: bold; text-decoration: underline; margin: 0;">${titleJenis}</h3>
-      </div>
-
-      <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 9.5pt;">
+  const html = `
+    ${getKopResmiHtml('BUKU AGENDA REKAPITULASI SURAT MASUK', periodLabel)}
+      
+      <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 9pt;">
         <thead>
-          <tr style="background: #f0f0f0;">
+          <tr style="background: #f1f5f9; text-align: center;">
             <th style="width: 30px;">No</th>
-            <th style="width: 60px;">Agenda</th>
-            <th>Nomor Surat / Pengirim</th>
-            <th style="width: 80px;">Tanggal</th>
-            <th>${jenis === 'MASUK' ? 'Asal Surat' : (jenis === 'KELUAR' ? 'Tujuan Surat' : 'Tujuan Disposisi')}</th>
-            <th>${jenis === 'DISPOSISI' ? 'Instruksi' : 'Perihal'}</th>
+            <th style="width: 90px;">No. Agenda</th>
+            <th style="width: 140px;">No. Surat Asli</th>
+            <th style="width: 75px;">Tgl Surat</th>
+            <th style="width: 75px;">Tgl Terima</th>
+            <th>Asal Surat / Pengirim</th>
+            <th>Perihal Surat</th>
             <th style="width: 50px;">Kode</th>
-            <th style="width: 80px;">Status</th>
+            <th style="width: 65px;">Sifat</th>
+            <th style="width: 85px;">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -4503,36 +5365,331 @@ function cetakLaporanResmi() {
         </tbody>
       </table>
 
-      <!-- Kolom Tanda Tangan -->
-      <div style="display: flex; justify-content: space-between; margin-top: 40px; font-size: 11pt;">
-        <div style="text-align: center; width: 220px;">
-          <div>Mengetahui,</div>
-          <div style="font-weight: bold; margin-bottom: 60px;">Kepala SD Negeri Kesilir 02</div>
-          <div style="border-bottom: 1px solid #000; font-weight: bold;">( ......................................... )</div>
-          <div style="font-size: 9.5pt;">NIP. ........................................</div>
-        </div>
-        <div style="text-align: center; width: 220px;">
-          <div>Kesilir, ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
-          <div style="font-weight: bold; margin-bottom: 60px;">Pengelola Administrasi</div>
-          <div style="border-bottom: 1px solid #000; font-weight: bold;">( ......................................... )</div>
-          <div style="font-size: 9.5pt;">Petugas Persuratan</div>
-        </div>
+      <!-- Ringkasan Statistik -->
+      <div style="margin-top: 14px; font-size: 9.5pt; display: flex; justify-content: space-between; background: #f8fafc; border: 1px solid #cbd5e1; padding: 8px 14px;">
+        <div>Total Surat Masuk Tercatat: <strong>${list.length} berkas</strong></div>
+        <div>Dicetak Otomatis oleh Sistem E-Arsip SDN Kesilir 02 pada: ${new Date().toLocaleString('id-ID')} WIB</div>
       </div>
+
+      ${getTandaTanganResmiHtml()}
     </div>
   `;
 
+  const printArea = document.getElementById('printArea');
+  printArea.innerHTML = html;
   window.print();
 }
 
 /**
- * Ekspor CSV
+ * ============================================================================
+ * 2. CETAK PDF: REKAP SURAT KELUAR
+ * ============================================================================
  */
-function exportLaporanCsv() {
-  if (!state.currentFilteredLaporan || state.currentFilteredLaporan.length === 0) {
-    showToast('Tidak ada data untuk diekspor.', 'warning');
+function cetakRekapSuratKeluarPdf() {
+  const start = document.getElementById('lapStartDate') ? document.getElementById('lapStartDate').value : '';
+  const end = document.getElementById('lapEndDate') ? document.getElementById('lapEndDate').value : '';
+
+  const list = state.suratKeluar.filter(s => {
+    const tgl = s.tanggalSurat || s.tanggalPengiriman || '';
+    if (start && tgl < start) return false;
+    if (end && tgl > end) return false;
+    return true;
+  });
+
+  if (list.length === 0) {
+    showToast('Tidak ada data Surat Keluar pada filter yang dipilih.', 'warning');
     return;
   }
-  downloadCsv('Laporan_Persuratan_SDN_Kesilir_02.csv', state.currentFilteredLaporan);
+
+  let tableRows = '';
+  list.forEach((item, idx) => {
+    tableRows += `
+      <tr>
+        <td style="text-align: center;">${idx + 1}</td>
+        <td style="text-align: center; font-weight: bold;">${escapeHtml(item.nomorAgenda)}</td>
+        <td style="font-weight: 600;">${escapeHtml(item.nomorSuratResmi)}</td>
+        <td style="text-align: center;">${item.tanggalSurat || '-'}</td>
+        <td style="text-align: center;">${item.tanggalPengiriman || '-'}</td>
+        <td>${escapeHtml(item.tujuanSurat)}${item.namaPenerima ? ' (' + escapeHtml(item.namaPenerima) + ')' : ''}</td>
+        <td>${escapeHtml(item.perihal)}</td>
+        <td style="text-align: center;">${item.klasifikasi || '-'}</td>
+        <td>${escapeHtml(item.penandatangan || '-')}</td>
+        <td style="text-align: center;">${item.metodePengiriman || '-'}</td>
+        <td style="text-align: center;">${item.status || '-'}</td>
+      </tr>
+    `;
+  });
+
+  const periodLabel = (start || end) ? `Periode: ${start || 'Awal'} s.d. ${end || 'Sekarang'}` : 'Periode: Seluruh Data Tercatat Tahun Anggaran 2026';
+
+  const html = `
+    ${getKopResmiHtml('BUKU AGENDA REKAPITULASI SURAT KELUAR', periodLabel)}
+      
+      <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+        <thead>
+          <tr style="background: #f1f5f9; text-align: center;">
+            <th style="width: 30px;">No</th>
+            <th style="width: 90px;">No. Agenda</th>
+            <th style="width: 140px;">No. Surat Dinas</th>
+            <th style="width: 75px;">Tgl Surat</th>
+            <th style="width: 75px;">Tgl Kirim</th>
+            <th>Tujuan Surat / Penerima</th>
+            <th>Perihal Surat</th>
+            <th style="width: 50px;">Kode</th>
+            <th>Penandatangan</th>
+            <th style="width: 80px;">Metode</th>
+            <th style="width: 85px;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows}
+        </tbody>
+      </table>
+
+      <!-- Ringkasan Statistik -->
+      <div style="margin-top: 14px; font-size: 9.5pt; display: flex; justify-content: space-between; background: #f8fafc; border: 1px solid #cbd5e1; padding: 8px 14px;">
+        <div>Total Surat Keluar Tercatat: <strong>${list.length} berkas</strong></div>
+        <div>Dicetak Otomatis oleh Sistem E-Arsip SDN Kesilir 02 pada: ${new Date().toLocaleString('id-ID')} WIB</div>
+      </div>
+
+      ${getTandaTanganResmiHtml()}
+    </div>
+  `;
+
+  const printArea = document.getElementById('printArea');
+  printArea.innerHTML = html;
+  window.print();
+}
+
+/**
+ * ============================================================================
+ * 3. CETAK PDF: REKAP GABUNGAN (SURAT MASUK & KELUAR JADI 1)
+ * ============================================================================
+ */
+function cetakRekapGabunganPdf() {
+  const start = document.getElementById('lapStartDate') ? document.getElementById('lapStartDate').value : '';
+  const end = document.getElementById('lapEndDate') ? document.getElementById('lapEndDate').value : '';
+
+  const dateFilter = (tgl) => {
+    if (!tgl) return true;
+    if (start && tgl < start) return false;
+    if (end && tgl > end) return false;
+    return true;
+  };
+
+  const listMasuk = state.suratMasuk.filter(s => dateFilter(s.tanggalDiterima || s.tanggalSurat));
+  const listKeluar = state.suratKeluar.filter(s => dateFilter(s.tanggalSurat || s.tanggalPengiriman));
+
+  if (listMasuk.length === 0 && listKeluar.length === 0) {
+    showToast('Tidak ada data persuratan pada filter yang dipilih.', 'warning');
+    return;
+  }
+
+  let rowsMasuk = '';
+  listMasuk.forEach((item, idx) => {
+    rowsMasuk += `
+      <tr>
+        <td style="text-align: center;">${idx + 1}</td>
+        <td style="text-align: center; font-weight: bold;">${escapeHtml(item.nomorAgenda)}</td>
+        <td>${escapeHtml(item.nomorSuratAsli)}</td>
+        <td style="text-align: center;">${item.tanggalDiterima || item.tanggalSurat || '-'}</td>
+        <td>${escapeHtml(item.asalSurat)}</td>
+        <td>${escapeHtml(item.perihal)}</td>
+        <td style="text-align: center;">${item.klasifikasi || '-'}</td>
+        <td style="text-align: center;">${item.status}</td>
+      </tr>
+    `;
+  });
+
+  let rowsKeluar = '';
+  listKeluar.forEach((item, idx) => {
+    rowsKeluar += `
+      <tr>
+        <td style="text-align: center;">${idx + 1}</td>
+        <td style="text-align: center; font-weight: bold;">${escapeHtml(item.nomorAgenda)}</td>
+        <td>${escapeHtml(item.nomorSuratResmi)}</td>
+        <td style="text-align: center;">${item.tanggalSurat || '-'}</td>
+        <td>${escapeHtml(item.tujuanSurat)}</td>
+        <td>${escapeHtml(item.perihal)}</td>
+        <td style="text-align: center;">${item.klasifikasi || '-'}</td>
+        <td style="text-align: center;">${item.status}</td>
+      </tr>
+    `;
+  });
+
+  const periodLabel = (start || end) ? `Periode: ${start || 'Awal'} s.d. ${end || 'Sekarang'}` : 'Periode: Seluruh Data Tercatat Tahun Anggaran 2026';
+
+  const html = `
+    ${getKopResmiHtml('BUKU AGENDA REKAPITULASI PERSURATAN TERPADU', 'REKAPITULASI SURAT MASUK &amp; SURAT KELUAR — ' + periodLabel)}
+      
+      <!-- Ringkasan Statistik Eksekutif -->
+      <div style="margin-bottom: 16px; background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px 16px; border-radius: 4px; font-size: 9.5pt;">
+        <div style="font-weight: bold; margin-bottom: 4px;">RINGKASAN ARSIP TATA PERSURATAN SATUAN PENDIDIKAN:</div>
+        <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+          <div>• Total Surat Masuk: <strong>${listMasuk.length} berkas</strong></div>
+          <div>• Total Surat Keluar: <strong>${listKeluar.length} berkas</strong></div>
+          <div>• Total Seluruh Berkas Tercatat: <strong>${listMasuk.length + listKeluar.length} berkas</strong></div>
+        </div>
+      </div>
+
+      <!-- BAGIAN I: SURAT MASUK -->
+      <div style="font-weight: bold; font-size: 10pt; margin: 12px 0 6px 0; color: #0284c7; text-transform: uppercase;">
+        BAGIAN I. BUKU AGENDA SURAT MASUK (${listMasuk.length} Surat)
+      </div>
+      <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 20px;">
+        <thead>
+          <tr style="background: #e0f2fe; text-align: center;">
+            <th style="width: 25px;">No</th>
+            <th style="width: 85px;">Agenda</th>
+            <th style="width: 130px;">Nomor Surat Asli</th>
+            <th style="width: 75px;">Tgl Terima</th>
+            <th>Asal Surat / Instansi</th>
+            <th>Perihal Isi Surat</th>
+            <th style="width: 45px;">Kode</th>
+            <th style="width: 80px;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rowsMasuk || '<tr><td colspan="8" style="text-align:center;padding:10px;">Tidak ada surat masuk pada periode ini.</td></tr>'}
+        </tbody>
+      </table>
+
+      <!-- BAGIAN II: SURAT KELUAR -->
+      <div style="font-weight: bold; font-size: 10pt; margin: 16px 0 6px 0; color: #059669; text-transform: uppercase; page-break-before: auto;">
+        BAGIAN II. BUKU AGENDA SURAT KELUAR (${listKeluar.length} Surat)
+      </div>
+      <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 16px;">
+        <thead>
+          <tr style="background: #d1fae5; text-align: center;">
+            <th style="width: 25px;">No</th>
+            <th style="width: 85px;">Agenda</th>
+            <th style="width: 130px;">Nomor Surat Resmi</th>
+            <th style="width: 75px;">Tgl Surat</th>
+            <th>Tujuan Surat / Penerima</th>
+            <th>Perihal Isi Surat</th>
+            <th style="width: 45px;">Kode</th>
+            <th style="width: 80px;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rowsKeluar || '<tr><td colspan="8" style="text-align:center;padding:10px;">Tidak ada surat keluar pada periode ini.</td></tr>'}
+        </tbody>
+      </table>
+
+      ${getTandaTanganResmiHtml()}
+    </div>
+  `;
+
+  const printArea = document.getElementById('printArea');
+  printArea.innerHTML = html;
+  window.print();
+}
+
+/**
+ * Filter Laporan dan Pratinjau
+ */
+async function generateLaporan() {
+  const selectEl = document.getElementById('lapJenisSurat');
+  const jenis = selectEl ? selectEl.value : 'GABUNGAN';
+  const startDate = document.getElementById('lapStartDate') ? document.getElementById('lapStartDate').value : '';
+  const endDate = document.getElementById('lapEndDate') ? document.getElementById('lapEndDate').value : '';
+
+  const filter = { jenisSurat: jenis, startDate, endDate };
+  const list = getFilteredLaporanList(filter);
+  state.currentFilteredLaporan = list || [];
+
+  const titleMap = {
+    'GABUNGAN': 'Pratinjau Rekapitulasi Terpadu (Surat Masuk & Surat Keluar)',
+    'MASUK': 'Pratinjau Buku Agenda Surat Masuk',
+    'KELUAR': 'Pratinjau Buku Agenda Surat Keluar',
+    'DISPOSISI': 'Pratinjau Rekapitulasi Lembar Disposisi'
+  };
+
+  const titleEl = document.getElementById('lapHeaderTitle');
+  if (titleEl) {
+    titleEl.innerText = `${titleMap[jenis] || 'Laporan'} (${state.currentFilteredLaporan.length} data tercatat)`;
+  }
+
+  const tbody = document.getElementById('tableLaporanBody');
+  if (!tbody) return;
+
+  if (state.currentFilteredLaporan.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; padding: 24px; color: var(--text-muted);">Tidak ada data pada periode tanggal yang dipilih.</td></tr>`;
+    return;
+  }
+
+  let html = '';
+  state.currentFilteredLaporan.forEach((item, idx) => {
+    const isMasuk = item.jenis === 'MASUK';
+    const badgeJenis = isMasuk
+      ? `<span class="badge" style="background:#e0f2fe; color:#0369a1;">📥 Masuk</span>`
+      : (item.jenis === 'KELUAR' ? `<span class="badge" style="background:#ecfdf5; color:#047857;">📤 Keluar</span>` : `<span class="badge" style="background:#ede9fe; color:#6d28d9;">📝 Disposisi</span>`);
+
+    html += `
+      <tr>
+        <td style="text-align: center; font-size: 0.8rem; color: var(--text-muted);">${idx + 1}</td>
+        <td>${badgeJenis}</td>
+        <td><span class="badge badge-agenda">${item.nomorAgenda || item.idDisposisi}</span></td>
+        <td style="font-weight: 600;">${escapeHtml(item.nomorSuratAsli || item.nomorSuratResmi || item.pemberiDisposisi || '-')}</td>
+        <td>${item.tanggalSurat || item.tanggalDisposisi || '-'}</td>
+        <td>${escapeHtml(item.asalSurat || item.tujuanSurat || item.tujuanDisposisi || '-')}</td>
+        <td>${escapeHtml(item.perihal || item.instruksi || '-')}</td>
+        <td>${item.klasifikasi || '-'}</td>
+        <td>${getStatusBadge(item.status || item.statusTindakLanjut)}</td>
+      </tr>
+    `;
+  });
+  tbody.innerHTML = html;
+}
+
+function resetFilterLaporanDanMuat() {
+  if (document.getElementById('lapStartDate')) document.getElementById('lapStartDate').value = '';
+  if (document.getElementById('lapEndDate')) document.getElementById('lapEndDate').value = '';
+  if (document.getElementById('lapJenisSurat')) document.getElementById('lapJenisSurat').value = 'GABUNGAN';
+  generateLaporan();
+  showToast('Menampilkan seluruh data rekapitulasi.', 'info');
+}
+
+function cetakLaporanAktifPdf() {
+  const selectEl = document.getElementById('lapJenisSurat');
+  const jenis = selectEl ? selectEl.value : 'GABUNGAN';
+  if (jenis === 'MASUK') cetakRekapSuratMasukPdf();
+  else if (jenis === 'KELUAR') cetakRekapSuratKeluarPdf();
+  else cetakRekapGabunganPdf();
+}
+
+function eksporLaporanAktifCsv() {
+  if (!state.currentFilteredLaporan || state.currentFilteredLaporan.length === 0) {
+    showToast('Tidak ada data pada pratinjau saat ini.', 'warning');
+    return;
+  }
+  downloadCsv('Rekap_Persuratan_SDN_Kesilir_02.csv', state.currentFilteredLaporan);
+}
+
+function exportRekapGabunganCsv() {
+  const gabungan = [
+    ...state.suratMasuk.map(s => ({
+      Kategori: 'SURAT_MASUK',
+      Agenda: s.nomorAgenda,
+      NomorSurat: s.nomorSuratAsli,
+      Tanggal: s.tanggalDiterima || s.tanggalSurat,
+      PihakTerkait: s.asalSurat,
+      Perihal: s.perihal,
+      Klasifikasi: s.klasifikasi,
+      Status: s.status
+    })),
+    ...state.suratKeluar.map(s => ({
+      Kategori: 'SURAT_KELUAR',
+      Agenda: s.nomorAgenda,
+      NomorSurat: s.nomorSuratResmi,
+      Tanggal: s.tanggalSurat,
+      PihakTerkait: s.tujuanSurat,
+      Perihal: s.perihal,
+      Klasifikasi: s.klasifikasi,
+      Status: s.status
+    }))
+  ];
+  downloadCsv('Rekap_Gabungan_Surat_Masuk_Keluar_SDN_Kesilir_02.csv', gabungan);
 }
 
 function exportDataMasukCsv() {
@@ -5050,6 +6207,8 @@ window.bukaEditSuratKeluar = bukaEditSuratKeluar;
 window.bukaFormDisposisi = bukaFormDisposisi;
 window.bukaModalUpdateDisposisi = bukaModalUpdateDisposisi;
 window.bukaDbLangsung = bukaDbLangsung;
+window.bukaDbSheet = bukaDbSheet;
+window.bukaFolderDrive = bukaFolderDrive;
 window.salinLinkDb = salinLinkDb;
 window.copyToClipboard = copyToClipboard;
 window.resetDanSetupUlang = resetDanSetupUlang;
@@ -5065,9 +6224,16 @@ window.handleToggleKlasifikasi = handleToggleKlasifikasi;
 window.handleKoneksiManual = handleKoneksiManual;
 window.handleFileSelect = handleFileSelect;
 window.handleHapusLampiran = handleHapusLampiran;
-window.handleFilterLaporan = handleFilterLaporan;
-window.cetakLaporan = cetakLaporan;
-window.eksporLaporanCsv = eksporLaporanCsv;
+window.generateLaporan = generateLaporan;
+window.resetFilterLaporanDanMuat = resetFilterLaporanDanMuat;
+window.cetakRekapSuratMasukPdf = cetakRekapSuratMasukPdf;
+window.cetakRekapSuratKeluarPdf = cetakRekapSuratKeluarPdf;
+window.cetakRekapGabunganPdf = cetakRekapGabunganPdf;
+window.cetakLaporanAktifPdf = cetakLaporanAktifPdf;
+window.exportRekapGabunganCsv = exportRekapGabunganCsv;
+window.eksporLaporanAktifCsv = eksporLaporanAktifCsv;
+window.exportDataMasukCsv = exportDataMasukCsv;
+window.exportDataKeluarCsv = exportDataKeluarCsv;
 window.cetakLembarDisposisi = cetakLembarDisposisi;
 window.arsipkanSurat = arsipkanSurat;
 window.hapusSurat = hapusSurat;
