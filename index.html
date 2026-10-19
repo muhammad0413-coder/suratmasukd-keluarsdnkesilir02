@@ -4907,8 +4907,7 @@ function cetakBukuAgendaPdf(mode = 'ALL', filterBulan = null, filterTahun = null
   } else if (activeBulan === 'ALL' && activeTahun !== 'ALL') {
     periodeText = `TAHUN ANGGARAN / ARSIP: ${activeTahun}`;
   } else {
-    periodeText = `REKAPITULASI SELURUH PERIODE PERSURATAN`;
-  }
+      }
 
   let tableRows = '';
   list.forEach((row, idx) => {
