@@ -3074,15 +3074,6 @@ const SEED_DATA_KESILIR = {
       pengunggah: 'Operator Sekolah'
     }
   ],
-      namaFile: 'Rekap_Kehadiran_Guru_Januari_2026.pdf',
-      mimeType: 'application/pdf',
-      ukuranFile: '850 KB',
-      waktuUpload: '2026-01-16 11:22',
-      urlFile: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa',
-      jenis: 'KELUAR',
-      pengunggah: 'Operator Sekolah'
-    }
-  ],
   logAktivitas: [
     {
       idLog: 'LOG-001',
@@ -3783,6 +3774,7 @@ function bukaFolderDrive(jenis) {
  */
 function initApp() {
   initLocalDatabase();
+  try { renderDashboardStats(calculateLocalStats()); } catch (e) { console.error('Error initial renderDashboardStats:', e); }
 
   try { initClock(); } catch (e) { console.error('Error initClock:', e); }
   try { initNavigation(); } catch (e) { console.error('Error initNavigation:', e); }
@@ -4056,6 +4048,7 @@ function initNavigation() {
 }
 
 function navigateTo(viewId) {
+  if (!viewId) return;
   document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
   document.querySelectorAll('.sidebar-menu .nav-item').forEach(item => {
     item.classList.toggle('active', item.getAttribute('data-view') === viewId);
@@ -4067,7 +4060,8 @@ function navigateTo(viewId) {
     state.activeView = viewId;
   }
 
-  document.getElementById('sidebar').classList.remove('mobile-open');
+  const sidebarEl = document.getElementById('sidebar');
+  if (sidebarEl) sidebarEl.classList.remove('mobile-open');
 
   const titles = {
     'view-dashboard': 'Dashboard',
@@ -4083,18 +4077,23 @@ function navigateTo(viewId) {
     'view-pengaturan': 'Pengaturan & Database',
     'view-bantuan': 'Bantuan & Panduan'
   };
-  document.getElementById('currentViewTitle').innerText = titles[viewId] || 'Halaman';
+  const titleEl = document.getElementById('currentViewTitle');
+  if (titleEl) titleEl.innerText = titles[viewId] || 'Halaman';
 
   // Muat data spesifik modul
-  if (viewId === 'view-dashboard') loadDashboard();
-  else if (viewId === 'view-surat-masuk') loadSuratMasuk();
-  else if (viewId === 'view-tambah-masuk') populateKlasifikasiOptions();
-  else if (viewId === 'view-surat-keluar') loadSuratKeluar();
-  else if (viewId === 'view-tambah-keluar') populateKlasifikasiOptions();
-  else if (viewId === 'view-disposisi') loadDisposisi();
-  else if (viewId === 'view-klasifikasi') loadKlasifikasiTable();
-  else if (viewId === 'view-lampiran') loadAllLampiran();
-  else if (viewId === 'view-log') loadRiwayatLog();
+  try {
+    if (viewId === 'view-dashboard') loadDashboard();
+    else if (viewId === 'view-surat-masuk') loadSuratMasuk();
+    else if (viewId === 'view-tambah-masuk') populateKlasifikasiOptions();
+    else if (viewId === 'view-surat-keluar') loadSuratKeluar();
+    else if (viewId === 'view-tambah-keluar') populateKlasifikasiOptions();
+    else if (viewId === 'view-disposisi') loadDisposisi();
+    else if (viewId === 'view-klasifikasi') loadKlasifikasiTable();
+    else if (viewId === 'view-lampiran') loadAllLampiran();
+    else if (viewId === 'view-log') loadRiwayatLog();
+  } catch (err) {
+    console.error('Error loading module view:', err);
+  }
 }
 
 function refreshCurrentView() {
@@ -5206,7 +5205,7 @@ function getKopResmiHtml(judulLaporan, subJudul) {
           <div style="font-size: 15pt; font-weight: bold; letter-spacing: 0.5px;">DINAS PENDIDIKAN</div>
           <div style="font-size: 17pt; font-weight: 900; letter-spacing: 1px;">SD NEGERI KESILIR 02</div>
           <div style="font-size: 9.5pt; font-style: italic; margin-top: 3px;">
-            Alamat: Dusun Krajan, Desa Kesilir, Kec. Wuluhan, Kab. Jember, Jawa Timur 68162 — NPSN: 20523412
+            Alamat: Jl. Ambulu No. 91 Kesilir, Kec. Wuluhan, Kab. Jember, Jawa Timur 68162 — NPSN: 20523515
           </div>
         </div>
         <div style="width: 75px; text-align: center;">
@@ -6011,8 +6010,10 @@ function initSearchAndFilters() {
 
   // Filter Lampiran Table
   const filterLampiranHandler = () => {
-    const q = document.getElementById('searchLampiran').value.toLowerCase().trim();
-    const jenis = document.getElementById('filterJenisLampiran').value;
+    const elSearchLamp = document.getElementById('searchLampiran');
+    const elFilterJenis = document.getElementById('filterJenisLampiran');
+    const q = elSearchLamp ? elSearchLamp.value.toLowerCase().trim() : '';
+    const jenis = elFilterJenis ? elFilterJenis.value : 'ALL';
     const filtered = state.allLampiran.filter(l => {
       const matchQ = !q || (l.namaFile && l.namaFile.toLowerCase().includes(q));
       const matchJ = jenis === 'ALL' || l.jenis === jenis;
@@ -6020,8 +6021,10 @@ function initSearchAndFilters() {
     });
     renderTableAllLampiran(filtered);
   };
-  document.getElementById('searchLampiran').addEventListener('input', filterLampiranHandler);
-  document.getElementById('filterJenisLampiran').addEventListener('change', filterLampiranHandler);
+  const elSearchLamp = document.getElementById('searchLampiran');
+  const elFilterJenis = document.getElementById('filterJenisLampiran');
+  if (elSearchLamp) elSearchLamp.addEventListener('input', filterLampiranHandler);
+  if (elFilterJenis) elFilterJenis.addEventListener('change', filterLampiranHandler);
 }
 
 /**
@@ -6029,17 +6032,22 @@ function initSearchAndFilters() {
  */
 function initClock() {
   const el = document.getElementById('liveClock');
+  if (!el) return;
   const update = () => {
-    const now = new Date();
-    el.innerText = now.toLocaleDateString('id-ID', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    }) + ' WIB';
+    try {
+      const now = new Date();
+      el.innerText = now.toLocaleDateString('id-ID', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      }) + ' WIB';
+    } catch (e) {
+      el.innerText = new Date().toLocaleTimeString('id-ID') + ' WIB';
+    }
   };
   update();
   setInterval(update, 1000);
