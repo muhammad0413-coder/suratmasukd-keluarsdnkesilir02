@@ -1535,7 +1535,7 @@ textarea.form-control {
               <h4 style="color: #92400e; font-weight: 700; margin-bottom: 4px;">⚠️ Database E-Arsip Belum Dikonfigurasi</h4>
               <p style="color: #b45309; font-size: 0.85rem;">Sistem membutuhkan inisialisasi dua spreadsheet terpisah dan folder Google Drive sebelum dapat menyimpan surat.</p>
             </div>
-            <button id="btnRunSetupNow" class="btn btn-primary" style="background: #d97706;">
+            <button id="btnRunSetupNow" class="btn btn-primary" style="background: #d97706;" onclick="jalankanSetupDatabase()">
               🚀 Jalankan Setup Otomatis Sekarang
             </button>
           </div>
@@ -6191,6 +6191,13 @@ window.exportDataKeluarCsv = exportDataKeluarCsv;
 window.cetakLembarDisposisi = cetakLembarDisposisi;
 window.arsipkanSurat = arsipkanSurat;
 window.hapusSurat = hapusSurat;
+window.bukaModalTambahKlasifikasi = bukaModalTambahKlasifikasi;
+window.resetFormSuratMasuk = resetFormSuratMasuk;
+window.resetFormSuratKeluar = resetFormSuratKeluar;
+window.runHealthCheck = runHealthCheck;
+window.loadAllLampiran = loadAllLampiran;
+window.loadRiwayatLog = loadRiwayatLog;
+window.loadInitialData = loadInitialData;
 window.showToast = showToast;
 window.simpanDanUjiApiUrl = simpanDanUjiApiUrl;
 window.resetApiUrlDefault = resetApiUrlDefault;
