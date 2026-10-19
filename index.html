@@ -1721,7 +1721,7 @@ textarea.form-control {
               📘 Cetak Cover Buku (Gambar 2)
             </button>
             <button class="btn btn-secondary" onclick="cetakBukuAgendaPdf('ALL')">
-              🖨️ Cetak Buku Agenda
+              🖨️ Cetak Buku Agenda (F4 Landscape)
             </button>
             <button class="btn btn-secondary" onclick="navigateTo('view-edit-ttd')">
               ✏️ Edit Identitas TTD
@@ -1772,12 +1772,12 @@ textarea.form-control {
               <div>
                 <h3 class="card-title">📖 Buku Agenda Surat Masuk &amp; Keluar</h3>
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin: 4px 0 0 0;">
-                  Format resmi agenda tata persuratan SD Negeri Kesilir 02
+                  Format resmi agenda tata persuratan SD Negeri Kesilir 02 • Standar Kertas F4 Landscape
                 </p>
               </div>
               <div style="display:flex; gap: 8px; flex-wrap: wrap;">
                 <button class="btn btn-warning" onclick="cetakCoverBukuAgenda()" title="Cetak Cover Buku Agenda Sesuai Gambar 2">📘 Cetak Cover Buku</button>
-                <button class="btn btn-primary" onclick="cetakBukuAgendaPdf('ALL')" title="Cetak Buku Agenda ke PDF/Printer">🖨️ Cetak Agenda (PDF)</button>
+                <button class="btn btn-primary" onclick="cetakBukuAgendaPdf('ALL')" title="Cetak Buku Agenda ke PDF/Printer (Kertas F4 Landscape)">🖨️ Cetak Agenda (F4 Landscape)</button>
                 <button class="btn btn-secondary" onclick="exportBukuAgendaCsv()">📥 Ekspor CSV</button>
                 <button class="btn btn-secondary" onclick="bukaModalEditTtd()">✏️ Edit TTD</button>
               </div>
@@ -2131,13 +2131,13 @@ textarea.form-control {
               <div class="print-card-header">
                 <div class="print-card-icon">📑</div>
                 <div>
-                  <div class="print-card-title">2. Cetak Buku Agenda Gabungan</div>
-                  <div class="print-card-desc">Cetak format resmi buku agenda dari No s.d. Keterangan (tanpa link lampiran) &amp; Tanda Tangan.</div>
+                  <div class="print-card-title">2. Cetak Buku Agenda Gabungan (F4 Landscape)</div>
+                  <div class="print-card-desc">Cetak format resmi buku agenda dari No s.d. Keterangan (tanpa link lampiran) &amp; Tanda Tangan. Kertas F4 / Folio (330 × 215 mm).</div>
                 </div>
               </div>
               <div class="print-card-actions">
                 <button type="button" class="btn btn-primary" style="background:#d97706; flex:1;" onclick="cetakBukuAgendaPdf('ALL')">
-                  🖨️ Cetak Agenda Gabungan (PDF)
+                  🖨️ Cetak Agenda Gabungan (F4 Landscape)
                 </button>
                 <button type="button" class="btn btn-secondary" onclick="exportBukuAgendaCsv()">
                   📥 CSV
@@ -2150,13 +2150,13 @@ textarea.form-control {
               <div class="print-card-header">
                 <div class="print-card-icon">📥</div>
                 <div>
-                  <div class="print-card-title">3. Cetak Agenda Surat Masuk Saja</div>
-                  <div class="print-card-desc">Khusus buku agenda surat masuk lengkap dengan tanda tangan Kepala Sekolah &amp; Operator.</div>
+                  <div class="print-card-title">3. Cetak Agenda Surat Masuk Saja (F4 Landscape)</div>
+                  <div class="print-card-desc">Khusus buku agenda surat masuk lengkap dengan tanda tangan Kepala Sekolah &amp; Operator. Kertas F4 Landscape.</div>
                 </div>
               </div>
               <div class="print-card-actions">
                 <button type="button" class="btn btn-primary" style="background:#0284c7; flex:1;" onclick="cetakBukuAgendaPdf('MASUK')">
-                  🖨️ Cetak Agenda Masuk (PDF)
+                  🖨️ Cetak Agenda Masuk (F4 Landscape)
                 </button>
               </div>
             </div>
@@ -2166,13 +2166,13 @@ textarea.form-control {
               <div class="print-card-header">
                 <div class="print-card-icon">📤</div>
                 <div>
-                  <div class="print-card-title">4. Cetak Agenda Surat Keluar Saja</div>
-                  <div class="print-card-desc">Khusus buku agenda surat keluar dinas sekolah lengkap dengan tanda tangan pengesahan.</div>
+                  <div class="print-card-title">4. Cetak Agenda Surat Keluar Saja (F4 Landscape)</div>
+                  <div class="print-card-desc">Khusus buku agenda surat keluar dinas sekolah lengkap dengan tanda tangan pengesahan. Kertas F4 Landscape.</div>
                 </div>
               </div>
               <div class="print-card-actions">
                 <button type="button" class="btn btn-primary" style="background:#059669; flex:1;" onclick="cetakBukuAgendaPdf('KELUAR')">
-                  🖨️ Cetak Agenda Keluar (PDF)
+                  🖨️ Cetak Agenda Keluar (F4 Landscape)
                 </button>
               </div>
             </div>
@@ -4208,11 +4208,16 @@ function cetakCoverBukuAgenda() {
   }
   dynamicStyle.innerHTML = `
     @page {
-      size: A4 portrait;
+      size: 215mm 330mm; /* Kertas F4 / Folio Portrait (215 x 330 mm) */
       margin: 0;
     }
     @media print {
-      body {
+      @page {
+        size: 215mm 330mm;
+        margin: 0;
+      }
+      html, body {
+        width: 215mm !important;
         margin: 0 !important;
         padding: 0 !important;
         background-color: #cae9f8 !important;
@@ -4228,10 +4233,10 @@ function cetakCoverBukuAgenda() {
   `;
 
   const coverHtml = `
-    <div style="box-sizing: border-box; width: 100vw; min-height: 100vh; padding: 65px 40px; background-color: #cae9f8; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; color: #000000; font-family: 'Times New Roman', Georgia, serif; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+    <div style="box-sizing: border-box; width: 215mm; min-height: 330mm; padding: 50px 30px; margin: 0 auto; background-color: #cae9f8; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; color: #000000; font-family: 'Times New Roman', Georgia, serif; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
       
       <!-- Bagian Atas: Judul Cover Buku Agenda -->
-      <div style="margin-top: 50px;">
+      <div style="margin-top: 40px;">
         <h1 style="font-size: 32pt; font-weight: 900; letter-spacing: 2px; margin: 0; line-height: 1.15; text-transform: uppercase;">
           BUKU AGENDA
         </h1>
@@ -4240,17 +4245,17 @@ function cetakCoverBukuAgenda() {
         </h2>
       </div>
 
-      <!-- Bagian Tengah: Kiri Logo Jember, Kanan Logo SD, Tengah Kaligrafi Monogram -->
-      <div style="display: flex; flex-direction: column; align-items: center; margin: 40px 0;">
+      <!-- Bagian Tengah: Kiri Logo Jember, Kanan Logo SD, Tengah Kaligrafi Monogram Sesuai Gambar 2 -->
+      <div style="display: flex; flex-direction: column; align-items: center; margin: 30px 0;">
         <div style="display: flex; justify-content: center; align-items: center; gap: 40px;">
           
-          <!-- Logo Pemkab Jember -->
+          <!-- Kiri: Logo Pemkab Jember -->
           <div style="text-align: center;">
-            <img src="${LOGO_JEMBER_DRIVE}" style="height: 120px; width: auto; object-fit: contain;" alt="Logo Pemkab Jember">
+            <img src="${LOGO_JEMBER_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1YkV5mi6NjLLnVwOmS-gk7NUS8vQyIU9M&sz=w200'" style="height: 115px; width: auto; object-fit: contain;" alt="Logo Pemkab Jember">
             <div style="font-size: 9.5pt; font-weight: bold; margin-top: 8px; letter-spacing: 0.5px;">KABUPATEN JEMBER</div>
           </div>
 
-          <!-- Ornamen Kaligrafi Monogram Sesuai Gambar 2 -->
+          <!-- Tengah: Ornamen Kaligrafi Monogram Sesuai Gambar 2 -->
           <div>
             <svg width="75" height="150" viewBox="0 0 70 140" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M35 5 C45 22, 55 38, 55 52 C55 68, 35 77, 28 88 C21 99, 23 112, 35 136 C28 123, 17 110, 17 92 C17 75, 35 65, 43 55 C50 44, 48 29, 35 5 Z" stroke="#000000" stroke-width="3" fill="none"/>
@@ -4259,9 +4264,9 @@ function cetakCoverBukuAgenda() {
             </svg>
           </div>
 
-          <!-- Logo SDN Kesilir 02 -->
+          <!-- Kanan: Logo SD (SDN Kesilir 02) -->
           <div style="text-align: center;">
-            <img src="${LOGO_SEKOLAH_DRIVE}" style="height: 120px; width: auto; object-fit: contain;" alt="Logo SDN Kesilir 02">
+            <img src="${LOGO_SEKOLAH_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1XWfjQdygAvCCyRfKpTLD40MImqnl08X8&sz=w200'" style="height: 115px; width: auto; object-fit: contain;" alt="Logo SD Negeri Kesilir 02">
             <div style="font-size: 9.5pt; font-weight: bold; margin-top: 8px; letter-spacing: 0.5px;">SDN KESILIR 02</div>
           </div>
 
@@ -4271,7 +4276,7 @@ function cetakCoverBukuAgenda() {
       </div>
 
       <!-- Bagian Bawah: Teks Satuan Instansi Pendidikan -->
-      <div style="margin-bottom: 60px; line-height: 1.5;">
+      <div style="margin-bottom: 50px; line-height: 1.5;">
         <div style="font-size: 16pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
           DINAS PENDIDIKAN
         </div>
@@ -4295,8 +4300,9 @@ function cetakCoverBukuAgenda() {
 
 /**
  * ============================================================================
- * CETAK BUKU AGENDA PERSURATAN (HANYA SAMPAI KETERANGAN - LINK LAMPIRAN TIDAK MASUK CETAK)
- * Kop Resmi (Kiri Logo Jember, Kanan Logo SD), TTD Kepala Sekolah & Operator
+ * CETAK BUKU AGENDA PERSURATAN (OTOMATIS KERTAS F4 LANDSCAPE)
+ * HANYA SAMPAI KETERANGAN - LINK LAMPIRAN TIDAK MASUK KETIKA DICETAK
+ * Kop Resmi: Kiri Logo Jember, Kanan Logo SD, TTD Kepala Sekolah & Operator
  * ============================================================================
  */
 function cetakBukuAgendaPdf(mode = 'ALL') {
@@ -4308,16 +4314,26 @@ function cetakBukuAgendaPdf(mode = 'ALL') {
   }
   dynamicStyle.innerHTML = `
     @page {
-      size: A4 landscape;
-      margin: 8mm 6mm;
+      size: 330mm 215mm; /* Kertas F4 / Folio Landscape (330 mm × 215 mm) */
+      margin: 7mm 6mm;
     }
     @media print {
-      body {
+      @page {
+        size: 330mm 215mm; /* Memaksa browser dan printer memilih F4 Landscape */
+        margin: 7mm 6mm;
+      }
+      html, body {
+        width: 330mm !important;
         margin: 0 !important;
         padding: 0 !important;
         background-color: #ffffff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
       .print-area {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
         background-color: #ffffff !important;
       }
     }
@@ -4354,13 +4370,16 @@ function cetakBukuAgendaPdf(mode = 'ALL') {
   });
 
   const printHtml = `
-    <div style="font-family: 'Times New Roman', Georgia, serif; color: #000000; padding: 4px; line-height: 1.3;">
+    <div style="font-family: 'Times New Roman', Georgia, serif; color: #000000; padding: 4px; line-height: 1.3; width: 100%;">
       
       <!-- KOP RESMI BUKU AGENDA SURAT MASUK & KELUAR -->
       <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 3px double #000000; padding-bottom: 8px; margin-bottom: 12px;">
-        <div style="width: 90px; text-align: center;">
-          <img src="${LOGO_JEMBER_DRIVE}" style="height: 75px; width: auto;" alt="Logo Pemkab Jember">
+        <!-- Kiri: Logo Pemkab Jember -->
+        <div style="width: 95px; text-align: center;">
+          <img src="${LOGO_JEMBER_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1YkV5mi6NjLLnVwOmS-gk7NUS8vQyIU9M&sz=w200'" style="height: 75px; width: auto; object-fit: contain;" alt="Logo Pemkab Jember">
         </div>
+
+        <!-- Tengah: Teks Kop Resmi Sesuai Permintaan -->
         <div style="flex: 1; text-align: center; padding: 0 10px;">
           <div style="font-size: 14pt; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">
             BUKU AGENDA SURAT
@@ -4375,29 +4394,34 @@ function cetakBukuAgendaPdf(mode = 'ALL') {
             Dinas Pendidikan Wilayah Wuluhan — Kabupaten Jember, Jawa Timur
           </div>
         </div>
-        <div style="width: 90px; text-align: center;">
-          <img src="${LOGO_SEKOLAH_DRIVE}" style="height: 75px; width: auto;" alt="Logo SDN Kesilir 02">
+
+        <!-- Kanan: Logo SD (SD Negeri Kesilir 02) -->
+        <div style="width: 95px; text-align: center;">
+          <img src="${LOGO_SEKOLAH_DRIVE}" onerror="this.src='https://drive.google.com/thumbnail?id=1XWfjQdygAvCCyRfKpTLD40MImqnl08X8&sz=w200'" style="height: 75px; width: auto; object-fit: contain;" alt="Logo SD Negeri Kesilir 02">
         </div>
       </div>
 
       <div style="text-align: center; margin-bottom: 10px;">
-        <span style="font-size: 11pt; font-weight: bold; text-transform: uppercase; text-decoration: underline;">
+        <span style="font-size: 11.5pt; font-weight: bold; text-transform: uppercase; text-decoration: underline;">
           ${judulKhusus}
         </span>
+        <div style="font-size: 8pt; color: #555; margin-top: 2px;">
+          Standar Format: Kertas F4 / Folio Landscape (330 mm × 215 mm)
+        </div>
       </div>
 
-      <!-- TABEL AGENDA (HANYA SAMPAI KETERANGAN - LINK LAMPIRAN TIDAK MASUK CETAK) -->
+      <!-- TABEL AGENDA (HANYA SAMPAI KETERANGAN - LINK LAMPIRAN TIDAK MASUK KETIKA DICETAK) -->
       <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 8.5pt;">
         <thead>
           <tr style="background-color: #f1f5f9; text-align: center; font-weight: bold;">
             <th style="width: 35px;">No</th>
-            <th style="width: 80px;">Tanggal</th>
-            <th style="width: 145px;">Nomor Surat Masuk</th>
-            <th style="width: 145px;">Nomor Surat Keluar</th>
-            <th>Perihal</th>
-            <th style="width: 160px;">Alamat Surat</th>
+            <th style="width: 85px;">Tanggal</th>
+            <th style="width: 155px;">Nomor Surat Masuk</th>
+            <th style="width: 155px;">Nomor Surat Keluar</th>
+            <th style="width: 210px;">Perihal</th>
+            <th style="width: 170px;">Alamat Surat</th>
             <th>Isi Surat</th>
-            <th style="width: 120px;">Keterangan</th>
+            <th style="width: 125px;">Keterangan</th>
           </tr>
         </thead>
         <tbody>
@@ -4405,8 +4429,9 @@ function cetakBukuAgendaPdf(mode = 'ALL') {
         </tbody>
       </table>
 
-      <!-- TANDA TANGAN (TTD) KEPALA SEKOLAH & OPERATOR SEKOLAH (IDENTITAS BISA DIEDIT) -->
+      <!-- TANDA TANGAN (TTD) KEPALA SEKOLAH & OPERATOR SEKOLAH (IDENTITAS DAPAT DIEDIT) -->
       <div style="margin-top: 28px; display: flex; justify-content: space-between; align-items: flex-start; page-break-inside: avoid; font-size: 10pt;">
+        <!-- Kiri: Mengetahui Kepala Sekolah -->
         <div style="text-align: center; width: 42%;">
           <div>Mengetahui,</div>
           <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanKepsek || 'Kepala Sekolah')}</div>
@@ -4414,6 +4439,7 @@ function cetakBukuAgendaPdf(mode = 'ALL') {
           <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(ttd.namaKepsek || 'Drs. Bambang Sudarsono, M.Pd')}</div>
           <div style="margin-top: 2px;">NIP. ${escapeHtml(ttd.nipKepsek || '19680512 199203 1 005')}</div>
         </div>
+        <!-- Kanan: Pengadministrasi Operator Sekolah -->
         <div style="text-align: center; width: 42%;">
           <div>${escapeHtml(ttd.tempat || 'Jember')}, ${escapeHtml(tglTtd)}</div>
           <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanOperator || 'Operator Sekolah')}</div>
