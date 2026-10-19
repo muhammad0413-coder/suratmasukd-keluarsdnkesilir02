@@ -1383,6 +1383,88 @@ textarea.form-control {
 .btn-warning:hover {
   background: #d97706;
 }
+
+/* Cover Preview Box (Sesuai Gambar 2) */
+.cover-preview-card {
+  background: #cae9f8;
+  border: 4px double #1e3a8a;
+  border-radius: 8px;
+  padding: 30px 24px;
+  text-align: center;
+  font-family: 'Times New Roman', Georgia, serif;
+  color: #000000;
+  max-width: 480px;
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+.cover-preview-card h2 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  margin: 0 0 6px 0;
+  text-transform: uppercase;
+}
+.cover-preview-card h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+}
+.cover-preview-card h4 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin: 3px 0;
+  text-transform: uppercase;
+}
+.cover-preview-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin: 20px 0;
+}
+.cover-preview-bottom {
+  margin-top: 24px;
+}
+
+/* Tabs & Filter Pills */
+.tab-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.tab-pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.85rem;
+}
+.tab-pill:hover {
+  border-color: var(--primary-500);
+  color: var(--primary-600);
+}
+.tab-pill.active {
+  background: var(--primary-600);
+  color: #ffffff;
+  border-color: var(--primary-600);
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
+}
+
+.signature-box-preview {
+  background: var(--bg-surface);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  font-family: 'Times New Roman', Georgia, serif;
+}
 </style>
 </head>
 <body>
@@ -1422,57 +1504,39 @@ textarea.form-control {
           <span class="nav-icon">📊</span>
           <span>Dashboard</span>
         </a>
-
-        <div class="menu-category">Surat Masuk</div>
-        <a class="nav-item" data-view="view-surat-masuk" onclick="navigateTo('view-surat-masuk')" style="cursor: pointer;">
-          <span class="nav-icon">📥</span>
-          <span>Buku Surat Masuk</span>
+        <a class="nav-item" data-view="view-buku-agenda" onclick="navigateTo('view-buku-agenda')" style="cursor: pointer;">
+          <span class="nav-icon">📖</span>
+          <span>Buku Agenda Surat</span>
         </a>
+
+        <div class="menu-category">Catat Surat</div>
         <a class="nav-item" data-view="view-tambah-masuk" onclick="navigateTo('view-tambah-masuk')" style="cursor: pointer;">
-          <span class="nav-icon">➕</span>
+          <span class="nav-icon">📥</span>
           <span>Tambah Surat Masuk</span>
         </a>
-        <a class="nav-item" data-view="view-disposisi" onclick="navigateTo('view-disposisi')" style="cursor: pointer;">
-          <span class="nav-icon">📝</span>
-          <span>Disposisi & Tindak Lanjut</span>
-        </a>
-
-        <div class="menu-category">Surat Keluar</div>
-        <a class="nav-item" data-view="view-surat-keluar" onclick="navigateTo('view-surat-keluar')" style="cursor: pointer;">
-          <span class="nav-icon">📤</span>
-          <span>Buku Surat Keluar</span>
-        </a>
         <a class="nav-item" data-view="view-tambah-keluar" onclick="navigateTo('view-tambah-keluar')" style="cursor: pointer;">
-          <span class="nav-icon">✍️</span>
+          <span class="nav-icon">📤</span>
           <span>Tambah Surat Keluar</span>
         </a>
 
-        <div class="menu-category">Pengelolaan & Arsip</div>
-        <a class="nav-item" data-view="view-klasifikasi" onclick="navigateTo('view-klasifikasi')" style="cursor: pointer;">
-          <span class="nav-icon">🏷️</span>
-          <span>Klasifikasi Surat</span>
-        </a>
-        <a class="nav-item" data-view="view-lampiran" onclick="navigateTo('view-lampiran')" style="cursor: pointer;">
-          <span class="nav-icon">📎</span>
-          <span>Lampiran & Berkas Drive</span>
-        </a>
+        <div class="menu-category">Pencetakan &amp; TTD</div>
         <a class="nav-item" data-view="view-laporan" onclick="navigateTo('view-laporan')" style="cursor: pointer;">
-          <span class="nav-icon">📑</span>
-          <span>Laporan & Cetak</span>
+          <span class="nav-icon">🖨️</span>
+          <span>Cetak Buku &amp; Cover</span>
         </a>
-        <a class="nav-item" data-view="view-log" onclick="navigateTo('view-log')" style="cursor: pointer;">
-          <span class="nav-icon">🕒</span>
-          <span>Riwayat Aktivitas</span>
+        <a class="nav-item" data-view="view-edit-ttd" onclick="navigateTo('view-edit-ttd')" style="cursor: pointer;">
+          <span class="nav-icon">✏️</span>
+          <span>Identitas TTD Cetak</span>
         </a>
 
-        <div class="menu-category">Sistem</div>
+        <div class="menu-category">Sistem &amp; Database</div>
         <a class="nav-item" data-view="view-pengaturan" onclick="navigateTo('view-pengaturan')" style="cursor: pointer;">
           <span class="nav-icon">⚙️</span>
-          <span>Pengaturan & Database</span>
+          <span>Google Sheets &amp; Drive</span>
         </a>
         <a class="nav-item" data-view="view-bantuan" onclick="navigateTo('view-bantuan')" style="cursor: pointer;">
           <span class="nav-icon">❓</span>
-          <span>Bantuan & Panduan</span>
+          <span>Bantuan &amp; Panduan</span>
         </a>
       </nav>
 
@@ -1512,15 +1576,15 @@ textarea.form-control {
       <!-- Main Body Content -->
       <main class="page-content">
 
-        <!-- KOP SURAT RESMI (PEMERINTAH KABUPATEN JEMBER) -->
+        <!-- KOP RESMI BUKU AGENDA SURAT MASUK & KELUAR -->
         <div class="official-kop">
           <div class="kop-logo-left">
             <img src="https://lh3.googleusercontent.com/d/1YkV5mi6NjLLnVwOmS-gk7NUS8vQyIU9M" alt="Logo Pemkab Jember" title="Pemerintah Kabupaten Jember" onerror="this.src='https://drive.google.com/thumbnail?id=1YkV5mi6NjLLnVwOmS-gk7NUS8vQyIU9M&sz=w200'">
           </div>
           <div class="kop-center-text">
-            <div class="kop-line-1">PEMERINTAH KABUPATEN JEMBER</div>
-            <div class="kop-line-2">DINAS PENDIDIKAN</div>
-            <div class="kop-line-3">SD NEGERI KESILIR 02</div>
+            <div class="kop-line-1" style="font-weight: 800; font-size: 1.25rem; letter-spacing: 0.5px;">BUKU AGENDA SURAT</div>
+            <div class="kop-line-2" style="font-weight: 800; font-size: 1.15rem; letter-spacing: 0.5px;">MASUK &amp; KELUAR</div>
+            <div class="kop-line-3" style="font-weight: 900; font-size: 1.35rem; letter-spacing: 1px;">SEKOLAH DASAR NEGERI KESILIR 02</div>
             <div class="kop-divider-double"></div>
           </div>
           <div class="kop-logo-right">
@@ -1642,47 +1706,55 @@ textarea.form-control {
             </div>
           </div>
 
-          <!-- PINTASAN AKSI CEPAT -->
+          <!-- PINTASAN AKSI CEPAT AGENDA -->
           <div style="display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;">
-            <button class="btn btn-primary" onclick="navigateTo('view-tambah-masuk')">
-              ➕ Catat Surat Masuk Baru
+            <button class="btn btn-primary" onclick="navigateTo('view-buku-agenda')">
+              📖 Buka Buku Agenda
+            </button>
+            <button class="btn btn-primary" style="background:#0284c7;" onclick="navigateTo('view-tambah-masuk')">
+              📥 Catat Surat Masuk
             </button>
             <button class="btn btn-success" onclick="navigateTo('view-tambah-keluar')">
-              ✍️ Buat Surat Keluar Baru
+              📤 Catat Surat Keluar
             </button>
-            <button class="btn btn-secondary" onclick="navigateTo('view-disposisi')">
-              📝 Kelola Lembar Disposisi
+            <button class="btn btn-warning" onclick="cetakCoverBukuAgenda()">
+              📘 Cetak Cover Buku (Gambar 2)
             </button>
-            <button class="btn btn-secondary" onclick="navigateTo('view-laporan')">
-              📑 Rekapitulasi & Cetak Laporan
+            <button class="btn btn-secondary" onclick="cetakBukuAgendaPdf('ALL')">
+              🖨️ Cetak Buku Agenda
+            </button>
+            <button class="btn btn-secondary" onclick="navigateTo('view-edit-ttd')">
+              ✏️ Edit Identitas TTD
             </button>
           </div>
 
-          <!-- TABEL AKTIVITAS SURAT TERBARU -->
+          <!-- TABEL BUKU AGENDA TERBARU -->
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">🕒 Surat Masuk & Keluar Terbaru</h3>
-              <button class="btn btn-secondary" onclick="navigateTo('view-surat-masuk')">Lihat Semua Surat</button>
+              <h3 class="card-title">🕒 Data Agenda Terbaru</h3>
+              <button class="btn btn-secondary" onclick="navigateTo('view-buku-agenda')">Buka Seluruh Buku Agenda</button>
             </div>
             <div class="card-body" style="padding: 0;">
               <div class="table-responsive">
                 <table class="app-table">
                   <thead>
                     <tr>
-                      <th>Jenis</th>
-                      <th>No. Agenda</th>
-                      <th>Nomor Surat</th>
-                      <th>Tanggal</th>
-                      <th>Asal / Tujuan</th>
+                      <th style="width: 45px; text-align: center;">No</th>
+                      <th style="width: 95px;">Tanggal</th>
+                      <th>Nomor Surat Masuk</th>
+                      <th>Nomor Surat Keluar</th>
                       <th>Perihal</th>
-                      <th>Status</th>
-                      <th>Aksi</th>
+                      <th>Alamat Surat</th>
+                      <th>Isi Surat</th>
+                      <th>Keterangan</th>
+                      <th style="text-align: center;">Lampiran</th>
+                      <th style="width: 70px; text-align: center;">Aksi</th>
                     </tr>
                   </thead>
                   <tbody id="tableRecentLetters">
                     <tr>
-                      <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 24px;">
-                        Memuat aktivitas persuratan...
+                      <td colspan="10" style="text-align: center; color: var(--text-muted); padding: 24px;">
+                        Memuat data agenda persuratan...
                       </td>
                     </tr>
                   </tbody>
@@ -1693,74 +1765,60 @@ textarea.form-control {
 
         </section>
 
-        <!-- ==================== VIEW 2: SURAT MASUK ==================== -->
-        <section id="view-surat-masuk" class="view-section">
+        <!-- ==================== VIEW 2: BUKU AGENDA SURAT ==================== -->
+        <section id="view-buku-agenda" class="view-section">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">📥 Buku Agenda Surat Masuk</h3>
+              <div>
+                <h3 class="card-title">📖 Buku Agenda Surat Masuk &amp; Keluar</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 4px 0 0 0;">
+                  Format resmi agenda tata persuratan SD Negeri Kesilir 02
+                </p>
+              </div>
               <div style="display:flex; gap: 8px; flex-wrap: wrap;">
-                <button class="btn btn-warning" onclick="cetakRekapSuratMasukPdf()" title="Cetak Rekap Surat Masuk (PDF/Printer)">🖨️ Cetak PDF Rekap</button>
-                <button class="btn btn-secondary" onclick="exportDataMasukCsv()">📥 Ekspor CSV</button>
-                <button class="btn btn-primary" onclick="navigateTo('view-tambah-masuk')">➕ Tambah Surat Masuk</button>
+                <button class="btn btn-warning" onclick="cetakCoverBukuAgenda()" title="Cetak Cover Buku Agenda Sesuai Gambar 2">📘 Cetak Cover Buku</button>
+                <button class="btn btn-primary" onclick="cetakBukuAgendaPdf('ALL')" title="Cetak Buku Agenda ke PDF/Printer">🖨️ Cetak Agenda (PDF)</button>
+                <button class="btn btn-secondary" onclick="exportBukuAgendaCsv()">📥 Ekspor CSV</button>
+                <button class="btn btn-secondary" onclick="bukaModalEditTtd()">✏️ Edit TTD</button>
               </div>
             </div>
             <div class="card-body">
               
-              <!-- Filter Bar -->
-              <div class="table-filter-bar">
-                <div class="search-input-wrap">
-                  <span class="search-icon">🔍</span>
-                  <input type="text" id="searchMasuk" placeholder="Cari nomor agenda, nomor surat, perihal, atau pengirim...">
-                </div>
-                <div class="filter-selects">
-                  <select id="filterKlasifikasiMasuk">
-                    <option value="ALL">Semua Klasifikasi</option>
-                    <option value="000">000 - Umum</option>
-                    <option value="420">420 - Pendidikan</option>
-                    <option value="421">421 - Sekolah</option>
-                    <option value="421.2">421.2 - Sekolah Dasar (SD)</option>
-                    <option value="421.3">421.3 - Kesiswaan</option>
-                    <option value="421.4">421.4 - Sarana dan Prasarana</option>
-                    <option value="800">800 - Kepegawaian</option>
-                    <option value="900">900 - Keuangan</option>
-                  </select>
-                  <select id="filterSifatMasuk">
-                    <option value="ALL">Semua Sifat</option>
-                    <option value="Biasa">Biasa</option>
-                    <option value="Penting">Penting</option>
-                    <option value="Rahasia">Rahasia</option>
-                    <option value="Segera">Segera</option>
-                    <option value="Sangat Segera">Sangat Segera</option>
-                  </select>
-                  <select id="filterStatusMasuk">
-                    <option value="ALL">Semua Status</option>
-                    <option value="Baru">Baru</option>
-                    <option value="Diproses">Diproses</option>
-                    <option value="Didisposisikan">Didisposisikan</option>
-                    <option value="Selesai">Selesai</option>
-                  </select>
-                  <button type="button" class="btn btn-secondary" id="btnResetFilterMasuk">Reset Filter</button>
-                </div>
+              <!-- Filter Tabs: Semua / Masuk / Keluar -->
+              <div class="tab-pills">
+                <button class="tab-pill active" id="tabAgendaAll" onclick="setFilterAgendaTab('ALL')">📋 Semua Agenda (<span id="countAgendaAll">0</span>)</button>
+                <button class="tab-pill" id="tabAgendaMasuk" onclick="setFilterAgendaTab('MASUK')">📥 Surat Masuk Saja (<span id="countAgendaMasuk">0</span>)</button>
+                <button class="tab-pill" id="tabAgendaKeluar" onclick="setFilterAgendaTab('KELUAR')">📤 Surat Keluar Saja (<span id="countAgendaKeluar">0</span>)</button>
               </div>
 
-              <!-- Table Data -->
+              <!-- Search Bar -->
+              <div class="table-filter-bar">
+                <div class="search-input-wrap" style="flex: 1;">
+                  <span class="search-icon">🔍</span>
+                  <input type="text" id="searchBukuAgenda" placeholder="Cari nomor urut, tanggal, nomor surat, perihal, alamat surat, atau isi ringkas..." oninput="filterAgendaSearch()">
+                </div>
+                <button type="button" class="btn btn-secondary" onclick="resetFilterAgenda()">Reset Pencarian</button>
+              </div>
+
+              <!-- Table Data Buku Agenda -->
               <div class="table-responsive">
                 <table class="app-table">
                   <thead>
                     <tr>
-                      <th>Agenda</th>
-                      <th>Nomor Surat Asli</th>
-                      <th>Tgl Diterima</th>
-                      <th>Asal Surat / Pengirim</th>
+                      <th style="width: 45px; text-align: center;">No</th>
+                      <th style="width: 95px;">Tanggal</th>
+                      <th>Nomor Surat Masuk</th>
+                      <th>Nomor Surat Keluar</th>
                       <th>Perihal</th>
-                      <th>Klasifikasi</th>
-                      <th>Sifat</th>
-                      <th>Status</th>
-                      <th>Aksi</th>
+                      <th>Alamat Surat</th>
+                      <th>Isi Surat</th>
+                      <th>Keterangan</th>
+                      <th style="text-align: center;">Link Lampiran</th>
+                      <th style="width: 85px; text-align: center;">Aksi</th>
                     </tr>
                   </thead>
-                  <tbody id="tableSuratMasuk">
-                    <tr><td colspan="9" style="text-align: center; padding: 24px;">Memuat data surat masuk...</td></tr>
+                  <tbody id="tableBukuAgendaBody">
+                    <tr><td colspan="10" style="text-align: center; padding: 24px;">Memuat data buku agenda...</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -1773,113 +1831,57 @@ textarea.form-control {
         <section id="view-tambah-masuk" class="view-section">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">➕ Formulir Perekaman Surat Masuk Baru</h3>
-              <button class="btn btn-secondary" onclick="navigateTo('view-surat-masuk')">Kembali ke Daftar</button>
+              <h3 class="card-title">📥 Catat Surat Masuk Baru</h3>
+              <button class="btn btn-secondary" onclick="navigateTo('view-buku-agenda')">📖 Kembali ke Buku Agenda</button>
             </div>
             <div class="card-body">
               <form id="formSuratMasuk" onsubmit="handleSimpanSuratMasuk(event, false)">
                 <div class="form-grid">
                   
+                  <div class="form-group col-2">
+                    <label class="form-label">No. Urut Agenda</label>
+                    <input type="number" id="smNomorAgenda" class="form-control" placeholder="1">
+                    <span class="form-hint">Otomatis nomor berikutnya</span>
+                  </div>
+
                   <div class="form-group col-3">
-                    <label class="form-label">Nomor Agenda</label>
-                    <input type="text" id="smNomorAgenda" class="form-control" placeholder="Contoh: 0001 (Kosongkan untuk otomatis)">
-                    <span class="form-hint">Isi manual atau kosongkan untuk otomatis</span>
-                  </div>
-
-                  <div class="form-group col-5">
-                    <label class="form-label">Nomor Surat Asli <span class="req">*</span></label>
-                    <input type="text" id="smNomorAsli" class="form-control" placeholder="Contoh: 421.2/045/DISPENDIK/2026" required>
-                  </div>
-
-                  <div class="form-group col-2">
-                    <label class="form-label">Tanggal Surat <span class="req">*</span></label>
-                    <input type="date" id="smTanggalSurat" class="form-control" required>
-                  </div>
-
-                  <div class="form-group col-2">
-                    <label class="form-label">Tanggal Diterima <span class="req">*</span></label>
+                    <label class="form-label">Tanggal Diterima / Agenda <span class="req">*</span></label>
                     <input type="date" id="smTanggalDiterima" class="form-control" required>
                   </div>
 
-                  <div class="form-group col-6">
-                    <label class="form-label">Asal Instansi Surat <span class="req">*</span></label>
-                    <input type="text" id="smAsalSurat" class="form-control" placeholder="Contoh: Dinas Pendidikan Kabupaten Jember" required>
-                  </div>
-
-                  <div class="form-group col-6">
-                    <label class="form-label">Nama Pengirim / Penandatangan</label>
-                    <input type="text" id="smNamaPengirim" class="form-control" placeholder="Contoh: Kepala Bidang Pembinaan SD">
+                  <div class="form-group col-7">
+                    <label class="form-label">Nomor Surat Masuk <span class="req">*</span></label>
+                    <input type="text" id="smNomorAsli" class="form-control" placeholder="Contoh: 421.2/089/Disdik.Wlh/2026" required>
                   </div>
 
                   <div class="form-group col-12">
                     <label class="form-label">Perihal Surat <span class="req">*</span></label>
-                    <input type="text" id="smPerihal" class="form-control" placeholder="Contoh: Undangan Rapat Koordinasi Penilaian Kinerja Guru SD" required>
-                  </div>
-
-                  <div class="form-group col-4">
-                    <label class="form-label">Klasifikasi Surat <span class="req">*</span></label>
-                    <select id="smKlasifikasi" class="form-control" required>
-                      <option value="">Pilih Klasifikasi...</option>
-                      <option value="000">000 - Umum</option>
-                      <option value="420">420 - Pendidikan</option>
-                      <option value="421">421 - Sekolah</option>
-                      <option value="421.2">421.2 - Sekolah Dasar (SD)</option>
-                      <option value="421.3">421.3 - Kesiswaan</option>
-                      <option value="421.4">421.4 - Sarana dan Prasarana</option>
-                      <option value="800">800 - Kepegawaian</option>
-                      <option value="900">900 - Keuangan</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group col-4">
-                    <label class="form-label">Sifat Surat <span class="req">*</span></label>
-                    <select id="smSifat" class="form-control" required>
-                      <option value="Biasa">Biasa</option>
-                      <option value="Penting">Penting</option>
-                      <option value="Rahasia">Rahasia</option>
-                      <option value="Segera">Segera</option>
-                      <option value="Sangat Segera">Sangat Segera</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group col-4">
-                    <label class="form-label">Tujuan Internal Disposisi</label>
-                    <input type="text" id="smTujuanInternal" class="form-control" placeholder="Contoh: Kepala Sekolah / Tata Usaha / Guru">
+                    <input type="text" id="smPerihal" class="form-control" placeholder="Contoh: Undangan Rapat Koordinasi ANBK SD Tahun 2026" required>
                   </div>
 
                   <div class="form-group col-12">
-                    <label class="form-label">Ringkasan / Isi Ringkas Surat</label>
-                    <textarea id="smRingkasan" class="form-control" rows="2" placeholder="Uraian ringkas pokok bahasan surat..."></textarea>
+                    <label class="form-label">Alamat Surat (Asal Instansi / Pengirim) <span class="req">*</span></label>
+                    <input type="text" id="smAsalSurat" class="form-control" placeholder="Contoh: Dinas Pendidikan Wilayah Wuluhan / Drs. H. Ahmad Fauzi, M.Pd" required>
                   </div>
 
-                  <div class="form-group col-4">
-                    <label class="form-label">Status Awal</label>
-                    <select id="smStatus" class="form-control">
-                      <option value="Baru">Baru</option>
-                      <option value="Diproses">Diproses</option>
-                      <option value="Didisposisikan">Didisposisikan</option>
-                      <option value="Selesai">Selesai</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group col-4">
-                    <label class="form-label">Petugas Pencatat</label>
-                    <input type="text" id="smPetugas" class="form-control" placeholder="Nama Petugas TU">
-                  </div>
-
-                  <div class="form-group col-4">
-                    <label class="form-label">Keterangan Tambahan</label>
-                    <input type="text" id="smKeterangan" class="form-control" placeholder="Catatan fisik ordner / lemari">
-                  </div>
-
-                  <!-- UPLOAD LAMPIRAN FILE -->
                   <div class="form-group col-12">
-                    <label class="form-label">Lampiran Dokumen Surat (PDF, DOC, DOCX, XLS, XLSX, JPG, PNG)</label>
+                    <label class="form-label">Isi Surat (Ringkasan / Uraian Pokok Surat) <span class="req">*</span></label>
+                    <textarea id="smRingkasan" class="form-control" rows="3" placeholder="Tuliskan pokok isi atau uraian ringkas surat..." required></textarea>
+                  </div>
+
+                  <div class="form-group col-12">
+                    <label class="form-label">Keterangan</label>
+                    <input type="text" id="smKeterangan" class="form-control" placeholder="Contoh: Berkas asli tersimpan di lemari arsip / tindak lanjuti segera">
+                  </div>
+
+                  <!-- UPLOAD LAMPIRAN FILE (GOOGLE DRIVE) -->
+                  <div class="form-group col-12">
+                    <label class="form-label">Lampiran Berkas Digital (Tersimpan Otomatis di Google Drive: Folder LAMPIRAN SURAT MASUK)</label>
                     <div id="dropzoneMasuk" class="dropzone-box" onclick="document.getElementById('fileInputMasuk').click()">
                       <div class="dropzone-icon">📁</div>
                       <div class="dropzone-text">
-                        <h4>Tarik & Jatuhkan file ke sini, atau klik untuk memilih file</h4>
-                        <p>Mendukung format PDF, Word, Excel, PowerPoint, dan Gambar (Maks. 15 MB/file)</p>
+                        <h4>Tarik &amp; Jatuhkan file ke sini, atau klik untuk memilih file</h4>
+                        <p>Mendukung format PDF, Word, Excel, Gambar (Maks. 15 MB/file)</p>
                       </div>
                       <input type="file" id="fileInputMasuk" multiple style="display:none;" onchange="handleFileSelect(event, 'previewLampiranMasuk')">
                     </div>
@@ -1889,7 +1891,7 @@ textarea.form-control {
                   <div class="form-group col-12" style="margin-top: 12px; display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap;">
                     <button type="button" class="btn btn-secondary" onclick="resetFormSuratMasuk()">🔄 Reset Formulir</button>
                     <button type="button" class="btn btn-secondary" onclick="handleSimpanSuratMasuk(event, true)">➕ Simpan dan Tambah Lagi</button>
-                    <button type="submit" class="btn btn-primary" id="btnSubmitMasuk">💾 Simpan Surat Masuk ke Database</button>
+                    <button type="submit" class="btn btn-primary" id="btnSubmitMasuk">💾 Simpan Surat Masuk ke Agenda</button>
                   </div>
 
                 </div>
@@ -1898,205 +1900,61 @@ textarea.form-control {
           </div>
         </section>
 
-        <!-- ==================== VIEW 4: SURAT KELUAR ==================== -->
-        <section id="view-surat-keluar" class="view-section">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">📤 Buku Agenda Surat Keluar</h3>
-              <div style="display:flex; gap: 8px; flex-wrap: wrap;">
-                <button class="btn btn-warning" onclick="cetakRekapSuratKeluarPdf()" title="Cetak Rekap Surat Keluar (PDF/Printer)">🖨️ Cetak PDF Rekap</button>
-                <button class="btn btn-secondary" onclick="exportDataKeluarCsv()">📥 Ekspor CSV</button>
-                <button class="btn btn-primary" onclick="navigateTo('view-tambah-keluar')">✍️ Tambah Surat Keluar</button>
-              </div>
-            </div>
-            <div class="card-body">
-              
-              <!-- Filter Bar -->
-              <div class="table-filter-bar">
-                <div class="search-input-wrap">
-                  <span class="search-icon">🔍</span>
-                  <input type="text" id="searchKeluar" placeholder="Cari agenda, nomor surat resmi, tujuan, atau perihal...">
-                </div>
-                <div class="filter-selects">
-                  <select id="filterKlasifikasiKeluar">
-                    <option value="ALL">Semua Klasifikasi</option>
-                    <option value="000">000 - Umum</option>
-                    <option value="420">420 - Pendidikan</option>
-                    <option value="421">421 - Sekolah</option>
-                    <option value="421.2">421.2 - Sekolah Dasar (SD)</option>
-                    <option value="421.3">421.3 - Kesiswaan</option>
-                    <option value="421.4">421.4 - Sarana dan Prasarana</option>
-                    <option value="800">800 - Kepegawaian</option>
-                    <option value="900">900 - Keuangan</option>
-                  </select>
-                  <select id="filterStatusKeluar">
-                    <option value="ALL">Semua Status</option>
-                    <option value="Draft">Draft</option>
-                    <option value="Menunggu Persetujuan">Menunggu Persetujuan</option>
-                    <option value="Siap Dikirim">Siap Dikirim</option>
-                    <option value="Sudah Dikirim">Sudah Dikirim</option>
-                    <option value="Selesai">Selesai</option>
-                    <option value="Dibatalkan">Dibatalkan</option>
-                  </select>
-                  <button type="button" class="btn btn-secondary" id="btnResetFilterKeluar">Reset Filter</button>
-                </div>
-              </div>
-
-              <!-- Table Data -->
-              <div class="table-responsive">
-                <table class="app-table">
-                  <thead>
-                    <tr>
-                      <th>Agenda</th>
-                      <th>Nomor Surat Resmi</th>
-                      <th>Tanggal Surat</th>
-                      <th>Tujuan Surat / Penerima</th>
-                      <th>Perihal</th>
-                      <th>Penandatangan</th>
-                      <th>Metode Kirim</th>
-                      <th>Status</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tableSuratKeluar">
-                    <tr><td colspan="9" style="text-align: center; padding: 24px;">Memuat data surat keluar...</td></tr>
-                  </tbody>
-                </table>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        <!-- ==================== VIEW 5: TAMBAH SURAT KELUAR ==================== -->
+        <!-- ==================== VIEW 4: TAMBAH SURAT KELUAR ==================== -->
         <section id="view-tambah-keluar" class="view-section">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">✍️ Formulir Perekaman Surat Keluar Baru</h3>
-              <button class="btn btn-secondary" onclick="navigateTo('view-surat-keluar')">Kembali ke Daftar</button>
+              <h3 class="card-title">📤 Catat Surat Keluar Baru</h3>
+              <button class="btn btn-secondary" onclick="navigateTo('view-buku-agenda')">📖 Kembali ke Buku Agenda</button>
             </div>
             <div class="card-body">
               <form id="formSuratKeluar" onsubmit="handleSimpanSuratKeluar(event, false)">
                 <div class="form-grid">
                   
-                  <div class="form-group col-3">
-                    <label class="form-label">Nomor Agenda Internal</label>
-                    <input type="text" id="skNomorAgenda" class="form-control" placeholder="Contoh: 0001 (Kosongkan untuk otomatis)">
-                    <span class="form-hint">Isi manual atau kosongkan untuk otomatis</span>
-                  </div>
-
-                  <div class="form-group col-5">
-                    <label class="form-label">Nomor Surat Resmi <span class="req">*</span></label>
-                    <input type="text" id="skNomorResmi" class="form-control" placeholder="Contoh: 421.2/028/SDN.KSL.02/2026" required>
-                    <span class="form-hint">Dapat diatur manual sesuai tata naskah dinas</span>
-                  </div>
-
                   <div class="form-group col-2">
-                    <label class="form-label">Tanggal Surat <span class="req">*</span></label>
+                    <label class="form-label">No. Urut Agenda</label>
+                    <input type="number" id="skNomorAgenda" class="form-control" placeholder="2">
+                    <span class="form-hint">Otomatis nomor berikutnya</span>
+                  </div>
+
+                  <div class="form-group col-3">
+                    <label class="form-label">Tanggal Surat / Kirim <span class="req">*</span></label>
                     <input type="date" id="skTanggalSurat" class="form-control" required>
                   </div>
 
-                  <div class="form-group col-2">
-                    <label class="form-label">Tanggal Pengiriman</label>
-                    <input type="date" id="skTanggalKirim" class="form-control">
-                  </div>
-
-                  <div class="form-group col-6">
-                    <label class="form-label">Tujuan Instansi / Lembaga <span class="req">*</span></label>
-                    <input type="text" id="skTujuanSurat" class="form-control" placeholder="Contoh: Dinas Pendidikan Kabupaten Jember" required>
-                  </div>
-
-                  <div class="form-group col-6">
-                    <label class="form-label">Nama Penerima / Pejabat Tujuan</label>
-                    <input type="text" id="skNamaPenerima" class="form-control" placeholder="Contoh: Kepala Dinas Pendidikan / Kasubag Umum">
+                  <div class="form-group col-7">
+                    <label class="form-label">Nomor Surat Keluar <span class="req">*</span></label>
+                    <input type="text" id="skNomorResmi" class="form-control" placeholder="Contoh: 421.2/045/SDN.02/X/2026" required>
                   </div>
 
                   <div class="form-group col-12">
-                    <label class="form-label">Perihal Surat Keluar <span class="req">*</span></label>
-                    <input type="text" id="skPerihal" class="form-control" placeholder="Contoh: Laporan Pertanggungjawaban Bantuan Operasional Sekolah (BOS) Tahap I" required>
-                  </div>
-
-                  <div class="form-group col-4">
-                    <label class="form-label">Klasifikasi Surat <span class="req">*</span></label>
-                    <select id="skKlasifikasi" class="form-control" required>
-                      <option value="">Pilih Klasifikasi...</option>
-                      <option value="000">000 - Umum</option>
-                      <option value="420">420 - Pendidikan</option>
-                      <option value="421">421 - Sekolah</option>
-                      <option value="421.2">421.2 - Sekolah Dasar (SD)</option>
-                      <option value="421.3">421.3 - Kesiswaan</option>
-                      <option value="421.4">421.4 - Sarana dan Prasarana</option>
-                      <option value="800">800 - Kepegawaian</option>
-                      <option value="900">900 - Keuangan</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group col-4">
-                    <label class="form-label">Sifat Surat</label>
-                    <select id="skSifat" class="form-control">
-                      <option value="Biasa">Biasa</option>
-                      <option value="Penting">Penting</option>
-                      <option value="Rahasia">Rahasia</option>
-                      <option value="Segera">Segera</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group col-4">
-                    <label class="form-label">Metode Pengiriman</label>
-                    <select id="skMetodeKirim" class="form-control">
-                      <option value="Kurir/Langsung">Kurir / Petugas Langsung</option>
-                      <option value="Pos/Ekspedisi">Pos / Ekspedisi Resmi</option>
-                      <option value="Email Resmi">Email Dinas Resmi</option>
-                      <option value="WhatsApp Dinas">WhatsApp Dinas</option>
-                      <option value="Portal Dinas">Portal / SIM Dinas Pendidikan</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group col-6">
-                    <label class="form-label">Penandatangan Surat <span class="req">*</span></label>
-                    <input type="text" id="skPenandatangan" class="form-control" value="Kepala Sekolah" required>
-                  </div>
-
-                  <div class="form-group col-6">
-                    <label class="form-label">Jabatan Penandatangan <span class="req">*</span></label>
-                    <input type="text" id="skJabatan" class="form-control" value="Kepala SD Negeri Kesilir 02" required>
+                    <label class="form-label">Perihal Surat <span class="req">*</span></label>
+                    <input type="text" id="skPerihal" class="form-control" placeholder="Contoh: Laporan Realisasi dan Rekapitulasi Data Calon Peserta ANBK" required>
                   </div>
 
                   <div class="form-group col-12">
-                    <label class="form-label">Ringkasan / Isi Ringkas Surat</label>
-                    <textarea id="skRingkasan" class="form-control" rows="2" placeholder="Uraian isi surat keluar..."></textarea>
+                    <label class="form-label">Alamat Surat (Tujuan Instansi / Penerima) <span class="req">*</span></label>
+                    <input type="text" id="skTujuanSurat" class="form-control" placeholder="Contoh: Koordinator Wilayah Pendidikan Kecamatan Wuluhan" required>
                   </div>
 
-                  <div class="form-group col-4">
-                    <label class="form-label">Status Pengiriman</label>
-                    <select id="skStatus" class="form-control">
-                      <option value="Draft">Draft</option>
-                      <option value="Menunggu Persetujuan">Menunggu Persetujuan</option>
-                      <option value="Siap Dikirim">Siap Dikirim</option>
-                      <option value="Sudah Dikirim">Sudah Dikirim</option>
-                      <option value="Selesai">Selesai</option>
-                      <option value="Dibatalkan">Dibatalkan</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group col-4">
-                    <label class="form-label">Petugas Pembuat</label>
-                    <input type="text" id="skPetugas" class="form-control" placeholder="Nama Petugas TU">
-                  </div>
-
-                  <div class="form-group col-4">
-                    <label class="form-label">Keterangan / Nomor Ekspedisi</label>
-                    <input type="text" id="skKeterangan" class="form-control" placeholder="Nomor resi pos / keterangan tanda terima">
-                  </div>
-
-                  <!-- Upload Dokumen & Bukti Pengiriman -->
                   <div class="form-group col-12">
-                    <label class="form-label">Unggah Dokumen Surat Keluar & Bukti Pengiriman / Resi</label>
+                    <label class="form-label">Isi Surat (Ringkasan / Uraian Pokok Surat) <span class="req">*</span></label>
+                    <textarea id="skRingkasan" class="form-control" rows="3" placeholder="Tuliskan pokok isi atau uraian ringkas surat..." required></textarea>
+                  </div>
+
+                  <div class="form-group col-12">
+                    <label class="form-label">Keterangan</label>
+                    <input type="text" id="skKeterangan" class="form-control" placeholder="Contoh: Terkirim via kurir dinas / tanda terima terlampir">
+                  </div>
+
+                  <!-- UPLOAD LAMPIRAN FILE (GOOGLE DRIVE) -->
+                  <div class="form-group col-12">
+                    <label class="form-label">Lampiran Berkas Digital (Tersimpan Otomatis di Google Drive: Folder LAMPIRAN SURAT KELUAR)</label>
                     <div id="dropzoneKeluar" class="dropzone-box" onclick="document.getElementById('fileInputKeluar').click()">
-                      <div class="dropzone-icon">📤</div>
+                      <div class="dropzone-icon">📁</div>
                       <div class="dropzone-text">
-                        <h4>Pilih atau Tarik File Dokumen Surat / Resi Tanda Terima ke sini</h4>
-                        <p>Format PDF, Word, Excel, JPG, PNG (Maks. 15 MB/file)</p>
+                        <h4>Tarik &amp; Jatuhkan file ke sini, atau klik untuk memilih file</h4>
+                        <p>Mendukung format PDF, Word, Excel, Gambar (Maks. 15 MB/file)</p>
                       </div>
                       <input type="file" id="fileInputKeluar" multiple style="display:none;" onchange="handleFileSelect(event, 'previewLampiranKeluar')">
                     </div>
@@ -2106,7 +1964,7 @@ textarea.form-control {
                   <div class="form-group col-12" style="margin-top: 12px; display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap;">
                     <button type="button" class="btn btn-secondary" onclick="resetFormSuratKeluar()">🔄 Reset Formulir</button>
                     <button type="button" class="btn btn-secondary" onclick="handleSimpanSuratKeluar(event, true)">➕ Simpan dan Tambah Lagi</button>
-                    <button type="submit" class="btn btn-primary" id="btnSubmitKeluar">💾 Simpan Surat Keluar ke Database</button>
+                    <button type="submit" class="btn btn-primary" id="btnSubmitKeluar">💾 Simpan Surat Keluar ke Agenda</button>
                   </div>
 
                 </div>
@@ -2247,140 +2105,251 @@ textarea.form-control {
           </div>
         </section>
 
-        <!-- ==================== VIEW 9: LAPORAN & 3 CETAK PDF ==================== -->
+        <!-- ==================== VIEW 5: CETAK BUKU & COVER ==================== -->
         <section id="view-laporan" class="view-section">
           
-          <!-- 3 KARTU CETAK PDF UTAMA (SURAT MASUK, SURAT KELUAR, GABUNGAN) -->
           <div class="print-cards-grid">
             
-            <!-- CETAK 1: REKAP SURAT MASUK -->
-            <div class="print-card masuk">
+            <!-- CETAK 1: COVER BUKU AGENDA (SESUAI GAMBAR 2) -->
+            <div class="print-card" style="border: 2px solid #38bdf8; background: #f0f9ff;">
               <div class="print-card-header">
-                <div class="print-card-icon">📥</div>
+                <div class="print-card-icon" style="background: #cae9f8; color: #0284c7;">📘</div>
                 <div>
-                  <div class="print-card-title">1. Cetak Rekap Surat Masuk (PDF)</div>
-                  <div class="print-card-desc">Buku agenda rekapitulasi seluruh surat masuk, nomor surat asli, asal pengirim, perihal, dan tindak lanjut.</div>
+                  <div class="print-card-title">1. Cetak Cover Buku Agenda (Gambar 2)</div>
+                  <div class="print-card-desc">Cover depan resmi buku agenda warna biru muda elegan, ornamen kaligrafi, logo Pemkab Jember &amp; SDN Kesilir 02.</div>
                 </div>
               </div>
               <div class="print-card-actions">
-                <button type="button" class="btn btn-primary" style="background:#0284c7; flex:1;" onclick="cetakRekapSuratMasukPdf()">
-                  🖨️ Cetak PDF Rekap Masuk
-                </button>
-                <button type="button" class="btn btn-secondary" onclick="exportDataMasukCsv()" title="Ekspor ke CSV/Excel">
-                  📥 CSV
+                <button type="button" class="btn btn-primary" style="background:#0284c7; flex:1;" onclick="cetakCoverBukuAgenda()">
+                  🖨️ Cetak Cover Buku (PDF)
                 </button>
               </div>
             </div>
 
-            <!-- CETAK 2: REKAP SURAT KELUAR -->
-            <div class="print-card keluar">
-              <div class="print-card-header">
-                <div class="print-card-icon">📤</div>
-                <div>
-                  <div class="print-card-title">2. Cetak Rekap Surat Keluar (PDF)</div>
-                  <div class="print-card-desc">Buku agenda rekapitulasi seluruh surat keluar dinas sekolah, nomor resmi, instansi tujuan, dan penandatangan.</div>
-                </div>
-              </div>
-              <div class="print-card-actions">
-                <button type="button" class="btn btn-primary" style="background:#059669; flex:1;" onclick="cetakRekapSuratKeluarPdf()">
-                  🖨️ Cetak PDF Rekap Keluar
-                </button>
-                <button type="button" class="btn btn-secondary" onclick="exportDataKeluarCsv()" title="Ekspor ke CSV/Excel">
-                  📥 CSV
-                </button>
-              </div>
-            </div>
-
-            <!-- CETAK 3: REKAP GABUNGAN JADI 1 -->
+            <!-- CETAK 2: REKAP BUKU AGENDA GABUNGAN (MASUK & KELUAR) -->
             <div class="print-card gabungan">
               <div class="print-card-header">
                 <div class="print-card-icon">📑</div>
                 <div>
-                  <div class="print-card-title">3. Cetak Rekap Gabungan Jadi 1 (PDF)</div>
-                  <div class="print-card-desc">Rekapitulasi komprehensif terpadu menggabungkan buku agenda Surat Masuk &amp; Surat Keluar dalam 1 lembar laporan resmi.</div>
+                  <div class="print-card-title">2. Cetak Buku Agenda Gabungan</div>
+                  <div class="print-card-desc">Cetak format resmi buku agenda dari No s.d. Keterangan (tanpa link lampiran) &amp; Tanda Tangan.</div>
                 </div>
               </div>
               <div class="print-card-actions">
-                <button type="button" class="btn btn-primary" style="background:#d97706; flex:1;" onclick="cetakRekapGabunganPdf()">
-                  🖨️ Cetak PDF Rekap Gabungan (1 Dokumen)
+                <button type="button" class="btn btn-primary" style="background:#d97706; flex:1;" onclick="cetakBukuAgendaPdf('ALL')">
+                  🖨️ Cetak Agenda Gabungan (PDF)
                 </button>
-                <button type="button" class="btn btn-secondary" onclick="exportRekapGabunganCsv()" title="Ekspor Gabungan ke CSV">
+                <button type="button" class="btn btn-secondary" onclick="exportBukuAgendaCsv()">
                   📥 CSV
+                </button>
+              </div>
+            </div>
+
+            <!-- CETAK 3: AGENDA SURAT MASUK SAJA -->
+            <div class="print-card masuk">
+              <div class="print-card-header">
+                <div class="print-card-icon">📥</div>
+                <div>
+                  <div class="print-card-title">3. Cetak Agenda Surat Masuk Saja</div>
+                  <div class="print-card-desc">Khusus buku agenda surat masuk lengkap dengan tanda tangan Kepala Sekolah &amp; Operator.</div>
+                </div>
+              </div>
+              <div class="print-card-actions">
+                <button type="button" class="btn btn-primary" style="background:#0284c7; flex:1;" onclick="cetakBukuAgendaPdf('MASUK')">
+                  🖨️ Cetak Agenda Masuk (PDF)
+                </button>
+              </div>
+            </div>
+
+            <!-- CETAK 4: AGENDA SURAT KELUAR SAJA -->
+            <div class="print-card keluar">
+              <div class="print-card-header">
+                <div class="print-card-icon">📤</div>
+                <div>
+                  <div class="print-card-title">4. Cetak Agenda Surat Keluar Saja</div>
+                  <div class="print-card-desc">Khusus buku agenda surat keluar dinas sekolah lengkap dengan tanda tangan pengesahan.</div>
+                </div>
+              </div>
+              <div class="print-card-actions">
+                <button type="button" class="btn btn-primary" style="background:#059669; flex:1;" onclick="cetakBukuAgendaPdf('KELUAR')">
+                  🖨️ Cetak Agenda Keluar (PDF)
                 </button>
               </div>
             </div>
 
           </div>
 
-          <!-- TABEL PRATINJAU & FILTER TANGGAL -->
-          <div class="card">
+          <!-- PRATINJAU VISUAL COVER BUKU AGENDA (SESUAI GAMBAR 2) -->
+          <div class="card" style="margin-bottom: 24px;">
             <div class="card-header">
-              <h3 class="card-title">🔍 Filter Rentang Tanggal &amp; Pratinjau Rekapitulasi</h3>
-              <div style="display:flex; gap: 8px;">
-                <button type="button" class="btn btn-secondary" onclick="resetFilterLaporanDanMuat()">↺ Tampilkan Semua</button>
-              </div>
+              <h3 class="card-title">📘 Pratinjau Desain Cover Buku Agenda (Sesuai Gambar 2)</h3>
+              <button class="btn btn-primary" onclick="cetakCoverBukuAgenda()">🖨️ Cetak Cover Ini (PDF)</button>
             </div>
             <div class="card-body">
-              <div class="form-grid" style="margin-bottom: 20px;">
-                <div class="form-group col-4">
-                  <label class="form-label">Tampilan Pratinjau Tabel</label>
-                  <select id="lapJenisSurat" class="form-control" onchange="generateLaporan()">
-                    <option value="GABUNGAN">Gabungan: Surat Masuk &amp; Surat Keluar</option>
-                    <option value="MASUK">Buku Agenda Surat Masuk</option>
-                    <option value="KELUAR">Buku Agenda Surat Keluar</option>
-                    <option value="DISPOSISI">Rekapitulasi Lembar Disposisi</option>
-                  </select>
+              <div class="cover-preview-card">
+                <h2>BUKU AGENDA</h2>
+                <h3>SURAT MASUK &amp; KELUAR</h3>
+
+                <div class="cover-preview-logos">
+                  <div>
+                    <img src="https://lh3.googleusercontent.com/d/1YkV5mi6NjLLnVwOmS-gk7NUS8vQyIU9M" style="height: 65px; width: auto;" alt="Logo Pemkab Jember">
+                    <div style="font-size: 7.5pt; font-weight: bold; margin-top: 4px;">KABUPATEN JEMBER</div>
+                  </div>
+                  <div>
+                    <svg width="45" height="90" viewBox="0 0 70 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M35 5 C42 20, 52 35, 52 50 C52 65, 35 74, 28 85 C21 96, 23 110, 35 135 C28 122, 18 108, 18 92 C18 76, 35 67, 42 57 C49 46, 47 31, 35 5 Z" stroke="#000000" stroke-width="3" fill="none"/>
+                      <path d="M35 38 C38 45, 40 52, 40 60 C40 68, 30 72, 27 79 C24 85, 26 92, 35 102" stroke="#000000" stroke-width="2" fill="none"/>
+                      <circle cx="35" cy="70" r="4.5" fill="#000000"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <img src="https://lh3.googleusercontent.com/d/1XWfjQdygAvCCyRfKpTLD40MImqnl08X8" style="height: 65px; width: auto;" alt="Logo SDN Kesilir 02">
+                    <div style="font-size: 7.5pt; font-weight: bold; margin-top: 4px;">SDN KESILIR 02</div>
+                  </div>
                 </div>
 
-                <div class="form-group col-3">
-                  <label class="form-label">Mulai Tanggal</label>
-                  <input type="date" id="lapStartDate" class="form-control">
+                <div style="width: 140px; height: 1.5px; background: #000; margin: 10px auto;"></div>
+
+                <div class="cover-preview-bottom">
+                  <h4>DINAS PENDIDIKAN</h4>
+                  <h4 style="font-size: 1.15rem; font-weight: 900;">SEKOLAH DASAR NEGERI KESILIR 02</h4>
+                  <h4>KECAMATAN WULUHAN</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FORM PENGATURAN IDENTITAS TTD (BISA DIEDIT) -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">✏️ Pengaturan Identitas Tanda Tangan (TTD) Cetak</h3>
+              <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight: 700;">Identitas Bisa Diedit</span>
+            </div>
+            <div class="card-body">
+              <form id="formSettingTtdInline" onsubmit="handleSimpanTtdInline(event)">
+                <div class="form-grid">
+                  <div class="form-group col-6">
+                    <label class="form-label">Tempat / Kota</label>
+                    <input type="text" id="inlineTtdTempat" class="form-control" value="Jember" required>
+                  </div>
+                  <div class="form-group col-6">
+                    <label class="form-label">Tanggal TTD (Kosongkan untuk otomatis tanggal cetak hari ini)</label>
+                    <input type="text" id="inlineTtdTanggal" class="form-control" placeholder="Contoh: 19 Oktober 2026 (atau kosongkan)">
+                  </div>
+
+                  <div class="form-group col-12" style="border-top: 1px solid var(--border-color); padding-top: 12px; margin-top: 6px;">
+                    <strong style="color: var(--primary-700);">Identitas Pihak Mengetahui (Kiri - Kepala Sekolah):</strong>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label">Jabatan</label>
+                    <input type="text" id="inlineTtdJabatanKepsek" class="form-control" value="Kepala Sekolah" required>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label">Nama Kepala Sekolah</label>
+                    <input type="text" id="inlineTtdNamaKepsek" class="form-control" value="Drs. Bambang Sudarsono, M.Pd" required>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label">NIP Kepala Sekolah</label>
+                    <input type="text" id="inlineTtdNipKepsek" class="form-control" value="19680512 199203 1 005" required>
+                  </div>
+
+                  <div class="form-group col-12" style="border-top: 1px solid var(--border-color); padding-top: 12px; margin-top: 6px;">
+                    <strong style="color: var(--primary-700);">Identitas Pihak Pengadministrasi (Kanan - Operator Sekolah):</strong>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label">Jabatan</label>
+                    <input type="text" id="inlineTtdJabatanOperator" class="form-control" value="Operator Sekolah" required>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label">Nama Operator Sekolah</label>
+                    <input type="text" id="inlineTtdNamaOperator" class="form-control" value="Ahmad Rifai, S.Kom" required>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label">NIP / NUPTK</label>
+                    <input type="text" id="inlineTtdNipOperator" class="form-control" value="19900815 202221 1 004" required>
+                  </div>
                 </div>
 
-                <div class="form-group col-3">
-                  <label class="form-label">Sampai Tanggal</label>
-                  <input type="date" id="lapEndDate" class="form-control">
+                <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+                  <button type="submit" class="btn btn-primary">💾 Simpan Perubahan Identitas TTD</button>
                 </div>
+              </form>
+            </div>
+          </div>
 
-                <div class="form-group col-2" style="justify-content: flex-end; display: flex;">
-                  <button type="button" class="btn btn-primary" onclick="generateLaporan()" style="width: 100%;">
-                    🔍 Filter
-                  </button>
+        </section>
+
+        <!-- ==================== VIEW 6: MENU DEDICATED IDENTITAS TTD ==================== -->
+        <section id="view-edit-ttd" class="view-section">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">✏️ Pengaturan Identitas Tanda Tangan (TTD) Cetak</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 4px 0 0 0;">
+                  Ubah nama, jabatan, dan NIP Kepala Sekolah serta Operator Sekolah yang dicetak pada Buku Agenda.
+                </p>
+              </div>
+              <button class="btn btn-secondary" onclick="navigateTo('view-laporan')">🖨️ Ke Menu Cetak</button>
+            </div>
+            <div class="card-body">
+              
+              <!-- Pratinjau TTD Live -->
+              <div style="margin-bottom: 24px;">
+                <label class="form-label" style="font-weight: 700; margin-bottom: 8px;">Pratinjau Tanda Tangan Resmi di Lembar Cetak:</label>
+                <div id="liveTtdPreviewBlock" class="signature-box-preview">
+                  <!-- Live generated via JS -->
                 </div>
               </div>
 
-              <!-- Header Pratinjau -->
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
-                <div style="font-weight: 700; color: var(--navy-900);" id="lapHeaderTitle">
-                  Pratinjau Data Rekapitulasi Persuratan
-                </div>
-                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                  <button type="button" class="btn btn-secondary" onclick="eksporLaporanAktifCsv()">📥 Unduh CSV</button>
-                  <button type="button" class="btn btn-success" onclick="cetakLaporanAktifPdf()">🖨️ Cetak Sesuai Filter</button>
-                </div>
-              </div>
+              <!-- Form Edit TTD Dedicated -->
+              <form id="formSettingTtdDedicated" onsubmit="handleSimpanTtdDedicated(event)">
+                <div class="form-grid">
+                  <div class="form-group col-6">
+                    <label class="form-label">Tempat / Kota</label>
+                    <input type="text" id="dedTtdTempat" class="form-control" value="Jember" required oninput="updateLiveTtdPreview()">
+                  </div>
+                  <div class="form-group col-6">
+                    <label class="form-label">Tanggal TTD (Kosongkan jika ingin tanggal otomatis)</label>
+                    <input type="text" id="dedTtdTanggal" class="form-control" placeholder="Contoh: 19 Oktober 2026" oninput="updateLiveTtdPreview()">
+                  </div>
 
-              <!-- Tabel Laporan -->
-              <div class="table-responsive">
-                <table class="app-table" id="tableLaporan">
-                  <thead>
-                    <tr id="lapTableHeadRow">
-                      <th style="width: 50px;">No</th>
-                      <th>Jenis</th>
-                      <th>Agenda</th>
-                      <th>Nomor Surat</th>
-                      <th>Tanggal</th>
-                      <th>Asal / Tujuan</th>
-                      <th>Perihal</th>
-                      <th>Klasifikasi</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tableLaporanBody">
-                    <tr><td colspan="9" style="text-align: center; padding: 24px;">Memuat pratinjau rekapitulasi...</td></tr>
-                  </tbody>
-                </table>
-              </div>
+                  <div class="form-group col-12" style="border-top: 1px solid var(--border-color); padding-top: 12px; margin-top: 8px;">
+                    <strong style="color: var(--primary-700);">Pihak Mengetahui (Kiri - Kepala Sekolah):</strong>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label">Jabatan</label>
+                    <input type="text" id="dedTtdJabatanKepsek" class="form-control" value="Kepala Sekolah" required oninput="updateLiveTtdPreview()">
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label">Nama Kepala Sekolah</label>
+                    <input type="text" id="dedTtdNamaKepsek" class="form-control" value="Drs. Bambang Sudarsono, M.Pd" required oninput="updateLiveTtdPreview()">
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label">NIP Kepala Sekolah</label>
+                    <input type="text" id="dedTtdNipKepsek" class="form-control" value="19680512 199203 1 005" required oninput="updateLiveTtdPreview()">
+                  </div>
+
+                  <div class="form-group col-12" style="border-top: 1px solid var(--border-color); padding-top: 12px; margin-top: 8px;">
+                    <strong style="color: var(--primary-700);">Pihak Pengadministrasi (Kanan - Operator Sekolah):</strong>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label">Jabatan</label>
+                    <input type="text" id="dedTtdJabatanOperator" class="form-control" value="Operator Sekolah" required oninput="updateLiveTtdPreview()">
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label">Nama Operator Sekolah</label>
+                    <input type="text" id="dedTtdNamaOperator" class="form-control" value="Ahmad Rifai, S.Kom" required oninput="updateLiveTtdPreview()">
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label">NIP / NUPTK</label>
+                    <input type="text" id="dedTtdNipOperator" class="form-control" value="19900815 202221 1 004" required oninput="updateLiveTtdPreview()">
+                  </div>
+                </div>
+
+                <div style="margin-top: 24px; display: flex; justify-content: flex-end; gap: 8px;">
+                  <button type="submit" class="btn btn-primary">💾 Simpan Perubahan Identitas TTD</button>
+                </div>
+              </form>
 
             </div>
           </div>
@@ -2963,6 +2932,124 @@ textarea.form-control {
     </div>
   </div>
 
+  <!-- ==================== MODAL: EDIT DATA BUKU AGENDA ==================== -->
+  <div id="modalEditAgenda" class="modal-overlay">
+    <div class="modal-container" style="max-width: 720px;">
+      <div class="modal-header">
+        <h3 class="modal-title">✏️ Edit Data Buku Agenda Persuratan</h3>
+        <button class="modal-close" onclick="closeModal('modalEditAgenda')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="formEditAgenda" onsubmit="handleSimpanEditAgenda(event)">
+          <input type="hidden" id="editAgendaId">
+          <input type="hidden" id="editAgendaJenis">
+          <div class="form-grid">
+            <div class="form-group col-3">
+              <label class="form-label">No. Urut Agenda <span class="req">*</span></label>
+              <input type="number" id="editAgendaNo" class="form-control" required>
+            </div>
+            <div class="form-group col-4">
+              <label class="form-label">Tanggal <span class="req">*</span></label>
+              <input type="date" id="editAgendaTanggal" class="form-control" required>
+            </div>
+            <div class="form-group col-5">
+              <label class="form-label">Nomor Surat Masuk</label>
+              <input type="text" id="editAgendaNomorSuratMasuk" class="form-control" placeholder="Kosongkan jika surat keluar">
+            </div>
+            <div class="form-group col-6">
+              <label class="form-label">Nomor Surat Keluar</label>
+              <input type="text" id="editAgendaNomorSuratKeluar" class="form-control" placeholder="Kosongkan jika surat masuk">
+            </div>
+            <div class="form-group col-6">
+              <label class="form-label">Alamat Surat (Asal / Tujuan) <span class="req">*</span></label>
+              <input type="text" id="editAgendaAlamatSurat" class="form-control" required>
+            </div>
+            <div class="form-group col-12">
+              <label class="form-label">Perihal Surat <span class="req">*</span></label>
+              <input type="text" id="editAgendaPerihal" class="form-control" required>
+            </div>
+            <div class="form-group col-12">
+              <label class="form-label">Isi Surat (Uraian Pokok Surat) <span class="req">*</span></label>
+              <textarea id="editAgendaIsiSurat" class="form-control" rows="3" required></textarea>
+            </div>
+            <div class="form-group col-12">
+              <label class="form-label">Keterangan</label>
+              <input type="text" id="editAgendaKeterangan" class="form-control" placeholder="Keterangan fisik / tindak lanjut...">
+            </div>
+            <div class="form-group col-12">
+              <label class="form-label">Link Lampiran (Google Drive / Berkas Digital)</label>
+              <input type="url" id="editAgendaLinkLampiran" class="form-control" placeholder="https://drive.google.com/...">
+            </div>
+          </div>
+          <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 8px;">
+            <button type="button" class="btn btn-secondary" onclick="closeModal('modalEditAgenda')">Batal</button>
+            <button type="submit" class="btn btn-primary">💾 Simpan Perubahan Agenda</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: EDIT IDENTITAS TTD CETAK ==================== -->
+  <div id="modalEditTtd" class="modal-overlay">
+    <div class="modal-container" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 class="modal-title">✏️ Edit Identitas Tanda Tangan Cetak</h3>
+        <button class="modal-close" onclick="closeModal('modalEditTtd')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="formEditTtdModal" onsubmit="handleSimpanTtdModal(event)">
+          <div class="form-grid">
+            <div class="form-group col-6">
+              <label class="form-label">Tempat / Kota</label>
+              <input type="text" id="modalTtdTempat" class="form-control" required>
+            </div>
+            <div class="form-group col-6">
+              <label class="form-label">Tanggal TTD (Kosongkan jika otomatis)</label>
+              <input type="text" id="modalTtdTanggal" class="form-control" placeholder="Otomatis tanggal cetak">
+            </div>
+
+            <div class="form-group col-12" style="border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 6px;">
+              <strong style="color: var(--primary-700);">Pihak Mengetahui (Kiri - Kepala Sekolah):</strong>
+            </div>
+            <div class="form-group col-4">
+              <label class="form-label">Jabatan</label>
+              <input type="text" id="modalTtdJabatanKepsek" class="form-control" required>
+            </div>
+            <div class="form-group col-4">
+              <label class="form-label">Nama Kepala Sekolah</label>
+              <input type="text" id="modalTtdNamaKepsek" class="form-control" required>
+            </div>
+            <div class="form-group col-4">
+              <label class="form-label">NIP Kepala Sekolah</label>
+              <input type="text" id="modalTtdNipKepsek" class="form-control" required>
+            </div>
+
+            <div class="form-group col-12" style="border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 6px;">
+              <strong style="color: var(--primary-700);">Pihak Pengadministrasi (Kanan - Operator Sekolah):</strong>
+            </div>
+            <div class="form-group col-4">
+              <label class="form-label">Jabatan</label>
+              <input type="text" id="modalTtdJabatanOperator" class="form-control" required>
+            </div>
+            <div class="form-group col-4">
+              <label class="form-label">Nama Operator</label>
+              <input type="text" id="modalTtdNamaOperator" class="form-control" required>
+            </div>
+            <div class="form-group col-4">
+              <label class="form-label">NIP / NUPTK</label>
+              <input type="text" id="modalTtdNipOperator" class="form-control" required>
+            </div>
+          </div>
+          <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 8px;">
+            <button type="button" class="btn btn-secondary" onclick="closeModal('modalEditTtd')">Batal</button>
+            <button type="submit" class="btn btn-primary">💾 Simpan Identitas TTD</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== AREA CETAK RESMI (LEMBAR DISPOSISI & LAPORAN) ==================== -->
   <div id="printArea" class="print-area">
     <!-- Konten cetak otomatis di-inject di sini via JS -->
@@ -2993,32 +3080,44 @@ const SEED_DATA_KESILIR = {
   suratMasuk: [
     {
       id: 'SM-20261019-001',
-      nomorAgenda: '001/SM-SDN.02/X/2026',
+      no: 1,
+      nomorAgenda: '1',
       nomorSuratAsli: '421.2/089/Disdik.Wlh/2026',
+      nomorSuratMasuk: '421.2/089/Disdik.Wlh/2026',
+      nomorSuratKeluar: '-',
       tanggalSurat: '2026-10-15',
       tanggalDiterima: '2026-10-19',
+      tanggal: '2026-10-19',
       asalSurat: 'Dinas Pendidikan Wilayah Wuluhan',
+      alamatSurat: 'Dinas Pendidikan Wilayah Wuluhan',
       namaPengirim: 'Drs. H. Ahmad Fauzi, M.Pd',
       perihal: 'Undangan Rapat Koordinasi Persiapan ANBK dan Pendataan Dapodik SD Tahun 2026',
       klasifikasi: '420',
       sifatSurat: 'Penting',
       tujuanInternal: 'Kepala Sekolah & Operator ANBK',
       ringkasan: 'Menghadiri rapat koordinasi teknis ANBK di Aula Korwil Dikbud Wuluhan pada hari Rabu, 21 Oktober 2026 pukul 08.30 WIB.',
+      isiSurat: 'Menghadiri rapat koordinasi teknis ANBK di Aula Korwil Dikbud Wuluhan pada hari Rabu, 21 Oktober 2026 pukul 08.30 WIB.',
       status: 'Diproses',
       petugas: 'Operator Sekolah',
       waktuInput: '2026-10-19 08:30:00',
       keterangan: 'Contoh berkas asli digital tersimpan di Google Drive folder LAMPIRAN SURAT MASUK.',
-      linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
+      linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa',
+      linkLampiran: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
     }
   ],
   suratKeluar: [
     {
       id: 'SK-20261019-001',
-      nomorAgenda: '001/SK-SDN.02/X/2026',
+      no: 2,
+      nomorAgenda: '2',
       nomorSuratResmi: '421.2/045/SDN.02/X/2026',
+      nomorSuratMasuk: '-',
+      nomorSuratKeluar: '421.2/045/SDN.02/X/2026',
       tanggalSurat: '2026-10-18',
       tanggalPengiriman: '2026-10-19',
+      tanggal: '2026-10-19',
       tujuanSurat: 'Koordinator Wilayah Pendidikan Kecamatan Wuluhan',
+      alamatSurat: 'Koordinator Wilayah Pendidikan Kecamatan Wuluhan',
       namaPenerima: 'Koordinator Bidang Pendidikan SD',
       perihal: 'Laporan Realisasi dan Rekapitulasi Data Siswa Calon Peserta ANBK Tahun 2026',
       klasifikasi: '421.2',
@@ -3027,11 +3126,13 @@ const SEED_DATA_KESILIR = {
       jabatan: 'Kepala SD Negeri Kesilir 02',
       metodePengiriman: 'Kurir Sekolah / Pos',
       ringkasan: 'Penyampaian berkas laporan nominasi tetap siswa kelas 5 peserta ANBK SDN Kesilir 02.',
+      isiSurat: 'Penyampaian berkas laporan nominasi tetap siswa kelas 5 peserta ANBK SDN Kesilir 02.',
       status: 'Sudah Dikirim',
       petugas: 'Operator Sekolah',
       waktuInput: '2026-10-19 08:45:00',
       keterangan: 'Contoh arsip surat keluar resmi lengkap dengan berkas lampiran di Google Drive folder LAMPIRAN SURAT KELUAR.',
-      linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
+      linkBerkas: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa',
+      linkLampiran: 'https://drive.google.com/drive/folders/1kar39LXh0OuESB31ZHCOG-r2TncsFBoa'
     }
   ],
   disposisi: [
@@ -3105,8 +3206,172 @@ const STORAGE_KEYS = {
   DISPOSISI: 'EARSIP_DISPOSISI_V3',
   KLASIFIKASI: 'EARSIP_KLASIFIKASI_V3',
   LAMPIRAN: 'EARSIP_LAMPIRAN_V3',
-  LOGS: 'EARSIP_LOGS_V3'
+  LOGS: 'EARSIP_LOGS_V3',
+  TTD: 'EARSIP_TTD_CONFIG'
 };
+
+// ============================================================================
+// PENGATURAN IDENTITAS TANDA TANGAN (TTD) RESMI CETAK (DAPAT DIEDIT)
+// ============================================================================
+const DEFAULT_TTD_CONFIG = {
+  tempat: 'Jember',
+  tanggal: '',
+  jabatanKepsek: 'Kepala Sekolah',
+  namaKepsek: 'Drs. Bambang Sudarsono, M.Pd',
+  nipKepsek: '19680512 199203 1 005',
+  jabatanOperator: 'Operator Sekolah',
+  namaOperator: 'Ahmad Rifai, S.Kom',
+  nipOperator: '19900815 202221 1 004'
+};
+
+function getTtdConfig() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.TTD);
+    if (raw) return { ...DEFAULT_TTD_CONFIG, ...JSON.parse(raw) };
+  } catch (e) {}
+  return { ...DEFAULT_TTD_CONFIG };
+}
+
+function saveTtdConfig(cfg) {
+  try {
+    localStorage.setItem(STORAGE_KEYS.TTD, JSON.stringify(cfg));
+  } catch (e) {}
+  initTtdInputs();
+  updateLiveTtdPreview();
+}
+
+function initTtdInputs() {
+  const cfg = getTtdConfig();
+  const setV = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+  
+  // Form inline view-laporan
+  setV('inlineTtdTempat', cfg.tempat);
+  setV('inlineTtdTanggal', cfg.tanggal);
+  setV('inlineTtdJabatanKepsek', cfg.jabatanKepsek);
+  setV('inlineTtdNamaKepsek', cfg.namaKepsek);
+  setV('inlineTtdNipKepsek', cfg.nipKepsek);
+  setV('inlineTtdJabatanOperator', cfg.jabatanOperator);
+  setV('inlineTtdNamaOperator', cfg.namaOperator);
+  setV('inlineTtdNipOperator', cfg.nipOperator);
+
+  // Form dedicated view-edit-ttd
+  setV('dedTtdTempat', cfg.tempat);
+  setV('dedTtdTanggal', cfg.tanggal);
+  setV('dedTtdJabatanKepsek', cfg.jabatanKepsek);
+  setV('dedTtdNamaKepsek', cfg.namaKepsek);
+  setV('dedTtdNipKepsek', cfg.nipKepsek);
+  setV('dedTtdJabatanOperator', cfg.jabatanOperator);
+  setV('dedTtdNamaOperator', cfg.namaOperator);
+  setV('dedTtdNipOperator', cfg.nipOperator);
+
+  // Form modalEditTtd
+  setV('modalTtdTempat', cfg.tempat);
+  setV('modalTtdTanggal', cfg.tanggal);
+  setV('modalTtdJabatanKepsek', cfg.jabatanKepsek);
+  setV('modalTtdNamaKepsek', cfg.namaKepsek);
+  setV('modalTtdNipKepsek', cfg.nipKepsek);
+  setV('modalTtdJabatanOperator', cfg.jabatanOperator);
+  setV('modalTtdNamaOperator', cfg.namaOperator);
+  setV('modalTtdNipOperator', cfg.nipOperator);
+
+  updateLiveTtdPreview();
+}
+
+function getActiveTtdFromInputs() {
+  const cfg = getTtdConfig();
+  const getV = (id, def) => { const el = document.getElementById(id); return (el && el.value.trim()) ? el.value.trim() : def; };
+  return {
+    tempat: getV('dedTtdTempat', getV('inlineTtdTempat', cfg.tempat)),
+    tanggal: getV('dedTtdTanggal', getV('inlineTtdTanggal', cfg.tanggal)),
+    jabatanKepsek: getV('dedTtdJabatanKepsek', getV('inlineTtdJabatanKepsek', cfg.jabatanKepsek)),
+    namaKepsek: getV('dedTtdNamaKepsek', getV('inlineTtdNamaKepsek', cfg.namaKepsek)),
+    nipKepsek: getV('dedTtdNipKepsek', getV('inlineTtdNipKepsek', cfg.nipKepsek)),
+    jabatanOperator: getV('dedTtdJabatanOperator', getV('inlineTtdJabatanOperator', cfg.jabatanOperator)),
+    namaOperator: getV('dedTtdNamaOperator', getV('inlineTtdNamaOperator', cfg.namaOperator)),
+    nipOperator: getV('dedTtdNipOperator', getV('inlineTtdNipOperator', cfg.nipOperator))
+  };
+}
+
+function updateLiveTtdPreview() {
+  const container = document.getElementById('liveTtdPreviewBlock');
+  if (!container) return;
+  const cfg = getActiveTtdFromInputs();
+  const todayStr = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+  const tglTtd = cfg.tanggal || todayStr;
+
+  container.innerHTML = `
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; max-width: 780px; margin: 0 auto; font-family: 'Times New Roman', Georgia, serif; font-size: 11pt; color: #000;">
+      <div style="text-align: center; width: 44%;">
+        <div>Mengetahui,</div>
+        <div style="font-weight: bold; margin-top: 3px;">${escapeHtml(cfg.jabatanKepsek || 'Kepala Sekolah')}</div>
+        <div style="height: 60px;"></div>
+        <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(cfg.namaKepsek || 'Drs. Bambang Sudarsono, M.Pd')}</div>
+        <div style="font-size: 10pt; margin-top: 2px;">NIP. ${escapeHtml(cfg.nipKepsek || '19680512 199203 1 005')}</div>
+      </div>
+      <div style="text-align: center; width: 44%;">
+        <div>${escapeHtml(cfg.tempat || 'Jember')}, ${escapeHtml(tglTtd)}</div>
+        <div style="font-weight: bold; margin-top: 3px;">${escapeHtml(cfg.jabatanOperator || 'Operator Sekolah')}</div>
+        <div style="height: 60px;"></div>
+        <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(cfg.namaOperator || 'Ahmad Rifai, S.Kom')}</div>
+        <div style="font-size: 10pt; margin-top: 2px;">NIP. ${escapeHtml(cfg.nipOperator || '19900815 202221 1 004')}</div>
+      </div>
+    </div>
+  `;
+}
+
+function handleSimpanTtdInline(e) {
+  if (e) e.preventDefault();
+  const cfg = {
+    tempat: document.getElementById('inlineTtdTempat').value.trim() || 'Jember',
+    tanggal: document.getElementById('inlineTtdTanggal').value.trim(),
+    jabatanKepsek: document.getElementById('inlineTtdJabatanKepsek').value.trim() || 'Kepala Sekolah',
+    namaKepsek: document.getElementById('inlineTtdNamaKepsek').value.trim(),
+    nipKepsek: document.getElementById('inlineTtdNipKepsek').value.trim(),
+    jabatanOperator: document.getElementById('inlineTtdJabatanOperator').value.trim() || 'Operator Sekolah',
+    namaOperator: document.getElementById('inlineTtdNamaOperator').value.trim(),
+    nipOperator: document.getElementById('inlineTtdNipOperator').value.trim()
+  };
+  saveTtdConfig(cfg);
+  showToast('Identitas tanda tangan cetak berhasil disimpan!', 'success');
+}
+
+function handleSimpanTtdDedicated(e) {
+  if (e) e.preventDefault();
+  const cfg = {
+    tempat: document.getElementById('dedTtdTempat').value.trim() || 'Jember',
+    tanggal: document.getElementById('dedTtdTanggal').value.trim(),
+    jabatanKepsek: document.getElementById('dedTtdJabatanKepsek').value.trim() || 'Kepala Sekolah',
+    namaKepsek: document.getElementById('dedTtdNamaKepsek').value.trim(),
+    nipKepsek: document.getElementById('dedTtdNipKepsek').value.trim(),
+    jabatanOperator: document.getElementById('dedTtdJabatanOperator').value.trim() || 'Operator Sekolah',
+    namaOperator: document.getElementById('dedTtdNamaOperator').value.trim(),
+    nipOperator: document.getElementById('dedTtdNipOperator').value.trim()
+  };
+  saveTtdConfig(cfg);
+  showToast('Identitas tanda tangan cetak berhasil diperbarui!', 'success');
+}
+
+function bukaModalEditTtd() {
+  initTtdInputs();
+  openModal('modalEditTtd');
+}
+
+function handleSimpanTtdModal(e) {
+  if (e) e.preventDefault();
+  const cfg = {
+    tempat: document.getElementById('modalTtdTempat').value.trim() || 'Jember',
+    tanggal: document.getElementById('modalTtdTanggal').value.trim(),
+    jabatanKepsek: document.getElementById('modalTtdJabatanKepsek').value.trim() || 'Kepala Sekolah',
+    namaKepsek: document.getElementById('modalTtdNamaKepsek').value.trim(),
+    nipKepsek: document.getElementById('modalTtdNipKepsek').value.trim(),
+    jabatanOperator: document.getElementById('modalTtdJabatanOperator').value.trim() || 'Operator Sekolah',
+    namaOperator: document.getElementById('modalTtdNamaOperator').value.trim(),
+    nipOperator: document.getElementById('modalTtdNipOperator').value.trim()
+  };
+  saveTtdConfig(cfg);
+  closeModal('modalEditTtd');
+  showToast('Identitas tanda tangan berhasil diperbarui!', 'success');
+}
 
 // Application State
 const state = {
@@ -3252,7 +3517,7 @@ function executeLocalStore(action, args) {
       const agendaStr = p.nomorAgenda || (String(nextNum).padStart(3, '0') + '/SM-SDN.02/' + curRoman + '/' + year);
       const newId = 'SM-' + Date.now();
 
-      let linkBerkasUrls = DEFAULT_DRIVE_URL;
+      let linkBerkasUrls = p.linkLampiran || DEFAULT_DRIVE_URL;
       if (p.lampiranList && p.lampiranList.length > 0) {
         p.lampiranList.forEach((file, fIdx) => {
           state.allLampiran.unshift({
@@ -3270,24 +3535,32 @@ function executeLocalStore(action, args) {
         saveLocalStore(STORAGE_KEYS.LAMPIRAN, state.allLampiran);
       }
 
+      const noUrut = p.no || (state.suratMasuk.length + state.suratKeluar.length + 1);
       const newRecord = {
         id: newId,
+        no: noUrut,
         nomorAgenda: agendaStr,
-        nomorSuratAsli: p.nomorSuratAsli || '-',
-        tanggalSurat: p.tanggalSurat || nowIso,
-        tanggalDiterima: p.tanggalDiterima || nowIso,
-        asalSurat: p.asalSurat || '-',
+        nomorSuratAsli: p.nomorSuratAsli || p.nomorSuratMasuk || '-',
+        nomorSuratMasuk: p.nomorSuratMasuk || p.nomorSuratAsli || '-',
+        nomorSuratKeluar: '-',
+        tanggalSurat: p.tanggalSurat || p.tanggal || nowIso,
+        tanggalDiterima: p.tanggalDiterima || p.tanggal || nowIso,
+        tanggal: p.tanggal || p.tanggalDiterima || nowIso,
+        asalSurat: p.asalSurat || p.alamatSurat || '-',
+        alamatSurat: p.alamatSurat || p.asalSurat || '-',
         namaPengirim: p.namaPengirim || '-',
         perihal: p.perihal || '-',
         klasifikasi: p.klasifikasi || '000',
         sifatSurat: p.sifatSurat || 'Biasa',
         tujuanInternal: p.tujuanInternal || 'Kepala Sekolah',
-        ringkasan: p.ringkasan || '',
+        ringkasan: p.ringkasan || p.isiSurat || '',
+        isiSurat: p.isiSurat || p.ringkasan || '',
         status: p.status || 'Baru',
         petugas: p.petugas || 'Operator Sekolah',
         waktuInput: nowTime,
         keterangan: p.keterangan || '',
-        linkBerkas: linkBerkasUrls
+        linkBerkas: linkBerkasUrls,
+        linkLampiran: linkBerkasUrls
       };
 
       state.suratMasuk.unshift(newRecord);
@@ -3340,7 +3613,7 @@ function executeLocalStore(action, args) {
       const agendaStr = p.nomorAgenda || (String(nextNum).padStart(3, '0') + '/SK-SDN.02/' + curRoman + '/' + year);
       const newId = 'SK-' + Date.now();
 
-      let linkBerkasUrls = DEFAULT_DRIVE_URL;
+      let linkBerkasUrls = p.linkLampiran || DEFAULT_DRIVE_URL;
       if (p.lampiranList && p.lampiranList.length > 0) {
         p.lampiranList.forEach((file, fIdx) => {
           state.allLampiran.unshift({
@@ -3358,13 +3631,19 @@ function executeLocalStore(action, args) {
         saveLocalStore(STORAGE_KEYS.LAMPIRAN, state.allLampiran);
       }
 
+      const noUrut = p.no || (state.suratMasuk.length + state.suratKeluar.length + 1);
       const newRecord = {
         id: newId,
+        no: noUrut,
         nomorAgenda: agendaStr,
-        nomorSuratResmi: p.nomorSuratResmi || '-',
-        tanggalSurat: p.tanggalSurat || nowIso,
-        tanggalPengiriman: p.tanggalPengiriman || nowIso,
-        tujuanSurat: p.tujuanSurat || '-',
+        nomorSuratResmi: p.nomorSuratResmi || p.nomorSuratKeluar || '-',
+        nomorSuratMasuk: '-',
+        nomorSuratKeluar: p.nomorSuratKeluar || p.nomorSuratResmi || '-',
+        tanggalSurat: p.tanggalSurat || p.tanggal || nowIso,
+        tanggalPengiriman: p.tanggalPengiriman || p.tanggal || nowIso,
+        tanggal: p.tanggal || p.tanggalSurat || nowIso,
+        tujuanSurat: p.tujuanSurat || p.alamatSurat || '-',
+        alamatSurat: p.alamatSurat || p.tujuanSurat || '-',
         namaPenerima: p.namaPenerima || '-',
         perihal: p.perihal || '-',
         klasifikasi: p.klasifikasi || '000',
@@ -3372,12 +3651,14 @@ function executeLocalStore(action, args) {
         penandatangan: p.penandatangan || 'Drs. Bambang Sudarsono, M.Pd',
         jabatan: p.jabatan || 'Kepala SD Negeri Kesilir 02',
         metodePengiriman: p.metodePengiriman || 'Kurir/Langsung',
-        ringkasan: p.ringkasan || '',
-        status: p.status || 'Draft',
+        ringkasan: p.ringkasan || p.isiSurat || '',
+        isiSurat: p.isiSurat || p.ringkasan || '',
+        status: p.status || 'Terkirim',
         petugas: p.petugas || 'Operator Sekolah',
         waktuInput: nowTime,
         keterangan: p.keterangan || '',
-        linkBerkas: linkBerkasUrls
+        linkBerkas: linkBerkasUrls,
+        linkLampiran: linkBerkasUrls
       };
 
       state.suratKeluar.unshift(newRecord);
@@ -3525,6 +3806,630 @@ function executeLocalStore(action, args) {
 
     default:
       return { success: true, message: 'Operasi ' + action + ' selesai.' };
+  }
+}
+
+// ============================================================================
+// LOGIKA BUKU AGENDA PERSURATAN (SDN KESILIR 02 - FORMAT SIMPEL RESMI)
+// Kolom: No, Tanggal, No. Masuk, No. Keluar, Perihal, Alamat Surat, Isi Surat, Keterangan, Link Lampiran
+// ============================================================================
+let currentAgendaFilterTab = 'ALL';
+
+function getNormalizedAgendaList(filter = null) {
+  const activeTab = filter || currentAgendaFilterTab || 'ALL';
+  const list = [];
+  let noCounter = 1;
+
+  // Normalisasi Surat Masuk
+  state.suratMasuk.forEach(s => {
+    list.push({
+      id: s.id,
+      jenis: 'MASUK',
+      no: s.no || s.nomorUrut || noCounter++,
+      tanggal: s.tanggal || s.tanggalDiterima || s.tanggalSurat || '',
+      nomorSuratMasuk: s.nomorSuratMasuk || s.nomorSuratAsli || s.nomorSurat || s.nomorAgenda || '-',
+      nomorSuratKeluar: s.nomorSuratKeluar || '-',
+      perihal: s.perihal || '-',
+      alamatSurat: s.alamatSurat || s.asalSurat || s.namaPengirim || '-',
+      isiSurat: s.isiSurat || s.ringkasan || '-',
+      keterangan: s.keterangan || '-',
+      linkLampiran: s.linkLampiran || s.linkBerkas || s.linkBerkasFoto || ''
+    });
+  });
+
+  // Normalisasi Surat Keluar
+  state.suratKeluar.forEach(s => {
+    list.push({
+      id: s.id,
+      jenis: 'KELUAR',
+      no: s.no || s.nomorUrut || noCounter++,
+      tanggal: s.tanggal || s.tanggalSurat || s.tanggalPengiriman || '',
+      nomorSuratMasuk: s.nomorSuratMasuk || '-',
+      nomorSuratKeluar: s.nomorSuratKeluar || s.nomorSuratResmi || s.nomorSurat || s.nomorAgenda || '-',
+      perihal: s.perihal || '-',
+      alamatSurat: s.alamatSurat || s.tujuanSurat || s.namaPenerima || '-',
+      isiSurat: s.isiSurat || s.ringkasan || '-',
+      keterangan: s.keterangan || '-',
+      linkLampiran: s.linkLampiran || s.linkBerkas || s.linkBerkasFoto || ''
+    });
+  });
+
+  // Urutkan berdasarkan nomor urut (numerik)
+  list.sort((a, b) => {
+    const na = parseInt(a.no, 10);
+    const nb = parseInt(b.no, 10);
+    if (!isNaN(na) && !isNaN(nb)) return na - nb;
+    return String(a.tanggal).localeCompare(String(b.tanggal));
+  });
+
+  // Update badge counter di tab filter
+  const elAll = document.getElementById('countAgendaAll');
+  const elMsk = document.getElementById('countAgendaMasuk');
+  const elKlr = document.getElementById('countAgendaKeluar');
+  if (elAll) elAll.innerText = list.length;
+  if (elMsk) elMsk.innerText = state.suratMasuk.length;
+  if (elKlr) elKlr.innerText = state.suratKeluar.length;
+
+  if (activeTab === 'MASUK') {
+    return list.filter(item => item.jenis === 'MASUK');
+  }
+  if (activeTab === 'KELUAR') {
+    return list.filter(item => item.jenis === 'KELUAR');
+  }
+  return list;
+}
+
+function renderTableBukuAgenda(customList = null) {
+  const tbody = document.getElementById('tableBukuAgendaBody');
+  if (!tbody) return;
+
+  const data = customList || getNormalizedAgendaList(currentAgendaFilterTab);
+
+  if (!data || data.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="10" style="text-align: center; padding: 28px; color: var(--text-muted);">Belum ada data buku agenda tersimpan. Klik "Tambah Surat Masuk" atau "Tambah Surat Keluar" untuk mencatat.</td></tr>`;
+    return;
+  }
+
+  let html = '';
+  data.forEach((row, idx) => {
+    let lampiranHtml = '<span style="color:var(--text-light);">-</span>';
+    if (row.linkLampiran && row.linkLampiran.trim()) {
+      const firstUrl = row.linkLampiran.split('\n')[0].trim();
+      lampiranHtml = `
+        <a href="${escapeHtml(firstUrl)}" target="_blank" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;" title="Buka lampiran digital di Google Drive">
+          📎 Buka File ↗
+        </a>
+      `;
+    }
+
+    html += `
+      <tr>
+        <td style="text-align: center; font-weight: 700;">
+          <span class="badge badge-agenda">${escapeHtml(row.no || idx + 1)}</span>
+        </td>
+        <td style="white-space: nowrap; font-size: 0.85rem;">${escapeHtml(row.tanggal || '-')}</td>
+        <td style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; color: ${row.nomorSuratMasuk !== '-' ? '#0369a1' : 'inherit'};">
+          ${escapeHtml(row.nomorSuratMasuk || '-')}
+        </td>
+        <td style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; color: ${row.nomorSuratKeluar !== '-' ? '#047857' : 'inherit'};">
+          ${escapeHtml(row.nomorSuratKeluar || '-')}
+        </td>
+        <td style="font-weight: 600; color: var(--text-main);">${escapeHtml(row.perihal || '-')}</td>
+        <td>${escapeHtml(row.alamatSurat || '-')}</td>
+        <td style="font-size: 0.85rem; color: var(--text-muted);">${escapeHtml(row.isiSurat || '-')}</td>
+        <td style="font-size: 0.85rem;">${escapeHtml(row.keterangan || '-')}</td>
+        <td style="text-align: center; white-space: nowrap;">${lampiranHtml}</td>
+        <td style="text-align: center; white-space: nowrap;">
+          <div style="display: inline-flex; gap: 4px;">
+            <button class="btn-icon" onclick="bukaEditAgenda('${escapeHtml(row.id)}', '${row.jenis}')" title="Edit Data Agenda">✏️</button>
+            <button class="btn-icon danger" onclick="hapusAgendaItem('${escapeHtml(row.id)}', '${row.jenis}')" title="Hapus dari Agenda">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    `;
+  });
+
+  tbody.innerHTML = html;
+}
+
+function renderTableRecentLetters() {
+  const tbody = document.getElementById('tableRecentLetters');
+  if (!tbody) return;
+
+  const data = getNormalizedAgendaList('ALL').slice(0, 8);
+  if (!data || data.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="10" style="text-align: center; padding: 24px; color: var(--text-muted);">Belum ada arsip persuratan di Buku Agenda.</td></tr>`;
+    return;
+  }
+
+  let html = '';
+  data.forEach((row, idx) => {
+    let lampiranHtml = '<span style="color:var(--text-light);">-</span>';
+    if (row.linkLampiran && row.linkLampiran.trim()) {
+      const firstUrl = row.linkLampiran.split('\n')[0].trim();
+      lampiranHtml = `<a href="${escapeHtml(firstUrl)}" target="_blank" class="btn btn-secondary" style="padding: 3px 8px; font-size: 0.75rem;">📎 Buka</a>`;
+    }
+
+    html += `
+      <tr>
+        <td style="text-align: center; font-weight: 700;">${escapeHtml(row.no || idx + 1)}</td>
+        <td style="white-space: nowrap; font-size: 0.85rem;">${escapeHtml(row.tanggal || '-')}</td>
+        <td style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600;">${escapeHtml(row.nomorSuratMasuk || '-')}</td>
+        <td style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600;">${escapeHtml(row.nomorSuratKeluar || '-')}</td>
+        <td style="font-weight: 600;">${escapeHtml(row.perihal || '-')}</td>
+        <td>${escapeHtml(row.alamatSurat || '-')}</td>
+        <td style="font-size: 0.85rem; color: var(--text-muted);">${escapeHtml(row.isiSurat || '-')}</td>
+        <td style="font-size: 0.85rem;">${escapeHtml(row.keterangan || '-')}</td>
+        <td style="text-align: center;">${lampiranHtml}</td>
+        <td style="text-align: center;">
+          <button class="btn-icon" onclick="bukaEditAgenda('${escapeHtml(row.id)}', '${row.jenis}')" title="Edit">✏️</button>
+        </td>
+      </tr>
+    `;
+  });
+
+  tbody.innerHTML = html;
+}
+
+function setFilterAgendaTab(tab) {
+  currentAgendaFilterTab = tab;
+  ['tabAgendaAll', 'tabAgendaMasuk', 'tabAgendaKeluar'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
+  });
+
+  if (tab === 'MASUK') {
+    const el = document.getElementById('tabAgendaMasuk');
+    if (el) el.classList.add('active');
+  } else if (tab === 'KELUAR') {
+    const el = document.getElementById('tabAgendaKeluar');
+    if (el) el.classList.add('active');
+  } else {
+    const el = document.getElementById('tabAgendaAll');
+    if (el) el.classList.add('active');
+  }
+
+  filterAgendaSearch();
+}
+
+function filterAgendaSearch() {
+  const input = document.getElementById('searchBukuAgenda');
+  const q = input ? input.value.toLowerCase().trim() : '';
+  const base = getNormalizedAgendaList(currentAgendaFilterTab);
+
+  if (!q) {
+    renderTableBukuAgenda(base);
+    return;
+  }
+
+  const filtered = base.filter(item => {
+    return (
+      String(item.no).toLowerCase().includes(q) ||
+      String(item.tanggal).toLowerCase().includes(q) ||
+      String(item.nomorSuratMasuk).toLowerCase().includes(q) ||
+      String(item.nomorSuratKeluar).toLowerCase().includes(q) ||
+      String(item.perihal).toLowerCase().includes(q) ||
+      String(item.alamatSurat).toLowerCase().includes(q) ||
+      String(item.isiSurat).toLowerCase().includes(q) ||
+      String(item.keterangan).toLowerCase().includes(q)
+    );
+  });
+
+  renderTableBukuAgenda(filtered);
+}
+
+function resetFilterAgenda() {
+  const input = document.getElementById('searchBukuAgenda');
+  if (input) input.value = '';
+  setFilterAgendaTab('ALL');
+}
+
+function exportBukuAgendaCsv() {
+  const list = getNormalizedAgendaList(currentAgendaFilterTab);
+  if (!list || list.length === 0) {
+    showToast('Data agenda kosong.', 'warning');
+    return;
+  }
+
+  const exportData = list.map(item => ({
+    No: item.no,
+    Tanggal: item.tanggal,
+    'Nomor Surat Masuk': item.nomorSuratMasuk,
+    'Nomor Surat Keluar': item.nomorSuratKeluar,
+    Perihal: item.perihal,
+    'Alamat Surat': item.alamatSurat,
+    'Isi Surat': item.isiSurat,
+    Keterangan: item.keterangan,
+    'Link Lampiran': item.linkLampiran
+  }));
+
+  downloadCsv(`Buku_Agenda_Surat_${currentAgendaFilterTab}_SDN_Kesilir_02.csv`, exportData);
+}
+
+function bukaEditAgenda(id, jenis) {
+  let item = null;
+  if (jenis === 'MASUK') {
+    item = state.suratMasuk.find(s => s.id === id);
+  } else {
+    item = state.suratKeluar.find(s => s.id === id);
+  }
+
+  if (!item) {
+    showToast('Data agenda tidak ditemukan.', 'error');
+    return;
+  }
+
+  document.getElementById('editAgendaId').value = item.id;
+  document.getElementById('editAgendaJenis').value = jenis;
+  document.getElementById('editAgendaNo').value = item.no || (jenis === 'MASUK' ? 1 : 2);
+  document.getElementById('editAgendaTanggal').value = item.tanggal || item.tanggalDiterima || item.tanggalSurat || '';
+  document.getElementById('editAgendaNomorSuratMasuk').value = item.nomorSuratMasuk || (jenis === 'MASUK' ? (item.nomorSuratAsli || item.nomorSurat || '') : '');
+  document.getElementById('editAgendaNomorSuratKeluar').value = item.nomorSuratKeluar || (jenis === 'KELUAR' ? (item.nomorSuratResmi || item.nomorSurat || '') : '');
+  document.getElementById('editAgendaAlamatSurat').value = item.alamatSurat || (jenis === 'MASUK' ? item.asalSurat : item.tujuanSurat) || '';
+  document.getElementById('editAgendaPerihal').value = item.perihal || '';
+  document.getElementById('editAgendaIsiSurat').value = item.isiSurat || item.ringkasan || '';
+  document.getElementById('editAgendaKeterangan').value = item.keterangan || '';
+  document.getElementById('editAgendaLinkLampiran').value = item.linkLampiran || item.linkBerkas || '';
+
+  openModal('modalEditAgenda');
+}
+
+async function handleSimpanEditAgenda(e) {
+  if (e) e.preventDefault();
+  const id = document.getElementById('editAgendaId').value;
+  const jenis = document.getElementById('editAgendaJenis').value;
+
+  const noVal = document.getElementById('editAgendaNo').value;
+  const tglVal = document.getElementById('editAgendaTanggal').value;
+  const noMasukVal = document.getElementById('editAgendaNomorSuratMasuk').value.trim();
+  const noKeluarVal = document.getElementById('editAgendaNomorSuratKeluar').value.trim();
+  const alamatVal = document.getElementById('editAgendaAlamatSurat').value.trim();
+  const perihalVal = document.getElementById('editAgendaPerihal').value.trim();
+  const isiVal = document.getElementById('editAgendaIsiSurat').value.trim();
+  const ketVal = document.getElementById('editAgendaKeterangan').value.trim();
+  const linkVal = document.getElementById('editAgendaLinkLampiran').value.trim();
+
+  showLoader('Menyimpan perubahan data agenda...');
+  try {
+    if (jenis === 'MASUK') {
+      const idx = state.suratMasuk.findIndex(s => s.id === id);
+      if (idx !== -1) {
+        state.suratMasuk[idx] = {
+          ...state.suratMasuk[idx],
+          no: noVal,
+          tanggal: tglVal,
+          tanggalDiterima: tglVal,
+          nomorSuratMasuk: noMasukVal,
+          nomorSuratAsli: noMasukVal,
+          nomorSuratKeluar: noKeluarVal || '-',
+          alamatSurat: alamatVal,
+          asalSurat: alamatVal,
+          perihal: perihalVal,
+          isiSurat: isiVal,
+          ringkasan: isiVal,
+          keterangan: ketVal,
+          linkLampiran: linkVal,
+          linkBerkas: linkVal
+        };
+        saveLocalStore(STORAGE_KEYS.MASUK, state.suratMasuk);
+      }
+      callBackend('updateSuratMasuk', {
+        id: id,
+        nomorAgenda: noVal,
+        nomorSuratAsli: noMasukVal,
+        tanggalDiterima: tglVal,
+        asalSurat: alamatVal,
+        perihal: perihalVal,
+        ringkasan: isiVal,
+        keterangan: ketVal
+      }).catch(() => {});
+    } else {
+      const idx = state.suratKeluar.findIndex(s => s.id === id);
+      if (idx !== -1) {
+        state.suratKeluar[idx] = {
+          ...state.suratKeluar[idx],
+          no: noVal,
+          tanggal: tglVal,
+          tanggalSurat: tglVal,
+          nomorSuratMasuk: noMasukVal || '-',
+          nomorSuratKeluar: noKeluarVal,
+          nomorSuratResmi: noKeluarVal,
+          alamatSurat: alamatVal,
+          tujuanSurat: alamatVal,
+          perihal: perihalVal,
+          isiSurat: isiVal,
+          ringkasan: isiVal,
+          keterangan: ketVal,
+          linkLampiran: linkVal,
+          linkBerkas: linkVal
+        };
+        saveLocalStore(STORAGE_KEYS.KELUAR, state.suratKeluar);
+      }
+      callBackend('updateSuratKeluar', {
+        id: id,
+        nomorAgenda: noVal,
+        nomorSuratResmi: noKeluarVal,
+        tanggalSurat: tglVal,
+        tujuanSurat: alamatVal,
+        perihal: perihalVal,
+        ringkasan: isiVal,
+        keterangan: ketVal
+      }).catch(() => {});
+    }
+
+    closeModal('modalEditAgenda');
+    renderTableBukuAgenda();
+    renderTableRecentLetters();
+    showToast('Data agenda berhasil diperbarui!', 'success');
+  } catch (err) {
+    showToast('Gagal memperbarui agenda: ' + err.message, 'error');
+  } finally {
+    hideLoader();
+  }
+}
+
+async function hapusAgendaItem(id, jenis) {
+  if (!confirm('Apakah Anda yakin ingin menghapus data agenda persuratan ini?')) return;
+  showLoader('Menghapus data...');
+  try {
+    if (jenis === 'MASUK') {
+      state.suratMasuk = state.suratMasuk.filter(s => s.id !== id);
+      saveLocalStore(STORAGE_KEYS.MASUK, state.suratMasuk);
+      callBackend('hapusSuratMasuk', id).catch(() => {});
+    } else {
+      state.suratKeluar = state.suratKeluar.filter(s => s.id !== id);
+      saveLocalStore(STORAGE_KEYS.KELUAR, state.suratKeluar);
+      callBackend('hapusSuratKeluar', id).catch(() => {});
+    }
+
+    renderTableBukuAgenda();
+    renderTableRecentLetters();
+    showToast('Data agenda berhasil dihapus.', 'success');
+  } catch (err) {
+    showToast('Gagal menghapus data: ' + err.message, 'error');
+  } finally {
+    hideLoader();
+  }
+}
+
+/**
+ * ============================================================================
+ * CETAK COVER BUKU AGENDA (SESUAI GAMBAR 2)
+ * Warna background biru muda pastel (#cae9f8), Logo Pemkab Jember (kiri),
+ * Logo SDN Kesilir 02 (kanan), Kaligrafi Monogram (tengah), Teks resmi A4 portrait
+ * ============================================================================
+ */
+function cetakCoverBukuAgenda() {
+  let dynamicStyle = document.getElementById('dynamicPrintPageStyle');
+  if (!dynamicStyle) {
+    dynamicStyle = document.createElement('style');
+    dynamicStyle.id = 'dynamicPrintPageStyle';
+    document.head.appendChild(dynamicStyle);
+  }
+  dynamicStyle.innerHTML = `
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+    @media print {
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: #cae9f8 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .print-area {
+        background-color: #cae9f8 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+  `;
+
+  const coverHtml = `
+    <div style="box-sizing: border-box; width: 100vw; min-height: 100vh; padding: 65px 40px; background-color: #cae9f8; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; color: #000000; font-family: 'Times New Roman', Georgia, serif; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+      
+      <!-- Bagian Atas: Judul Cover Buku Agenda -->
+      <div style="margin-top: 50px;">
+        <h1 style="font-size: 32pt; font-weight: 900; letter-spacing: 2px; margin: 0; line-height: 1.15; text-transform: uppercase;">
+          BUKU AGENDA
+        </h1>
+        <h2 style="font-size: 28pt; font-weight: 900; letter-spacing: 2px; margin: 12px 0 0 0; line-height: 1.15; text-transform: uppercase;">
+          SURAT MASUK &amp; KELUAR
+        </h2>
+      </div>
+
+      <!-- Bagian Tengah: Kiri Logo Jember, Kanan Logo SD, Tengah Kaligrafi Monogram -->
+      <div style="display: flex; flex-direction: column; align-items: center; margin: 40px 0;">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 40px;">
+          
+          <!-- Logo Pemkab Jember -->
+          <div style="text-align: center;">
+            <img src="${LOGO_JEMBER_DRIVE}" style="height: 120px; width: auto; object-fit: contain;" alt="Logo Pemkab Jember">
+            <div style="font-size: 9.5pt; font-weight: bold; margin-top: 8px; letter-spacing: 0.5px;">KABUPATEN JEMBER</div>
+          </div>
+
+          <!-- Ornamen Kaligrafi Monogram Sesuai Gambar 2 -->
+          <div>
+            <svg width="75" height="150" viewBox="0 0 70 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M35 5 C45 22, 55 38, 55 52 C55 68, 35 77, 28 88 C21 99, 23 112, 35 136 C28 123, 17 110, 17 92 C17 75, 35 65, 43 55 C50 44, 48 29, 35 5 Z" stroke="#000000" stroke-width="3" fill="none"/>
+              <path d="M35 38 C38 45, 40 52, 40 60 C40 68, 30 72, 27 79 C24 85, 26 92, 35 102" stroke="#000000" stroke-width="2" fill="none"/>
+              <circle cx="35" cy="70" r="5" fill="#000000"/>
+            </svg>
+          </div>
+
+          <!-- Logo SDN Kesilir 02 -->
+          <div style="text-align: center;">
+            <img src="${LOGO_SEKOLAH_DRIVE}" style="height: 120px; width: auto; object-fit: contain;" alt="Logo SDN Kesilir 02">
+            <div style="font-size: 9.5pt; font-weight: bold; margin-top: 8px; letter-spacing: 0.5px;">SDN KESILIR 02</div>
+          </div>
+
+        </div>
+
+        <div style="width: 220px; height: 2px; background: #000000; margin: 24px auto 0 auto;"></div>
+      </div>
+
+      <!-- Bagian Bawah: Teks Satuan Instansi Pendidikan -->
+      <div style="margin-bottom: 60px; line-height: 1.5;">
+        <div style="font-size: 16pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
+          DINAS PENDIDIKAN
+        </div>
+        <div style="font-size: 20pt; font-weight: 900; letter-spacing: 2px; margin: 6px 0; text-transform: uppercase;">
+          SEKOLAH DASAR NEGERI KESILIR 02
+        </div>
+        <div style="font-size: 16pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
+          KECAMATAN WULUHAN
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  const printArea = document.getElementById('printArea');
+  if (printArea) {
+    printArea.innerHTML = coverHtml;
+    window.print();
+  }
+}
+
+/**
+ * ============================================================================
+ * CETAK BUKU AGENDA PERSURATAN (HANYA SAMPAI KETERANGAN - LINK LAMPIRAN TIDAK MASUK CETAK)
+ * Kop Resmi (Kiri Logo Jember, Kanan Logo SD), TTD Kepala Sekolah & Operator
+ * ============================================================================
+ */
+function cetakBukuAgendaPdf(mode = 'ALL') {
+  let dynamicStyle = document.getElementById('dynamicPrintPageStyle');
+  if (!dynamicStyle) {
+    dynamicStyle = document.createElement('style');
+    dynamicStyle.id = 'dynamicPrintPageStyle';
+    document.head.appendChild(dynamicStyle);
+  }
+  dynamicStyle.innerHTML = `
+    @page {
+      size: A4 landscape;
+      margin: 8mm 6mm;
+    }
+    @media print {
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: #ffffff !important;
+      }
+      .print-area {
+        background-color: #ffffff !important;
+      }
+    }
+  `;
+
+  const list = getNormalizedAgendaList(mode);
+  if (!list || list.length === 0) {
+    showToast('Tidak ada data agenda persuratan untuk dicetak.', 'warning');
+    return;
+  }
+
+  const ttd = getActiveTtdFromInputs();
+  const todayStr = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+  const tglTtd = ttd.tanggal || todayStr;
+
+  let judulKhusus = 'BUKU AGENDA SURAT MASUK &amp; KELUAR';
+  if (mode === 'MASUK') judulKhusus = 'BUKU AGENDA SURAT MASUK';
+  if (mode === 'KELUAR') judulKhusus = 'BUKU AGENDA SURAT KELUAR';
+
+  let tableRows = '';
+  list.forEach((row, idx) => {
+    tableRows += `
+      <tr>
+        <td style="text-align: center; font-weight: bold;">${escapeHtml(row.no || idx + 1)}</td>
+        <td style="text-align: center; white-space: nowrap;">${escapeHtml(row.tanggal || '-')}</td>
+        <td style="font-family: 'Courier New', monospace; font-size: 8.5pt;">${escapeHtml(row.nomorSuratMasuk || '-')}</td>
+        <td style="font-family: 'Courier New', monospace; font-size: 8.5pt;">${escapeHtml(row.nomorSuratKeluar || '-')}</td>
+        <td style="font-weight: 600;">${escapeHtml(row.perihal || '-')}</td>
+        <td>${escapeHtml(row.alamatSurat || '-')}</td>
+        <td>${escapeHtml(row.isiSurat || '-')}</td>
+        <td>${escapeHtml(row.keterangan || '-')}</td>
+      </tr>
+    `;
+  });
+
+  const printHtml = `
+    <div style="font-family: 'Times New Roman', Georgia, serif; color: #000000; padding: 4px; line-height: 1.3;">
+      
+      <!-- KOP RESMI BUKU AGENDA SURAT MASUK & KELUAR -->
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 3px double #000000; padding-bottom: 8px; margin-bottom: 12px;">
+        <div style="width: 90px; text-align: center;">
+          <img src="${LOGO_JEMBER_DRIVE}" style="height: 75px; width: auto;" alt="Logo Pemkab Jember">
+        </div>
+        <div style="flex: 1; text-align: center; padding: 0 10px;">
+          <div style="font-size: 14pt; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">
+            BUKU AGENDA SURAT
+          </div>
+          <div style="font-size: 13pt; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">
+            MASUK &amp; KELUAR
+          </div>
+          <div style="font-size: 15pt; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase;">
+            SEKOLAH DASAR NEGERI KESILIR 02
+          </div>
+          <div style="font-size: 9.5pt; font-style: italic; margin-top: 2px;">
+            Dinas Pendidikan Wilayah Wuluhan — Kabupaten Jember, Jawa Timur
+          </div>
+        </div>
+        <div style="width: 90px; text-align: center;">
+          <img src="${LOGO_SEKOLAH_DRIVE}" style="height: 75px; width: auto;" alt="Logo SDN Kesilir 02">
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-bottom: 10px;">
+        <span style="font-size: 11pt; font-weight: bold; text-transform: uppercase; text-decoration: underline;">
+          ${judulKhusus}
+        </span>
+      </div>
+
+      <!-- TABEL AGENDA (HANYA SAMPAI KETERANGAN - LINK LAMPIRAN TIDAK MASUK CETAK) -->
+      <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 8.5pt;">
+        <thead>
+          <tr style="background-color: #f1f5f9; text-align: center; font-weight: bold;">
+            <th style="width: 35px;">No</th>
+            <th style="width: 80px;">Tanggal</th>
+            <th style="width: 145px;">Nomor Surat Masuk</th>
+            <th style="width: 145px;">Nomor Surat Keluar</th>
+            <th>Perihal</th>
+            <th style="width: 160px;">Alamat Surat</th>
+            <th>Isi Surat</th>
+            <th style="width: 120px;">Keterangan</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows}
+        </tbody>
+      </table>
+
+      <!-- TANDA TANGAN (TTD) KEPALA SEKOLAH & OPERATOR SEKOLAH (IDENTITAS BISA DIEDIT) -->
+      <div style="margin-top: 28px; display: flex; justify-content: space-between; align-items: flex-start; page-break-inside: avoid; font-size: 10pt;">
+        <div style="text-align: center; width: 42%;">
+          <div>Mengetahui,</div>
+          <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanKepsek || 'Kepala Sekolah')}</div>
+          <div style="height: 60px;"></div>
+          <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(ttd.namaKepsek || 'Drs. Bambang Sudarsono, M.Pd')}</div>
+          <div style="margin-top: 2px;">NIP. ${escapeHtml(ttd.nipKepsek || '19680512 199203 1 005')}</div>
+        </div>
+        <div style="text-align: center; width: 42%;">
+          <div>${escapeHtml(ttd.tempat || 'Jember')}, ${escapeHtml(tglTtd)}</div>
+          <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanOperator || 'Operator Sekolah')}</div>
+          <div style="height: 60px;"></div>
+          <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(ttd.namaOperator || 'Ahmad Rifai, S.Kom')}</div>
+          <div style="margin-top: 2px;">NIP. ${escapeHtml(ttd.nipOperator || '19900815 202221 1 004')}</div>
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  const printArea = document.getElementById('printArea');
+  if (printArea) {
+    printArea.innerHTML = printHtml;
+    window.print();
   }
 }
 
@@ -3774,7 +4679,10 @@ function bukaFolderDrive(jenis) {
  */
 function initApp() {
   initLocalDatabase();
+  try { initTtdInputs(); } catch (e) { console.error('Error initTtdInputs:', e); }
   try { renderDashboardStats(calculateLocalStats()); } catch (e) { console.error('Error initial renderDashboardStats:', e); }
+  try { renderTableRecentLetters(); } catch (e) { console.error('Error initial renderTableRecentLetters:', e); }
+  try { renderTableBukuAgenda(); } catch (e) { console.error('Error initial renderTableBukuAgenda:', e); }
 
   try { initClock(); } catch (e) { console.error('Error initClock:', e); }
   try { initNavigation(); } catch (e) { console.error('Error initNavigation:', e); }
@@ -3844,6 +4752,9 @@ async function loadInitialData() {
       if (res.stats) {
         renderDashboardStats(res.stats);
       }
+
+      renderTableRecentLetters();
+      renderTableBukuAgenda();
     }
   } catch (err) {
     console.warn('Info loadInitialData:', err);
@@ -4049,6 +4960,19 @@ function initNavigation() {
 
 function navigateTo(viewId) {
   if (!viewId) return;
+
+  // Aliases for compatibility
+  if (viewId === 'view-surat-masuk') {
+    navigateTo('view-buku-agenda');
+    setFilterAgendaTab('MASUK');
+    return;
+  }
+  if (viewId === 'view-surat-keluar') {
+    navigateTo('view-buku-agenda');
+    setFilterAgendaTab('KELUAR');
+    return;
+  }
+
   document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
   document.querySelectorAll('.sidebar-menu .nav-item').forEach(item => {
     item.classList.toggle('active', item.getAttribute('data-view') === viewId);
@@ -4064,17 +4988,19 @@ function navigateTo(viewId) {
   if (sidebarEl) sidebarEl.classList.remove('mobile-open');
 
   const titles = {
-    'view-dashboard': 'Dashboard',
-    'view-surat-masuk': 'Buku Surat Masuk',
-    'view-tambah-masuk': 'Tambah Surat Masuk',
-    'view-surat-keluar': 'Buku Surat Keluar',
-    'view-tambah-keluar': 'Tambah Surat Keluar',
+    'view-dashboard': 'Dashboard Agenda',
+    'view-buku-agenda': 'Buku Agenda Surat Masuk & Keluar',
+    'view-surat-masuk': 'Buku Agenda Surat',
+    'view-tambah-masuk': 'Catat Surat Masuk',
+    'view-surat-keluar': 'Buku Agenda Surat',
+    'view-tambah-keluar': 'Catat Surat Keluar',
     'view-disposisi': 'Disposisi & Tindak Lanjut',
     'view-klasifikasi': 'Klasifikasi Surat',
     'view-lampiran': 'Lampiran & Berkas Drive',
-    'view-laporan': 'Laporan & Cetak',
+    'view-laporan': 'Cetak Buku & Cover',
+    'view-edit-ttd': 'Identitas TTD Cetak',
     'view-log': 'Riwayat Aktivitas',
-    'view-pengaturan': 'Pengaturan & Database',
+    'view-pengaturan': 'Google Sheets & Drive',
     'view-bantuan': 'Bantuan & Panduan'
   };
   const titleEl = document.getElementById('currentViewTitle');
@@ -4082,15 +5008,26 @@ function navigateTo(viewId) {
 
   // Muat data spesifik modul
   try {
-    if (viewId === 'view-dashboard') loadDashboard();
-    else if (viewId === 'view-surat-masuk') loadSuratMasuk();
-    else if (viewId === 'view-tambah-masuk') populateKlasifikasiOptions();
-    else if (viewId === 'view-surat-keluar') loadSuratKeluar();
-    else if (viewId === 'view-tambah-keluar') populateKlasifikasiOptions();
-    else if (viewId === 'view-disposisi') loadDisposisi();
-    else if (viewId === 'view-klasifikasi') loadKlasifikasiTable();
-    else if (viewId === 'view-lampiran') loadAllLampiran();
-    else if (viewId === 'view-log') loadRiwayatLog();
+    if (viewId === 'view-dashboard') {
+      loadDashboard();
+      renderTableRecentLetters();
+    } else if (viewId === 'view-buku-agenda') {
+      renderTableBukuAgenda();
+    } else if (viewId === 'view-tambah-masuk') {
+      populateKlasifikasiOptions();
+    } else if (viewId === 'view-tambah-keluar') {
+      populateKlasifikasiOptions();
+    } else if (viewId === 'view-laporan' || viewId === 'view-edit-ttd') {
+      initTtdInputs();
+    } else if (viewId === 'view-disposisi') {
+      loadDisposisi();
+    } else if (viewId === 'view-klasifikasi') {
+      loadKlasifikasiTable();
+    } else if (viewId === 'view-lampiran') {
+      loadAllLampiran();
+    } else if (viewId === 'view-log') {
+      loadRiwayatLog();
+    }
   } catch (err) {
     console.error('Error loading module view:', err);
   }
@@ -4117,43 +5054,16 @@ async function loadDashboard() {
 function renderDashboardStats(stats) {
   if (!stats) return;
 
-  document.getElementById('statTotalMasuk').innerText = stats.totalMasuk || 0;
-  document.getElementById('statTotalKeluar').innerText = stats.totalKeluar || 0;
-  document.getElementById('statMasukBulanIni').innerText = stats.masukBulanIni || 0;
-  document.getElementById('statKeluarBulanIni').innerText = stats.keluarBulanIni || 0;
-  document.getElementById('statBelumDisposisi').innerText = stats.belumDisposisi || 0;
-  document.getElementById('statMasihDiproses').innerText = stats.masihDiproses || 0;
-  document.getElementById('statTotalLampiran').innerText = stats.totalLampiran || 0;
+  const setT = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val || 0; };
+  setT('statTotalMasuk', stats.totalMasuk);
+  setT('statTotalKeluar', stats.totalKeluar);
+  setT('statMasukBulanIni', stats.masukBulanIni);
+  setT('statKeluarBulanIni', stats.keluarBulanIni);
+  setT('statBelumDisposisi', stats.belumDisposisi);
+  setT('statMasihDiproses', stats.masihDiproses);
+  setT('statTotalLampiran', stats.totalLampiran);
 
-  const tbody = document.getElementById('tableRecentLetters');
-  if (!stats.suratTerbaru || stats.suratTerbaru.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-muted); padding: 24px;">Belum ada arsip persuratan tercatat di Google Sheets.</td></tr>`;
-    return;
-  }
-
-  let html = '';
-  stats.suratTerbaru.forEach(item => {
-    const isMasuk = item.jenis === 'MASUK';
-    const badgeJenis = isMasuk
-      ? `<span class="badge" style="background:#e0f2fe; color:#0369a1;">📥 Masuk</span>`
-      : `<span class="badge" style="background:#ecfdf5; color:#047857;">📤 Keluar</span>`;
-
-    html += `
-      <tr>
-        <td>${badgeJenis}</td>
-        <td><span class="badge badge-agenda">${item.nomorAgenda}</span></td>
-        <td style="font-weight: 600;">${escapeHtml(item.nomorSurat)}</td>
-        <td>${item.tanggal}</td>
-        <td>${escapeHtml(item.asalTujuan)}</td>
-        <td>${escapeHtml(item.perihal)}</td>
-        <td>${getStatusBadge(item.status)}</td>
-        <td>
-          <button class="btn-icon" onclick="bukaDetailSurat('${item.id}', '${item.jenis}')" title="Lihat Detail">👁️</button>
-        </td>
-      </tr>
-    `;
-  });
-  tbody.innerHTML = html;
+  renderTableRecentLetters();
 }
 
 /**
@@ -4484,38 +5394,110 @@ async function loadRiwayatLog() {
 /**
  * Simpan Surat Masuk
  */
+/**
+ * Simpan Surat Masuk ke Buku Agenda
+ */
 async function handleSimpanSuratMasuk(e, addAnother) {
   if (e) e.preventDefault();
-  showLoader('Menyimpan Surat Masuk dan mengunggah berkas ke Google Drive...');
+  
+  const getV = (id, def = '') => {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : def;
+  };
+
+  const nextNo = state.suratMasuk.length + state.suratKeluar.length + 1;
+  const noUrut = getV('smNomorAgenda') || String(nextNo);
+  const tanggal = getV('smTanggalDiterima') || new Date().toISOString().substring(0, 10);
+  const noSurat = getV('smNomorAsli');
+  const perihal = getV('smPerihal');
+  const alamat = getV('smAsalSurat');
+  const isi = getV('smRingkasan');
+  const ket = getV('smKeterangan');
+
+  if (!noSurat || !perihal || !alamat) {
+    showToast('Harap lengkapi kolom Nomor Surat Masuk, Perihal, dan Alamat Surat.', 'warning');
+    return;
+  }
+
+  showLoader('Menyimpan Surat Masuk ke Buku Agenda...');
 
   try {
-    const payload = {
-      nomorAgenda: document.getElementById('smNomorAgenda').value.trim(),
-      nomorSuratAsli: document.getElementById('smNomorAsli').value.trim(),
-      tanggalSurat: document.getElementById('smTanggalSurat').value,
-      tanggalDiterima: document.getElementById('smTanggalDiterima').value,
-      asalSurat: document.getElementById('smAsalSurat').value.trim(),
-      namaPengirim: document.getElementById('smNamaPengirim').value.trim(),
-      perihal: document.getElementById('smPerihal').value.trim(),
-      klasifikasi: document.getElementById('smKlasifikasi').value,
-      sifatSurat: document.getElementById('smSifat').value,
-      tujuanInternal: document.getElementById('smTujuanInternal').value.trim(),
-      ringkasan: document.getElementById('smRingkasan').value.trim(),
-      status: document.getElementById('smStatus').value,
-      petugas: document.getElementById('smPetugas').value.trim(),
-      keterangan: document.getElementById('smKeterangan').value.trim(),
-      lampiranList: state.lampiranPendingMasuk
+    const newId = 'SM-' + Date.now();
+    let linkLampiran = DEFAULT_DRIVE_URL;
+
+    // Simpan file lampiran jika ada
+    if (state.lampiranPendingMasuk && state.lampiranPendingMasuk.length > 0) {
+      state.lampiranPendingMasuk.forEach((file, idx) => {
+        state.allLampiran.unshift({
+          idLampiran: 'LAMP-M-' + Date.now() + '-' + idx,
+          idSurat: noSurat,
+          namaFile: file.fileName || 'Lampiran_Masuk.pdf',
+          mimeType: file.mimeType || 'application/pdf',
+          ukuranFile: file.size || '1 MB',
+          waktuUpload: new Date().toLocaleDateString('id-ID'),
+          urlFile: DEFAULT_DRIVE_URL,
+          jenis: 'MASUK',
+          pengunggah: 'Operator Sekolah'
+        });
+      });
+      saveLocalStore(STORAGE_KEYS.LAMPIRAN, state.allLampiran);
+    }
+
+    const newRecord = {
+      id: newId,
+      no: noUrut,
+      nomorAgenda: noUrut,
+      nomorSuratMasuk: noSurat,
+      nomorSuratAsli: noSurat,
+      nomorSuratKeluar: '-',
+      tanggalSurat: tanggal,
+      tanggalDiterima: tanggal,
+      tanggal: tanggal,
+      asalSurat: alamat,
+      alamatSurat: alamat,
+      namaPengirim: '-',
+      perihal: perihal,
+      klasifikasi: '000',
+      sifatSurat: 'Biasa',
+      ringkasan: isi,
+      isiSurat: isi,
+      status: 'Baru',
+      petugas: 'Operator Sekolah',
+      waktuInput: new Date().toLocaleString('id-ID'),
+      keterangan: ket,
+      linkBerkas: linkLampiran,
+      linkLampiran: linkLampiran
     };
 
-    const res = await callBackend('tambahSuratMasuk', payload);
-    showToast(res.message || 'Surat Masuk berhasil disimpan ke Google Sheets!', 'success');
+    state.suratMasuk.unshift(newRecord);
+    saveLocalStore(STORAGE_KEYS.MASUK, state.suratMasuk);
 
+    // Kirim sinkronisasi ke Google Apps Script (latar belakang)
+    callBackend('tambahSuratMasuk', {
+      no: noUrut,
+      nomorAgenda: noUrut,
+      nomorSuratAsli: noSurat,
+      nomorSuratMasuk: noSurat,
+      tanggalDiterima: tanggal,
+      tanggalSurat: tanggal,
+      tanggal: tanggal,
+      asalSurat: alamat,
+      alamatSurat: alamat,
+      perihal: perihal,
+      ringkasan: isi,
+      isiSurat: isi,
+      keterangan: ket,
+      linkLampiran: linkLampiran,
+      lampiranList: state.lampiranPendingMasuk
+    }).catch(err => console.log('Sync GAS info:', err));
+
+    showToast('Surat Masuk berhasil dicatat ke Buku Agenda!', 'success');
     resetFormSuratMasuk();
 
     if (addAnother) {
       showToast('Formulir siap untuk surat masuk berikutnya.', 'info');
     } else {
-      navigateTo('view-surat-masuk');
+      navigateTo('view-buku-agenda');
     }
 
   } catch (err) {
@@ -4592,42 +5574,110 @@ async function handleUpdateSuratMasuk(e) {
 }
 
 /**
- * Simpan Surat Keluar
+ * Simpan Surat Keluar ke Buku Agenda
  */
 async function handleSimpanSuratKeluar(e, addAnother) {
   if (e) e.preventDefault();
-  showLoader('Menyimpan Surat Keluar dan mengunggah berkas ke Google Drive...');
+
+  const getV = (id, def = '') => {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : def;
+  };
+
+  const nextNo = state.suratMasuk.length + state.suratKeluar.length + 1;
+  const noUrut = getV('skNomorAgenda') || String(nextNo);
+  const tanggal = getV('skTanggalSurat') || new Date().toISOString().substring(0, 10);
+  const noSurat = getV('skNomorResmi');
+  const perihal = getV('skPerihal');
+  const alamat = getV('skTujuanSurat');
+  const isi = getV('skRingkasan');
+  const ket = getV('skKeterangan');
+
+  if (!noSurat || !perihal || !alamat) {
+    showToast('Harap lengkapi kolom Nomor Surat Keluar, Perihal, dan Alamat Surat.', 'warning');
+    return;
+  }
+
+  showLoader('Menyimpan Surat Keluar ke Buku Agenda...');
 
   try {
-    const payload = {
-      nomorAgenda: document.getElementById('skNomorAgenda').value.trim(),
-      nomorSuratResmi: document.getElementById('skNomorResmi').value.trim(),
-      tanggalSurat: document.getElementById('skTanggalSurat').value,
-      tanggalPengiriman: document.getElementById('skTanggalKirim').value,
-      tujuanSurat: document.getElementById('skTujuanSurat').value.trim(),
-      namaPenerima: document.getElementById('skNamaPenerima').value.trim(),
-      perihal: document.getElementById('skPerihal').value.trim(),
-      klasifikasi: document.getElementById('skKlasifikasi').value,
-      sifatSurat: document.getElementById('skSifat').value,
-      penandatangan: document.getElementById('skPenandatangan').value.trim(),
-      jabatan: document.getElementById('skJabatan').value.trim(),
-      metodePengiriman: document.getElementById('skMetodeKirim').value,
-      ringkasan: document.getElementById('skRingkasan').value.trim(),
-      status: document.getElementById('skStatus').value,
-      petugas: document.getElementById('skPetugas').value.trim(),
-      keterangan: document.getElementById('skKeterangan').value.trim(),
-      lampiranList: state.lampiranPendingKeluar
+    const newId = 'SK-' + Date.now();
+    let linkLampiran = DEFAULT_DRIVE_URL;
+
+    if (state.lampiranPendingKeluar && state.lampiranPendingKeluar.length > 0) {
+      state.lampiranPendingKeluar.forEach((file, idx) => {
+        state.allLampiran.unshift({
+          idLampiran: 'LAMP-K-' + Date.now() + '-' + idx,
+          idSurat: noSurat,
+          namaFile: file.fileName || 'Lampiran_Keluar.pdf',
+          mimeType: file.mimeType || 'application/pdf',
+          ukuranFile: file.size || '1 MB',
+          waktuUpload: new Date().toLocaleDateString('id-ID'),
+          urlFile: DEFAULT_DRIVE_URL,
+          jenis: 'KELUAR',
+          pengunggah: 'Operator Sekolah'
+        });
+      });
+      saveLocalStore(STORAGE_KEYS.LAMPIRAN, state.allLampiran);
+    }
+
+    const newRecord = {
+      id: newId,
+      no: noUrut,
+      nomorAgenda: noUrut,
+      nomorSuratMasuk: '-',
+      nomorSuratKeluar: noSurat,
+      nomorSuratResmi: noSurat,
+      tanggalSurat: tanggal,
+      tanggalPengiriman: tanggal,
+      tanggal: tanggal,
+      tujuanSurat: alamat,
+      alamatSurat: alamat,
+      namaPenerima: '-',
+      perihal: perihal,
+      klasifikasi: '000',
+      sifatSurat: 'Biasa',
+      penandatangan: 'Drs. Bambang Sudarsono, M.Pd',
+      jabatan: 'Kepala SD Negeri Kesilir 02',
+      ringkasan: isi,
+      isiSurat: isi,
+      status: 'Terkirim',
+      petugas: 'Operator Sekolah',
+      waktuInput: new Date().toLocaleString('id-ID'),
+      keterangan: ket,
+      linkBerkas: linkLampiran,
+      linkLampiran: linkLampiran
     };
 
-    const res = await callBackend('tambahSuratKeluar', payload);
-    showToast(res.message || 'Surat Keluar berhasil disimpan ke Google Sheets!', 'success');
+    state.suratKeluar.unshift(newRecord);
+    saveLocalStore(STORAGE_KEYS.KELUAR, state.suratKeluar);
 
+    // Kirim sinkronisasi ke Google Apps Script (latar belakang)
+    callBackend('tambahSuratKeluar', {
+      no: noUrut,
+      nomorAgenda: noUrut,
+      nomorSuratResmi: noSurat,
+      nomorSuratKeluar: noSurat,
+      tanggalSurat: tanggal,
+      tanggalPengiriman: tanggal,
+      tanggal: tanggal,
+      tujuanSurat: alamat,
+      alamatSurat: alamat,
+      perihal: perihal,
+      ringkasan: isi,
+      isiSurat: isi,
+      keterangan: ket,
+      linkLampiran: linkLampiran,
+      lampiranList: state.lampiranPendingKeluar
+    }).catch(err => console.log('Sync GAS info:', err));
+
+    showToast('Surat Keluar berhasil dicatat ke Buku Agenda!', 'success');
     resetFormSuratKeluar();
 
     if (addAnother) {
       showToast('Formulir siap untuk surat keluar berikutnya.', 'info');
     } else {
-      navigateTo('view-surat-keluar');
+      navigateTo('view-buku-agenda');
     }
 
   } catch (err) {
@@ -5194,348 +6244,84 @@ async function cetakLembarDisposisi(idDisposisi) {
  */
 function getKopResmiHtml(judulLaporan, subJudul) {
   return `
-    <div style="font-family: 'Times New Roman', serif; color: #000; padding: 6px 12px; margin-bottom: 12px;">
-      <!-- Kop Surat Resmi Tiga Baris -->
-      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 3px double #000; padding-bottom: 10px; margin-bottom: 14px;">
-        <div style="width: 75px; text-align: center;">
-          <img src="${LOGO_JEMBER_DRIVE}" style="max-width: 65px; max-height: 65px;" alt="Logo Pemkab Jember">
+    <div style="font-family: 'Times New Roman', Georgia, serif; color: #000; padding: 4px; margin-bottom: 12px;">
+      <!-- Kop Surat Resmi -->
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 3px double #000; padding-bottom: 8px; margin-bottom: 12px;">
+        <div style="width: 85px; text-align: center;">
+          <img src="${LOGO_JEMBER_DRIVE}" style="height: 70px; width: auto;" alt="Logo Pemkab Jember">
         </div>
-        <div style="flex: 1; text-align: center; line-height: 1.2;">
-          <div style="font-size: 13pt; font-weight: bold; letter-spacing: 0.5px;">PEMERINTAH KABUPATEN JEMBER</div>
-          <div style="font-size: 15pt; font-weight: bold; letter-spacing: 0.5px;">DINAS PENDIDIKAN</div>
-          <div style="font-size: 17pt; font-weight: 900; letter-spacing: 1px;">SD NEGERI KESILIR 02</div>
-          <div style="font-size: 9.5pt; font-style: italic; margin-top: 3px;">
-            Alamat: Jl. Ambulu No. 91 Kesilir, Kec. Wuluhan, Kab. Jember, Jawa Timur 68162 — NPSN: 20523515
-          </div>
+        <div style="flex: 1; text-align: center; padding: 0 10px; line-height: 1.25;">
+          <div style="font-size: 13pt; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase;">BUKU AGENDA SURAT</div>
+          <div style="font-size: 12pt; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase;">MASUK &amp; KELUAR</div>
+          <div style="font-size: 14pt; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">SEKOLAH DASAR NEGERI KESILIR 02</div>
+          <div style="font-size: 9pt; font-style: italic; margin-top: 2px;">Kecamatan Wuluhan, Kabupaten Jember - Jawa Timur</div>
         </div>
-        <div style="width: 75px; text-align: center;">
-          <img src="${LOGO_SEKOLAH_DRIVE}" style="max-width: 65px; max-height: 65px;" alt="Logo SDN Kesilir 02">
+        <div style="width: 85px; text-align: center;">
+          <img src="${LOGO_SEKOLAH_DRIVE}" style="height: 70px; width: auto;" alt="Logo SDN Kesilir 02">
         </div>
       </div>
 
       <!-- Judul Dokumen Cetak -->
-      <div style="text-align: center; margin-bottom: 16px;">
-        <h3 style="font-size: 13pt; font-weight: bold; text-decoration: underline; margin: 0; text-transform: uppercase;">
+      <div style="text-align: center; margin-bottom: 12px;">
+        <h3 style="font-size: 11pt; font-weight: bold; text-decoration: underline; margin: 0; text-transform: uppercase;">
           ${judulLaporan}
         </h3>
-        ${subJudul ? `<div style="font-size: 10pt; color: #333; margin-top: 4px;">${subJudul}</div>` : ''}
+        ${subJudul ? `<div style="font-size: 9.5pt; color: #333; margin-top: 3px;">${subJudul}</div>` : ''}
       </div>
   `;
 }
 
 /**
- * Helper Tanda Tangan Resmi Kepala Sekolah & Petugas
+ * Helper Tanda Tangan Resmi Kepala Sekolah & Petugas (Identitas Dapat Diedit)
  */
 function getTandaTanganResmiHtml() {
+  const ttd = getActiveTtdFromInputs();
   const todayStr = new Date().toLocaleDateString('id-ID', {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
   });
+  const tglTtd = ttd.tanggal || todayStr;
+
   return `
-    <div style="display: flex; justify-content: space-between; margin-top: 36px; font-size: 10.5pt; page-break-inside: avoid;">
-      <div style="text-align: center; width: 280px;">
+    <div style="margin-top: 28px; display: flex; justify-content: space-between; align-items: flex-start; page-break-inside: avoid; font-family: 'Times New Roman', Georgia, serif; font-size: 10pt;">
+      <div style="text-align: center; width: 42%;">
         <div>Mengetahui,</div>
-        <div style="font-weight: bold; margin-bottom: 65px;">Kepala SD Negeri Kesilir 02</div>
-        <div style="border-bottom: 1px solid #000; font-weight: bold; display: inline-block; min-width: 220px;">
-          ( Drs. Bambang Sudarsono, M.Pd )
-        </div>
-        <div style="font-size: 9.5pt; margin-top: 3px;">NIP. 19680512 199303 1 007</div>
+        <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanKepsek || 'Kepala Sekolah')}</div>
+        <div style="height: 60px;"></div>
+        <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(ttd.namaKepsek || 'Drs. Bambang Sudarsono, M.Pd')}</div>
+        <div style="margin-top: 2px;">NIP. ${escapeHtml(ttd.nipKepsek || '19680512 199203 1 005')}</div>
       </div>
-      <div style="text-align: center; width: 280px;">
-        <div>Kesilir, ${todayStr}</div>
-        <div style="font-weight: bold; margin-bottom: 65px;">Pengelola Administrasi Persuratan</div>
-        <div style="border-bottom: 1px solid #000; font-weight: bold; display: inline-block; min-width: 220px;">
-          ( .................................................. )
-        </div>
-        <div style="font-size: 9.5pt; margin-top: 3px;">Petugas Tata Usaha / Operator</div>
+      <div style="text-align: center; width: 42%;">
+        <div>${escapeHtml(ttd.tempat || 'Jember')}, ${escapeHtml(tglTtd)}</div>
+        <div style="font-weight: bold; margin-top: 2px;">${escapeHtml(ttd.jabatanOperator || 'Operator Sekolah')}</div>
+        <div style="height: 60px;"></div>
+        <div style="font-weight: bold; text-decoration: underline;">${escapeHtml(ttd.namaOperator || 'Ahmad Rifai, S.Kom')}</div>
+        <div style="margin-top: 2px;">NIP. ${escapeHtml(ttd.nipOperator || '19900815 202221 1 004')}</div>
       </div>
     </div>
   `;
 }
 
 /**
- * ============================================================================
- * 1. CETAK PDF: REKAP SURAT MASUK
- * ============================================================================
+ * 1. CETAK PDF: REKAP SURAT MASUK (Format Sederhana Buku Agenda)
  */
 function cetakRekapSuratMasukPdf() {
-  const start = document.getElementById('lapStartDate') ? document.getElementById('lapStartDate').value : '';
-  const end = document.getElementById('lapEndDate') ? document.getElementById('lapEndDate').value : '';
-
-  const list = state.suratMasuk.filter(s => {
-    const tgl = s.tanggalDiterima || s.tanggalSurat || '';
-    if (start && tgl < start) return false;
-    if (end && tgl > end) return false;
-    return true;
-  });
-
-  if (list.length === 0) {
-    showToast('Tidak ada data Surat Masuk pada filter yang dipilih.', 'warning');
-    return;
-  }
-
-  let tableRows = '';
-  list.forEach((item, idx) => {
-    tableRows += `
-      <tr>
-        <td style="text-align: center;">${idx + 1}</td>
-        <td style="text-align: center; font-weight: bold;">${escapeHtml(item.nomorAgenda)}</td>
-        <td style="font-weight: 600;">${escapeHtml(item.nomorSuratAsli)}</td>
-        <td style="text-align: center;">${item.tanggalSurat || '-'}</td>
-        <td style="text-align: center;">${item.tanggalDiterima || '-'}</td>
-        <td>${escapeHtml(item.asalSurat)}${item.namaPengirim ? ' (' + escapeHtml(item.namaPengirim) + ')' : ''}</td>
-        <td>${escapeHtml(item.perihal)}</td>
-        <td style="text-align: center;">${item.klasifikasi || '-'}</td>
-        <td style="text-align: center;">${item.sifatSurat || 'Biasa'}</td>
-        <td style="text-align: center;">${item.status || 'Baru'}</td>
-      </tr>
-    `;
-  });
-
-  const periodLabel = (start || end) ? `Periode: ${start || 'Awal'} s.d. ${end || 'Sekarang'}` : 'Periode: Seluruh Data Tercatat Tahun Anggaran 2026';
-
-  const html = `
-    ${getKopResmiHtml('BUKU AGENDA REKAPITULASI SURAT MASUK', periodLabel)}
-      
-      <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 9pt;">
-        <thead>
-          <tr style="background: #f1f5f9; text-align: center;">
-            <th style="width: 30px;">No</th>
-            <th style="width: 90px;">No. Agenda</th>
-            <th style="width: 140px;">No. Surat Asli</th>
-            <th style="width: 75px;">Tgl Surat</th>
-            <th style="width: 75px;">Tgl Terima</th>
-            <th>Asal Surat / Pengirim</th>
-            <th>Perihal Surat</th>
-            <th style="width: 50px;">Kode</th>
-            <th style="width: 65px;">Sifat</th>
-            <th style="width: 85px;">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows}
-        </tbody>
-      </table>
-
-      <!-- Ringkasan Statistik -->
-      <div style="margin-top: 14px; font-size: 9.5pt; display: flex; justify-content: space-between; background: #f8fafc; border: 1px solid #cbd5e1; padding: 8px 14px;">
-        <div>Total Surat Masuk Tercatat: <strong>${list.length} berkas</strong></div>
-        <div>Dicetak Otomatis oleh Sistem E-Arsip SDN Kesilir 02 pada: ${new Date().toLocaleString('id-ID')} WIB</div>
-      </div>
-
-      ${getTandaTanganResmiHtml()}
-    </div>
-  `;
-
-  const printArea = document.getElementById('printArea');
-  printArea.innerHTML = html;
-  window.print();
+  cetakBukuAgendaPdf('MASUK');
 }
 
 /**
- * ============================================================================
- * 2. CETAK PDF: REKAP SURAT KELUAR
- * ============================================================================
+ * 2. CETAK PDF: REKAP SURAT KELUAR (Format Sederhana Buku Agenda)
  */
 function cetakRekapSuratKeluarPdf() {
-  const start = document.getElementById('lapStartDate') ? document.getElementById('lapStartDate').value : '';
-  const end = document.getElementById('lapEndDate') ? document.getElementById('lapEndDate').value : '';
-
-  const list = state.suratKeluar.filter(s => {
-    const tgl = s.tanggalSurat || s.tanggalPengiriman || '';
-    if (start && tgl < start) return false;
-    if (end && tgl > end) return false;
-    return true;
-  });
-
-  if (list.length === 0) {
-    showToast('Tidak ada data Surat Keluar pada filter yang dipilih.', 'warning');
-    return;
-  }
-
-  let tableRows = '';
-  list.forEach((item, idx) => {
-    tableRows += `
-      <tr>
-        <td style="text-align: center;">${idx + 1}</td>
-        <td style="text-align: center; font-weight: bold;">${escapeHtml(item.nomorAgenda)}</td>
-        <td style="font-weight: 600;">${escapeHtml(item.nomorSuratResmi)}</td>
-        <td style="text-align: center;">${item.tanggalSurat || '-'}</td>
-        <td style="text-align: center;">${item.tanggalPengiriman || '-'}</td>
-        <td>${escapeHtml(item.tujuanSurat)}${item.namaPenerima ? ' (' + escapeHtml(item.namaPenerima) + ')' : ''}</td>
-        <td>${escapeHtml(item.perihal)}</td>
-        <td style="text-align: center;">${item.klasifikasi || '-'}</td>
-        <td>${escapeHtml(item.penandatangan || '-')}</td>
-        <td style="text-align: center;">${item.metodePengiriman || '-'}</td>
-        <td style="text-align: center;">${item.status || '-'}</td>
-      </tr>
-    `;
-  });
-
-  const periodLabel = (start || end) ? `Periode: ${start || 'Awal'} s.d. ${end || 'Sekarang'}` : 'Periode: Seluruh Data Tercatat Tahun Anggaran 2026';
-
-  const html = `
-    ${getKopResmiHtml('BUKU AGENDA REKAPITULASI SURAT KELUAR', periodLabel)}
-      
-      <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 9pt;">
-        <thead>
-          <tr style="background: #f1f5f9; text-align: center;">
-            <th style="width: 30px;">No</th>
-            <th style="width: 90px;">No. Agenda</th>
-            <th style="width: 140px;">No. Surat Dinas</th>
-            <th style="width: 75px;">Tgl Surat</th>
-            <th style="width: 75px;">Tgl Kirim</th>
-            <th>Tujuan Surat / Penerima</th>
-            <th>Perihal Surat</th>
-            <th style="width: 50px;">Kode</th>
-            <th>Penandatangan</th>
-            <th style="width: 80px;">Metode</th>
-            <th style="width: 85px;">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows}
-        </tbody>
-      </table>
-
-      <!-- Ringkasan Statistik -->
-      <div style="margin-top: 14px; font-size: 9.5pt; display: flex; justify-content: space-between; background: #f8fafc; border: 1px solid #cbd5e1; padding: 8px 14px;">
-        <div>Total Surat Keluar Tercatat: <strong>${list.length} berkas</strong></div>
-        <div>Dicetak Otomatis oleh Sistem E-Arsip SDN Kesilir 02 pada: ${new Date().toLocaleString('id-ID')} WIB</div>
-      </div>
-
-      ${getTandaTanganResmiHtml()}
-    </div>
-  `;
-
-  const printArea = document.getElementById('printArea');
-  printArea.innerHTML = html;
-  window.print();
+  cetakBukuAgendaPdf('KELUAR');
 }
 
 /**
- * ============================================================================
  * 3. CETAK PDF: REKAP GABUNGAN (SURAT MASUK & KELUAR JADI 1)
- * ============================================================================
  */
 function cetakRekapGabunganPdf() {
-  const start = document.getElementById('lapStartDate') ? document.getElementById('lapStartDate').value : '';
-  const end = document.getElementById('lapEndDate') ? document.getElementById('lapEndDate').value : '';
-
-  const dateFilter = (tgl) => {
-    if (!tgl) return true;
-    if (start && tgl < start) return false;
-    if (end && tgl > end) return false;
-    return true;
-  };
-
-  const listMasuk = state.suratMasuk.filter(s => dateFilter(s.tanggalDiterima || s.tanggalSurat));
-  const listKeluar = state.suratKeluar.filter(s => dateFilter(s.tanggalSurat || s.tanggalPengiriman));
-
-  if (listMasuk.length === 0 && listKeluar.length === 0) {
-    showToast('Tidak ada data persuratan pada filter yang dipilih.', 'warning');
-    return;
-  }
-
-  let rowsMasuk = '';
-  listMasuk.forEach((item, idx) => {
-    rowsMasuk += `
-      <tr>
-        <td style="text-align: center;">${idx + 1}</td>
-        <td style="text-align: center; font-weight: bold;">${escapeHtml(item.nomorAgenda)}</td>
-        <td>${escapeHtml(item.nomorSuratAsli)}</td>
-        <td style="text-align: center;">${item.tanggalDiterima || item.tanggalSurat || '-'}</td>
-        <td>${escapeHtml(item.asalSurat)}</td>
-        <td>${escapeHtml(item.perihal)}</td>
-        <td style="text-align: center;">${item.klasifikasi || '-'}</td>
-        <td style="text-align: center;">${item.status}</td>
-      </tr>
-    `;
-  });
-
-  let rowsKeluar = '';
-  listKeluar.forEach((item, idx) => {
-    rowsKeluar += `
-      <tr>
-        <td style="text-align: center;">${idx + 1}</td>
-        <td style="text-align: center; font-weight: bold;">${escapeHtml(item.nomorAgenda)}</td>
-        <td>${escapeHtml(item.nomorSuratResmi)}</td>
-        <td style="text-align: center;">${item.tanggalSurat || '-'}</td>
-        <td>${escapeHtml(item.tujuanSurat)}</td>
-        <td>${escapeHtml(item.perihal)}</td>
-        <td style="text-align: center;">${item.klasifikasi || '-'}</td>
-        <td style="text-align: center;">${item.status}</td>
-      </tr>
-    `;
-  });
-
-  const periodLabel = (start || end) ? `Periode: ${start || 'Awal'} s.d. ${end || 'Sekarang'}` : 'Periode: Seluruh Data Tercatat Tahun Anggaran 2026';
-
-  const html = `
-    ${getKopResmiHtml('BUKU AGENDA REKAPITULASI PERSURATAN TERPADU', 'REKAPITULASI SURAT MASUK &amp; SURAT KELUAR — ' + periodLabel)}
-      
-      <!-- Ringkasan Statistik Eksekutif -->
-      <div style="margin-bottom: 16px; background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px 16px; border-radius: 4px; font-size: 9.5pt;">
-        <div style="font-weight: bold; margin-bottom: 4px;">RINGKASAN ARSIP TATA PERSURATAN SATUAN PENDIDIKAN:</div>
-        <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-          <div>• Total Surat Masuk: <strong>${listMasuk.length} berkas</strong></div>
-          <div>• Total Surat Keluar: <strong>${listKeluar.length} berkas</strong></div>
-          <div>• Total Seluruh Berkas Tercatat: <strong>${listMasuk.length + listKeluar.length} berkas</strong></div>
-        </div>
-      </div>
-
-      <!-- BAGIAN I: SURAT MASUK -->
-      <div style="font-weight: bold; font-size: 10pt; margin: 12px 0 6px 0; color: #0284c7; text-transform: uppercase;">
-        BAGIAN I. BUKU AGENDA SURAT MASUK (${listMasuk.length} Surat)
-      </div>
-      <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 20px;">
-        <thead>
-          <tr style="background: #e0f2fe; text-align: center;">
-            <th style="width: 25px;">No</th>
-            <th style="width: 85px;">Agenda</th>
-            <th style="width: 130px;">Nomor Surat Asli</th>
-            <th style="width: 75px;">Tgl Terima</th>
-            <th>Asal Surat / Instansi</th>
-            <th>Perihal Isi Surat</th>
-            <th style="width: 45px;">Kode</th>
-            <th style="width: 80px;">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rowsMasuk || '<tr><td colspan="8" style="text-align:center;padding:10px;">Tidak ada surat masuk pada periode ini.</td></tr>'}
-        </tbody>
-      </table>
-
-      <!-- BAGIAN II: SURAT KELUAR -->
-      <div style="font-weight: bold; font-size: 10pt; margin: 16px 0 6px 0; color: #059669; text-transform: uppercase; page-break-before: auto;">
-        BAGIAN II. BUKU AGENDA SURAT KELUAR (${listKeluar.length} Surat)
-      </div>
-      <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 16px;">
-        <thead>
-          <tr style="background: #d1fae5; text-align: center;">
-            <th style="width: 25px;">No</th>
-            <th style="width: 85px;">Agenda</th>
-            <th style="width: 130px;">Nomor Surat Resmi</th>
-            <th style="width: 75px;">Tgl Surat</th>
-            <th>Tujuan Surat / Penerima</th>
-            <th>Perihal Isi Surat</th>
-            <th style="width: 45px;">Kode</th>
-            <th style="width: 80px;">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rowsKeluar || '<tr><td colspan="8" style="text-align:center;padding:10px;">Tidak ada surat keluar pada periode ini.</td></tr>'}
-        </tbody>
-      </table>
-
-      ${getTandaTanganResmiHtml()}
-    </div>
-  `;
-
-  const printArea = document.getElementById('printArea');
-  printArea.innerHTML = html;
-  window.print();
+  cetakBukuAgendaPdf('ALL');
 }
 
 /**
@@ -6210,6 +6996,30 @@ window.showToast = showToast;
 window.simpanDanUjiApiUrl = simpanDanUjiApiUrl;
 window.resetApiUrlDefault = resetApiUrlDefault;
 window.initApiUrlInput = initApiUrlInput;
+
+// Bindings Buku Agenda & TTD Resmi Cetak (SDN Kesilir 02)
+window.DEFAULT_TTD_CONFIG = DEFAULT_TTD_CONFIG;
+window.getTtdConfig = getTtdConfig;
+window.saveTtdConfig = saveTtdConfig;
+window.initTtdInputs = initTtdInputs;
+window.getActiveTtdFromInputs = getActiveTtdFromInputs;
+window.updateLiveTtdPreview = updateLiveTtdPreview;
+window.handleSimpanTtdInline = handleSimpanTtdInline;
+window.handleSimpanTtdDedicated = handleSimpanTtdDedicated;
+window.bukaModalEditTtd = bukaModalEditTtd;
+window.handleSimpanTtdModal = handleSimpanTtdModal;
+window.getNormalizedAgendaList = getNormalizedAgendaList;
+window.renderTableBukuAgenda = renderTableBukuAgenda;
+window.renderTableRecentLetters = renderTableRecentLetters;
+window.setFilterAgendaTab = setFilterAgendaTab;
+window.filterAgendaSearch = filterAgendaSearch;
+window.resetFilterAgenda = resetFilterAgenda;
+window.exportBukuAgendaCsv = exportBukuAgendaCsv;
+window.bukaEditAgenda = bukaEditAgenda;
+window.handleSimpanEditAgenda = handleSimpanEditAgenda;
+window.hapusAgendaItem = hapusAgendaItem;
+window.cetakCoverBukuAgenda = cetakCoverBukuAgenda;
+window.cetakBukuAgendaPdf = cetakBukuAgendaPdf;
 </script>
 </body>
 </html>
